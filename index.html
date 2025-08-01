@@ -1,0 +1,75 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Caddy Distance</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>My Caddy Distance</h1>
+
+        <form method="POST">
+            <label>Distance to Flag (yards):</label>
+            <input type="number" name="distance" step="any" required>
+
+            <label>Lie Condition (%):</label>
+            <select name="lie">
+                <option value="0">Fairway (0%)</option>
+                <option value="10">First-cut (10%)</option>
+                <option value="25">Short-Rough (25%)</option>
+                <option value="50">Rough (50%)</option>
+                <option value="75">Deep Rough (75%)</option>
+                <option value="100">Hazard/Fescue/Buried (100%)</option>
+            </select>
+
+            <label>Temperature (°F):</label>
+            <input type="number" name="temperature" required>
+
+            <label>Weather:</label>
+            <select name="weather">
+                <option>Sunny</option>
+                <option>Cloudy</option>
+                <option>Rain</option>
+                <option>Snow</option>
+            </select>
+
+            <label>Wind Direction:</label>
+            <select name="wind_dir">
+                <option>North</option>
+                <option>Northeast</option>
+                <option>East</option>
+                <option>Southeast</option>
+                <option>South</option>
+                <option>Southwest</option>
+                <option>West</option>
+                <option>Northwest</option>
+            </select>
+
+            <label>Wind Speed (mph):</label>
+            <input type="number" name="wind_speed" step="any" required>
+
+            <label>Shot Direction:</label>
+            <select name="shot_dir">
+                <option>North</option>
+                <option>Northeast</option>
+                <option>East</option>
+                <option>Southeast</option>
+                <option>South</option>
+                <option>Southwest</option>
+                <option>West</option>
+                <option>Northwest</option>
+            </select>
+
+            <label><input type="checkbox" name="flyer"> Flyer Lie</label>
+
+            <button type="submit">Calculate</button>
+        </form>
+
+        {% if summary %}<p class="summary">{{ summary }}</p>{% endif %}
+        {% if result %}<p class="result">{{ result }}</p>{% endif %}
+    </div>
+</body>
+</html>
