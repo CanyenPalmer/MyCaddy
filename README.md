@@ -19,7 +19,7 @@ The app adjusts carry distance dynamically to reflect real-world playing factors
 
 ## 🧠 Key Features
 
-- 🎛️ **User-Friendly Interface** (built with `tkinter`)
+- 🎛️ **User-Friendly Interface** (built in Python with `math` and `tkinter`)
 - ✅ **Real-Time Input Summary** to see all selected conditions at a glance
 - 📉 **Flyer Lie Mode** — returns a *range* of expected yardage (+5% to +12%)
 - 🌦️ **Weather & Wind Adjustments** using aerodynamic and atmospheric logic
