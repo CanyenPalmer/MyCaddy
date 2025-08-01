@@ -53,5 +53,6 @@ Whether you're:
 1. Ensure Python 3 is installed.
 2. Run the script:
 
+### Copyright @PalmerProjects, all rights to this application belong to Palmer Projects
 ```bash
 python my_caddy_calculator.py
