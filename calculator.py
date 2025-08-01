@@ -82,8 +82,8 @@ def calculate():
                 wind_speed,
                 shot_direction
             )
-            low_flyer = round(base_result * 0.88, 1)  # 12% more distance
-            high_flyer = round(base_result * 0.95, 1)  # 5% more distance
+            low_flyer = round(base_result * 0.88, 1)
+            high_flyer = round(base_result * 0.95, 1)
             result_label.config(text=f"Flyer range: {low_flyer}–{high_flyer} yards")
         else:
             result = get_real_distance(
@@ -102,32 +102,30 @@ def calculate():
 def set_lie(value, button):
     lie_condition.set(value)
     for b in lie_buttons:
-        b.config(relief="raised", bg="SystemButtonFace")
-    button.config(relief="sunken", bg="lightblue")
+        b.config(relief="raised", bg=theme_bg)
+    button.config(relief="sunken", bg=highlight_color)
 
-def highlight_combobox_selection(combobox):
-    selected = combobox.get()
-    style = ttk.Style()
-    style.map("TCombobox",
-              fieldbackground=[('readonly', 'lightblue')],
-              selectbackground=[('readonly', 'lightblue')],
-              selectforeground=[('readonly', 'black')])
+# THEME COLORS
+theme_bg = "#E6F2FA"  # light blue background
+highlight_color = "#B3D7F0"  # deeper light blue for highlights
+text_color = "#003366"  # dark blue for text
 
 root = tk.Tk()
 root.title("My Caddy Distance")
 root.geometry("440x700")
+root.configure(bg=theme_bg)
 
 lie_condition = tk.DoubleVar(value=0.0)
 flyer_var = tk.BooleanVar(value=False)
 
 # Distance
-tk.Label(root, text="Distance to Flag (yards):").pack()
+tk.Label(root, text="Distance to Flag (yards):", bg=theme_bg, fg=text_color).pack()
 flag_entry = tk.Entry(root)
 flag_entry.pack()
 
 # Lie Condition Presets
-tk.Label(root, text="Lie Condition:").pack()
-tk.Frame(root, height=5).pack()
+tk.Label(root, text="Lie Condition:", bg=theme_bg, fg=text_color).pack()
+tk.Frame(root, height=5, bg=theme_bg).pack()
 lie_buttons = []
 lie_options = [
     ("Fairway", 0),
@@ -138,7 +136,7 @@ lie_options = [
     ("Hazard/Fescue/Buried (100%)", 100)
 ]
 for label, value in lie_options:
-    b = tk.Button(root, text=label, command=lambda v=value, b=None: set_lie(v, b))
+    b = tk.Button(root, text=label, bg=theme_bg, fg=text_color, command=lambda v=value, b=None: set_lie(v, b))
     lie_buttons.append(b)
 for b in lie_buttons:
     b.pack()
@@ -146,15 +144,15 @@ for i, (label, value) in enumerate(lie_options):
     lie_buttons[i].config(command=lambda v=value, b=lie_buttons[i]: set_lie(v, b))
 
 # Flyer Option
-tk.Checkbutton(root, text="Flyer Lie", variable=flyer_var).pack()
+tk.Checkbutton(root, text="Flyer Lie", variable=flyer_var, bg=theme_bg, fg=text_color).pack()
 
 # Temperature
-tk.Label(root, text="Temperature (F):").pack()
+tk.Label(root, text="Temperature (F):", bg=theme_bg, fg=text_color).pack()
 temp_entry = tk.Entry(root)
 temp_entry.pack()
 
 # Weather
-tk.Label(root, text="Weather Condition:").pack()
+tk.Label(root, text="Weather Condition:", bg=theme_bg, fg=text_color).pack()
 weather_var = tk.StringVar()
 weather_combo = ttk.Combobox(root, textvariable=weather_var, state="readonly")
 weather_combo['values'] = ("Sunny", "Cloudy", "Rain", "Snow")
@@ -162,7 +160,7 @@ weather_combo.current(0)
 weather_combo.pack()
 
 # Wind Direction
-tk.Label(root, text="Wind Direction:").pack()
+tk.Label(root, text="Wind Direction:", bg=theme_bg, fg=text_color).pack()
 wind_dir_var = tk.StringVar()
 wind_combo = ttk.Combobox(root, textvariable=wind_dir_var, state="readonly")
 wind_combo['values'] = ("North", "Northeast", "East", "Southeast", "South", "Southwest", "West", "Northwest")
@@ -170,12 +168,12 @@ wind_combo.current(0)
 wind_combo.pack()
 
 # Wind Speed
-tk.Label(root, text="Wind Speed (mph):").pack()
+tk.Label(root, text="Wind Speed (mph):", bg=theme_bg, fg=text_color).pack()
 wind_speed_entry = tk.Entry(root)
 wind_speed_entry.pack()
 
 # Shot Direction
-tk.Label(root, text="Shot Direction:").pack()
+tk.Label(root, text="Shot Direction:", bg=theme_bg, fg=text_color).pack()
 shot_dir_var = tk.StringVar()
 shot_combo = ttk.Combobox(root, textvariable=shot_dir_var, state="readonly")
 shot_combo['values'] = ("North", "Northeast", "East", "Southeast", "South", "Southwest", "West", "Northwest")
@@ -183,14 +181,14 @@ shot_combo.current(0)
 shot_combo.pack()
 
 # Calculate Button
-tk.Button(root, text="Calculate", command=calculate).pack(pady=10)
+tk.Button(root, text="Calculate", command=calculate, bg=highlight_color, fg=text_color).pack(pady=10)
 
 # Input Summary
-input_summary_label = tk.Label(root, text="Inputs → Distance: -- | Lie: -- | Temp: -- | Weather: -- | Wind: -- | Shot: --", wraplength=420, justify="center")
+input_summary_label = tk.Label(root, text="Inputs → Distance: -- | Lie: -- | Temp: -- | Weather: -- | Wind: -- | Shot: --", wraplength=420, justify="center", bg=theme_bg, fg=text_color)
 input_summary_label.pack(pady=5)
 
 # Result Display
-result_label = tk.Label(root, text="Adjusted distance: -- yards", font=("Arial", 12))
+result_label = tk.Label(root, text="Adjusted distance: -- yards", font=("Arial", 12), bg=theme_bg, fg=text_color)
 result_label.pack()
 
 root.mainloop()
