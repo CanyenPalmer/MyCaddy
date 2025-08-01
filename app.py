@@ -1,6 +1,5 @@
-# app.py
 from flask import Flask, render_template, request
-from calculator import get_real_distance
+from my_caddy_core import get_real_distance  # ✅ Use the logic-only version!
 
 app = Flask(__name__)
 
@@ -31,7 +30,8 @@ def index():
                 result = f"Flyer range: {low}–{high} yards"
             else:
                 result = f"Adjusted distance: {base_result} yards"
-        except:
+
+        except Exception as e:
             result = "Invalid input. Please enter numeric values."
 
     return render_template('index.html', result=result, summary=summary)
