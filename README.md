@@ -55,5 +55,5 @@ Whether you're:
 2. Run the script:
 
 ```bash
-python my_caddy_calculator.py
+python my_caddy_core.py
 
