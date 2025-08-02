@@ -3,7 +3,7 @@
 **Author:** Palmer Projects  
 **License:** © Palmer Projects. All rights reserved.
 
-**My Caddy** is a desktop Python application that accurately simulates effective golf shot distances by modeling real-world conditions. Built for golfers of all skill levels, it combines a user-friendly interface with physics-driven calculations to improve on-course decision-making.
+**My Caddy** is a web URL / desktop Python application that accurately simulates effective golf shot distances by modeling real-world conditions. Built for golfers of all skill levels, it combines a user-friendly interface with physics-driven calculations to improve on-course decision-making.
 
 ---
 
