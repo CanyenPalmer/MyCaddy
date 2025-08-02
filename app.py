@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request
 from my_caddy_core import get_real_distance  # ✅ Use the logic-only version!
 
+import os  # 🔧 Added for dynamic port binding
+
 app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
@@ -37,4 +39,6 @@ def index():
     return render_template('index.html', result=result, summary=summary)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    # ✅ Use dynamic port for Render compatibility
+    app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
+
