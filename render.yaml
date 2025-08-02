@@ -3,5 +3,5 @@ services:
     name: my-caddy-distance
     env: python
     plan: free
-    buildCommand: ""
+    buildCommand: "pip install -r requirements.txt"
     startCommand: "python app.py"
