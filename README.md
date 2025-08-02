@@ -1,58 +1,71 @@
-# 🏌️‍♂️ My Caddy:
--  Copyright @PalmerProjects, all rights to this application belong to Palmer Projects
+# My Caddy: Physics-Based Golf Shot Calculator
 
-**My Caddy** is an intuitive and customizable golf shot calculator designed for golfers of all skill levels — from beginners seeking club confidence to seasoned pros refining precision under varying conditions.
+**Author:** Palmer Projects  
+**License:** © Palmer Projects. All rights reserved.
 
-## 📐 What It Does
-
-This Python desktop app uses physics-based modeling to help golfers estimate the *true effective distance* of a shot by accounting for:
-
-- **Lie Condition** (e.g., fairway, rough, buried)
-- **Temperature** (°F)
-- **Weather** (sun, rain, snow, etc.)
-- **Wind Direction & Speed**
-- **Shot Direction**
-- **Flyer Lie effect** (optional unpredictable shot gain)
-
-The app adjusts carry distance dynamically to reflect real-world playing factors, giving users a more accurate and trustworthy number to work with on the course.
+**My Caddy** is a desktop Python application that accurately simulates effective golf shot distances by modeling real-world conditions. Built for golfers of all skill levels, it combines a user-friendly interface with physics-driven calculations to improve on-course decision-making.
 
 ---
 
-## 🧠 Key Features
+## Project Purpose
 
-- 🎛️ **User-Friendly Interface** (built in Python with `math` and `tkinter`)
-- ✅ **Real-Time Input Summary** to see all selected conditions at a glance
-- 📉 **Flyer Lie Mode** — returns a *range* of expected yardage (+5% to +12%)
-- 🌦️ **Weather & Wind Adjustments** using aerodynamic and atmospheric logic
-- 🎨 **Themed UI** for enhanced visual clarity (light blue, clean layout)
-- 🧮 **Accurate Physics Engine** using drag, temp, and spin-adjusted modifiers
+My Caddy addresses the variability in golf shot distances caused by environmental and lie conditions. Rather than relying solely on flat-yardage numbers, this tool adjusts shot carry predictions by incorporating aerodynamic and atmospheric influences, offering practical assistance on the course or during preparation.
 
 ---
 
-## 🧰 Technology Stack
+## Core Features
+
+- **Dynamic Yardage Calculation**: Adjusts shot distances based on:
+  - Lie type (e.g., fairway, rough, buried)
+  - Temperature (°F)
+  - Wind direction and speed
+  - Weather condition (sunny, rainy, snowy)
+  - Shot direction
+  - Optional flyer lie effect (+5% to +12%)
+
+- **Live Condition Summary**: Displays all inputs in real time for validation and user transparency.
+
+- **Physics Engine**:
+  - Implements drag coefficient, temperature-density relationships, and shot-spin modifiers.
+  - Adjusts carry distance using aerodynamic logic.
+
+- **Flyer Lie Mode**: Returns a dynamic range of expected outcomes to simulate uncertain lies.
+
+- **Clean GUI Design**:
+  - Built using `tkinter` for accessibility.
+  - Light theme with simplified layout.
+
+---
+
+## Technology Stack
 
 - **Python 3**
-- **Tkinter** (GUI)
-- **Custom functions** for physics calculations
+- **tkinter** (for GUI)
+- **Custom Mathematical Functions**:
+  - Drag-based adjustments
+  - Altitude/temperature corrections
+  - Wind impact modeling
 
 ---
 
-## 🏌️‍♀️ Built for All Golfers
+## Target Users
 
-Whether you're:
+This app supports a wide range of golfers:
 
-- 🟢 **A beginner** looking for help understanding how conditions affect club choice
-- ⚪ **A weekend golfer** improving course management
-- 🔵 **A professional** looking to simulate real carry adjustments pre-tournament
-
-…this app provides a fast, simple, and adaptable tool to aid your decision-making.
+- **Beginners**: Learn how environmental conditions influence club distances.
+- **Amateurs**: Enhance course management and reduce guesswork.
+- **Professionals**: Simulate tournament prep with precise conditional modeling.
 
 ---
 
-## 🚀 How to Run
+## How to Use
 
-1. Ensure Python 3 is installed.
-2. Run the script:
+### Prerequisites
+
+- Install Python 3.x
+- Clone or download this repository.
+
+### Run the Application
 
 ```bash
 python my_caddy_calculator.py
