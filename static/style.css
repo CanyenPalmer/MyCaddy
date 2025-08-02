@@ -1,64 +1,131 @@
-/* static/style.css */
 body {
-    background-color: #E6F2FA;
-    color: #003366;
-    font-family: Arial, sans-serif;
-    padding: 20px;
+  background-color: #E6F2FA;
+  color: #003366;
+  font-family: Arial, sans-serif;
+  padding: 20px;
 }
 
 .container {
-    max-width: 600px;
-    margin: auto;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    padding: 30px;
+  max-width: 600px;
+  margin: auto;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  padding: 30px;
 }
 
 h1 {
-    text-align: center;
-    color: #003366;
+  text-align: center;
+  color: #003366;
 }
 
 form label {
-    display: block;
-    margin-top: 15px;
-    font-weight: bold;
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
 }
 
 input[type="number"], select {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 input[type="checkbox"] {
-    margin-right: 5px;
+  margin-right: 5px;
 }
 
 button {
-    background-color: #B3D7F0;
-    color: #003366;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    margin-top: 20px;
-    cursor: pointer;
-    width: 100%;
-    font-size: 16px;
-    font-weight: bold;
+  background-color: #B3D7F0;
+  color: #003366;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  margin-top: 20px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 button:hover {
-    background-color: #99c9ea;
+  background-color: #99c9ea;
 }
 
 .result, .summary {
-    margin-top: 20px;
-    text-align: center;
-    font-size: 1.2em;
-    font-weight: bold;
-    color: #003366;
+  margin-top: 20px;
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #003366;
 }
+
+/* Mobile styles and accordion */
+@media (max-width: 600px) {
+  body.mobile .container {
+    padding: 20px 15px;
+    margin: 0 10px;
+  }
+
+  body.mobile h1 {
+    font-size: 1.4em;
+  }
+
+  body.mobile form label {
+    font-size: 0.9em;
+    margin-top: 10px;
+  }
+
+  body.mobile input[type="number"],
+  body.mobile select {
+    font-size: 1em;
+    padding: 10px;
+  }
+
+  body.mobile button {
+    font-size: 1em;
+    padding: 12px;
+  }
+
+  body.mobile .summary,
+  body.mobile .result {
+    font-size: 1em;
+  }
+
+  body.mobile .collapsible-section {
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  body.mobile .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #B3D7F0;
+    padding: 10px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  body.mobile .arrow-icon {
+    font-size: 1.2em;
+    transition: transform 0.2s ease;
+  }
+
+  body.mobile .section-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+    padding: 0 10px;
+  }
+
+  body.mobile .section-body.visible {
+    max-height: 500px;
+    padding: 10px;
+  }
+}
+
