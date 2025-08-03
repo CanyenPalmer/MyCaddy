@@ -14,10 +14,10 @@ def index():
             distance = float(request.form.get('distance', 0))
             lie = float(request.form.get('lie', 0))
             temp = float(request.form.get('temperature', 70))
-            weather = request.form.get('weather', 'Unknown')
+            weather = request.form.get('weather', 'Clear')
             wind_dir = request.form.get('wind_dir', 'North')
             wind_speed = float(request.form.get('wind_speed', 0))
-            flyer_conditions = request.form.get('flyer', 'off') == 'on'
+            flyer = request.form.get('flyer') == 'on'
 
             output = get_adjusted_distance(
                 flag_distance_yards=distance,
@@ -26,22 +26,15 @@ def index():
                 weather=weather,
                 wind_speed_mph=wind_speed,
                 wind_direction=wind_dir,
-                flyer_conditions=flyer_conditions
+                flyer=flyer
             )
 
-            adjusted = output["adjusted_distance"]
-            flyer = output["flyer_range"]
+            summary = f"Inputs → Distance: {distance} yds | Lie: {lie}% | Temp: {temp}°F | " \
+                      f"Weather: {weather} | Wind: {wind_speed} mph {wind_dir} | Flyer conditions: {'Yes' if flyer else 'No'}"
 
-            summary = (
-                f"Inputs → Distance: {distance} yds | Lie: {lie}% | Temp: {temp}°F | "
-                f"Weather: {weather} | Wind: {wind_speed} mph {wind_dir} | "
-                f"Flyer conditions: {'Yes' if flyer_conditions else 'No'}"
-            )
-
-            if flyer:
-                result = f"Normal: {adjusted} yds | Flyer range: {flyer[0]}–{flyer[1]} yds"
-            else:
-                result = f"Adjusted Carry Distance: {adjusted} yds"
+            result = f"Adjusted Carry Distance: {output['normal']} yds"
+            if output['flyer_range']:
+                result += f" | Flyer range: {output['flyer_range'][0]}–{output['flyer_range'][1]} yds"
 
         except Exception as e:
             result = f"Error: {str(e)}"
