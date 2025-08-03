@@ -11,36 +11,32 @@
 
         <form method="POST">
             <label for="distance">Raw Distance to Flag (yards):</label>
-            <input type="number" step="any" name="distance" required><br><br>
+            <input type="number" step="any" name="distance" required>
 
             <label for="lie">Lie Penalty (%):</label>
-            <input type="number" step="any" name="lie" value="10" required><br><br>
+            <input type="number" step="any" name="lie" value="10" required>
 
             <label for="temperature">Temperature (°F):</label>
-            <input type="number" step="any" name="temperature" value="70" required><br><br>
+            <input type="number" step="any" name="temperature" value="70" required>
 
             <label for="weather">Weather Condition:</label>
-            <select name="weather" id="weather">
+            <select name="weather">
                 <option value="Sunny">Sunny</option>
                 <option value="Cloudy">Cloudy</option>
                 <option value="Rain">Rain</option>
                 <option value="Snow">Snow</option>
-            </select><br><br>
+            </select>
 
             <label for="wind_speed">Wind Speed (mph):</label>
-            <input type="number" step="any" name="wind_speed" required><br><br>
+            <input type="number" step="any" name="wind_speed" required>
 
             <label for="wind_dir">Wind Direction (blowing toward):</label>
-            <select name="wind_dir" id="wind_dir">
+            <select name="wind_dir">
                 <option value="North">North (Headwind)</option>
                 <option value="South">South (Tailwind)</option>
                 <option value="East">East (Crosswind)</option>
                 <option value="West">West (Crosswind)</option>
-                <option value="Northeast">Northeast</option>
-                <option value="Northwest">Northwest</option>
-                <option value="Southeast">Southeast</option>
-                <option value="Southwest">Southwest</option>
-            </select><br><br>
+            </select>
 
             <button type="submit">Calculate Adjusted Distance</button>
         </form>
