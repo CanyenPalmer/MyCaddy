@@ -21,6 +21,7 @@ def index():
                 flag_distance_yards=distance,
                 lie_penalty_percent=lie,
                 temperature_f=temp,
+                weather=weather,
                 wind_speed_mph=wind_speed,
                 wind_direction=wind_dir
             )
@@ -34,5 +35,4 @@ def index():
     return render_template('index.html', result=result, summary=summary)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=10000)
-
+    app.run(debug=False)
