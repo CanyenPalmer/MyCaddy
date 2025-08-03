@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from my_caddy_core import get_adjusted_distance  # ✅ Use updated logic!
+from my_caddy_core import get_adjusted_distance
 
 app = Flask(__name__)
 
@@ -13,7 +13,7 @@ def index():
             distance = float(request.form['distance'])
             lie = float(request.form['lie'])
             temp = float(request.form['temperature'])
-            weather = request.form['weather']
+            weather = request.form['weather']  # still collected, not used in formula
             wind_dir = request.form['wind_dir']
             wind_speed = float(request.form['wind_speed'])
 
