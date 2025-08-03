@@ -2,62 +2,60 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>MyCaddy - Adjusted Distance Calculator</title>
+    <title>MyCaddy Distance Calculator</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 <div class="container">
-    <h1>MyCaddy - Adjusted Distance</h1>
-
+    <h1>MyCaddy - Adjusted Distance Calculator</h1>
     <form method="POST">
-        <label for="distance">Raw Distance to Flag (yards):</label>
-        <input type="number" step="any" name="distance" required><br><br>
+        <label for="distance">Raw Distance to Pin (yards):</label>
+        <input type="number" name="distance" step="0.1" required>
 
         <label for="lie">Lie Condition:</label>
-        <select name="lie" id="lie">
+        <select name="lie" required>
             <option value="0">Fairway (0%)</option>
             <option value="10">First-Cut (10%)</option>
             <option value="25">Light-Rough (25%)</option>
             <option value="50">Rough (50%)</option>
             <option value="75">Deep-Rough (75%)</option>
             <option value="100">Hazard/Fescue (100%)</option>
-        </select><br><br>
+        </select>
 
         <label for="temperature">Temperature (°F):</label>
-        <input type="number" step="any" name="temperature" value="70" required><br><br>
+        <input type="number" name="temperature" step="1" value="70">
 
-        <label for="weather">Weather Condition:</label>
-        <select name="weather" id="weather">
+        <label for="weather">Weather Conditions:</label>
+        <select name="weather">
             <option value="Sunny">Sunny</option>
             <option value="Cloudy">Cloudy</option>
-            <option value="Rain">Rain</option>
-            <option value="Snow">Snow</option>
-        </select><br><br>
+            <option value="Rainy">Rainy</option>
+        </select>
 
         <label for="wind_speed">Wind Speed (mph):</label>
-        <input type="number" step="any" name="wind_speed" required><br><br>
+        <input type="number" name="wind_speed" step="0.1" value="0">
 
-        <label for="wind_dir">Wind Direction (blowing toward):</label>
-        <select name="wind_dir" id="wind_dir">
+        <label for="wind_dir">Wind Direction:</label>
+        <select name="wind_dir">
             <option value="North">North (Headwind)</option>
             <option value="South">South (Tailwind)</option>
             <option value="East">East (Crosswind)</option>
             <option value="West">West (Crosswind)</option>
-            <option value="Northeast">Northeast</option>
-            <option value="Northwest">Northwest</option>
-            <option value="Southeast">Southeast</option>
-            <option value="Southwest">Southwest</option>
-        </select><br><br>
+        </select>
+
+        <label>
+            <input type="checkbox" name="flyer"> Flyer conditions present?
+        </label>
 
         <button type="submit">Calculate Adjusted Distance</button>
     </form>
 
-    {% if result %}
-        <div class="result">Adjusted Distance: {{ result }} yards</div>
-    {% endif %}
-
     {% if summary %}
         <div class="summary">{{ summary }}</div>
+    {% endif %}
+
+    {% if result %}
+        <div class="result">{{ result }}</div>
     {% endif %}
 </div>
 </body>
