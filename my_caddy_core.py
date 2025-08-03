@@ -1,49 +1,42 @@
-# my_caddy_core.py
-
 def get_adjusted_distance(
     flag_distance_yards,
     lie_penalty_percent,
     temperature_f,
+    weather,
     wind_speed_mph,
-    wind_direction,
-    weather_condition="Sunny"
+    wind_direction
 ):
     """
-    Calculates adjusted distance accounting for:
-    - Lie penalty
-    - Temperature effect
-    - Wind effect (relative to golfer's fixed North-facing orientation)
-    - Weather condition (e.g., rain, snow)
+    Calculates adjusted distance based on lie, temperature, weather, and wind.
+    Assumes golfer always hits North.
+
+    Returns:
+        float: Adjusted distance in yards.
     """
+    adjusted_distance = flag_distance_yards
 
     # Lie adjustment
-    lie_multiplier = 1 + (lie_penalty_percent / 100)
+    adjusted_distance += adjusted_distance * (lie_penalty_percent / 100)
 
-    # Temperature effect: baseline at 70°F
-    temp_adjustment = 1 + ((temperature_f - 70) * 0.003)
+    # Temperature adjustment: ±0.1 yards per degree from 70°F
+    temp_diff = temperature_f - 70
+    adjusted_distance += temp_diff * -0.1  # +temp = shorter, -temp = longer
 
-    # Weather multiplier
-    weather_factors = {
-        "Sunny": 1.00,
-        "Cloudy": 0.99,
-        "Rain": 0.96,
-        "Snow": 0.92
+    # Weather penalty (optional: modify as needed)
+    weather_penalties = {
+        "Sunny": 0.0,
+        "Cloudy": 0.01,
+        "Rain": 0.02,
+        "Snow": 0.05
     }
-    weather_multiplier = weather_factors.get(weather_condition, 1.00)
+    weather_penalty = weather_penalties.get(weather, 0.0)
+    adjusted_distance += adjusted_distance * weather_penalty
 
-    # Wind effect (simplified since shot is always facing North)
-    if wind_direction == "North":  # Headwind
-        wind_adjustment = wind_speed_mph * 0.9
-    elif wind_direction == "South":  # Tailwind
-        wind_adjustment = -wind_speed_mph * 0.5
-    else:  # Crosswinds and others ignored
-        wind_adjustment = 0
+    # Wind adjustment
+    if wind_direction.lower() == "north":  # headwind
+        adjusted_distance += wind_speed_mph * 0.9
+    elif wind_direction.lower() == "south":  # tailwind
+        adjusted_distance -= wind_speed_mph * 0.5
+    # Crosswinds (east/west) currently ignored
 
-    # Base adjusted distance before wind
-    adjusted_distance = flag_distance_yards * lie_multiplier * temp_adjustment * weather_multiplier
-
-    # Apply wind impact
-    final_distance = adjusted_distance + wind_adjustment
-
-    return round(final_distance, 1)
-
+    return round(adjusted_distance, 1)
