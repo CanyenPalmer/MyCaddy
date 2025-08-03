@@ -1,32 +1,36 @@
-def get_adjusted_distance(flag_distance_yards, lie_penalty_percent, temperature_f,
-                          wind_speed_mph, wind_direction, weather=None, flyer=False):
-    adjusted = flag_distance_yards
+def get_adjusted_distance(flag_distance_yards, lie_penalty_percent, temperature_f, weather, wind_speed_mph, wind_direction, flyer_present=False):
+    # Temperature adjustment: baseline 70°F, roughly 1% per 10°F
+    temp_delta = temperature_f - 70
+    temp_adjustment = flag_distance_yards * (0.01 * temp_delta / 10)
 
-    # Lie adjustment
-    adjusted *= (1 + lie_penalty_percent / 100.0)
+    # Lie penalty adjustment
+    lie_adjustment = flag_distance_yards * (lie_penalty_percent / 100)
 
-    # Temperature adjustment: colder air shortens flight
-    temp_diff = temperature_f - 70
-    adjusted *= (1 + (temp_diff * 0.002))  # +0.2% per degree over/under 70°F
+    # Wind adjustment (simplified: headwind reduces, tailwind increases)
+    wind_multiplier = 0.005  # ~0.5% per mph
+    wind_effect = 0
+    if wind_direction.lower() in ["north", "into", "headwind"]:
+        wind_effect = -wind_speed_mph * wind_multiplier * flag_distance_yards
+    elif wind_direction.lower() in ["south", "with", "tailwind"]:
+        wind_effect = wind_speed_mph * wind_multiplier * flag_distance_yards
+    elif wind_direction.lower() in ["cross"]:
+        wind_effect = 0  # Crosswinds not affecting carry distance for simplicity
 
-    # Weather penalty
-    if weather == "Rainy":
-        adjusted *= 1.02
-    elif weather == "Cloudy":
-        adjusted *= 1.01
+    # Weather adjustment
+    weather_adjustment = 0
+    if weather.lower() == "rainy":
+        weather_adjustment = -0.02 * flag_distance_yards  # Rain reduces carry ~2%
+    elif weather.lower() == "humid":
+        weather_adjustment = 0.005 * flag_distance_yards  # Humid air can increase carry
+    elif weather.lower() == "cold":
+        weather_adjustment = -0.01 * flag_distance_yards
 
-    # Wind adjustment
-    if wind_direction == "North":  # Headwind
-        adjusted += wind_speed_mph * 0.9
-    elif wind_direction == "South":  # Tailwind
-        adjusted -= wind_speed_mph * 0.5
-    # Crosswinds do not affect distance
+    base_adjusted = flag_distance_yards + temp_adjustment + wind_effect + weather_adjustment - lie_adjustment
 
-    base_distance = round(adjusted, 1)
-
-    if flyer:
-        flyer_min = round(base_distance + 5, 1)
-        flyer_max = round(base_distance + 15, 1)
-        return f"Normal: {base_distance} yds | Flyer range: {flyer_min}–{flyer_max} yds"
-
-    return f"Adjusted Distance: {base_distance} yards"
+    # Flyer logic: apply 5–10% *reduction* range if flyer present
+    if flyer_present:
+        min_adjusted = base_adjusted * 0.90
+        max_adjusted = base_adjusted * 0.95
+        return f"Normal: {base_adjusted:.1f} yds | Flyer range: {min_adjusted:.1f}–{max_adjusted:.1f} yds"
+    else:
+        return f"Adjusted Carry Distance: {base_adjusted:.1f} yds"
