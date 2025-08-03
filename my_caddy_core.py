@@ -1,42 +1,32 @@
-def get_adjusted_distance(
-    flag_distance_yards,
-    lie_penalty_percent,
-    temperature_f,
-    weather,
-    wind_speed_mph,
-    wind_direction
-):
-    """
-    Calculates adjusted distance based on lie, temperature, weather, and wind.
-    Assumes golfer always hits North.
-
-    Returns:
-        float: Adjusted distance in yards.
-    """
-    adjusted_distance = flag_distance_yards
+def get_adjusted_distance(flag_distance_yards, lie_penalty_percent, temperature_f,
+                          wind_speed_mph, wind_direction, weather=None, flyer=False):
+    adjusted = flag_distance_yards
 
     # Lie adjustment
-    adjusted_distance += adjusted_distance * (lie_penalty_percent / 100)
+    adjusted *= (1 + lie_penalty_percent / 100.0)
 
-    # Temperature adjustment: ±0.1 yards per degree from 70°F
+    # Temperature adjustment: colder air shortens flight
     temp_diff = temperature_f - 70
-    adjusted_distance += temp_diff * -0.1  # +temp = shorter, -temp = longer
+    adjusted *= (1 + (temp_diff * 0.002))  # +0.2% per degree over/under 70°F
 
-    # Weather penalty (optional: modify as needed)
-    weather_penalties = {
-        "Sunny": 0.0,
-        "Cloudy": 0.01,
-        "Rain": 0.02,
-        "Snow": 0.05
-    }
-    weather_penalty = weather_penalties.get(weather, 0.0)
-    adjusted_distance += adjusted_distance * weather_penalty
+    # Weather penalty
+    if weather == "Rainy":
+        adjusted *= 1.02
+    elif weather == "Cloudy":
+        adjusted *= 1.01
 
     # Wind adjustment
-    if wind_direction.lower() == "north":  # headwind
-        adjusted_distance += wind_speed_mph * 0.9
-    elif wind_direction.lower() == "south":  # tailwind
-        adjusted_distance -= wind_speed_mph * 0.5
-    # Crosswinds (east/west) currently ignored
+    if wind_direction == "North":  # Headwind
+        adjusted += wind_speed_mph * 0.9
+    elif wind_direction == "South":  # Tailwind
+        adjusted -= wind_speed_mph * 0.5
+    # Crosswinds do not affect distance
 
-    return round(adjusted_distance, 1)
+    base_distance = round(adjusted, 1)
+
+    if flyer:
+        flyer_min = round(base_distance + 5, 1)
+        flyer_max = round(base_distance + 15, 1)
+        return f"Normal: {base_distance} yds | Flyer range: {flyer_min}–{flyer_max} yds"
+
+    return f"Adjusted Distance: {base_distance} yards"
