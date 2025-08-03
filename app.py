@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from my_caddy_core import get_adjusted_distance
+import os
 
 app = Flask(__name__)
 
@@ -28,14 +29,10 @@ def index():
 
             summary = f"Inputs → Distance: {distance} yds | Lie: {lie}% | Temp: {temp}°F | " \
                       f"Weather: {weather} | Wind: {wind_speed} mph {wind_dir}"
-
         except Exception as e:
             result = f"Error: {str(e)}"
 
     return render_template('index.html', result=result, summary=summary)
 
-import os
-
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=False)
