@@ -17,7 +17,7 @@ def index():
             weather = request.form.get('weather', 'Unknown')
             wind_dir = request.form.get('wind_dir', 'North')
             wind_speed = float(request.form.get('wind_speed', 0))
-            flyer = 'flyer' in request.form
+            flyer = request.form.get('flyer') == 'on'
 
             result = get_adjusted_distance(
                 flag_distance_yards=distance,
@@ -26,18 +26,16 @@ def index():
                 weather=weather,
                 wind_speed_mph=wind_speed,
                 wind_direction=wind_dir,
-                flyer=flyer
+                flyer_present=flyer
             )
 
             summary = f"Inputs → Distance: {distance} yds | Lie: {lie}% | Temp: {temp}°F | " \
-                      f"Weather: {weather} | Wind: {wind_speed} mph {wind_dir}" + \
-                      (" | Flyer conditions: Yes" if flyer else "")
+                      f"Weather: {weather} | Wind: {wind_speed} mph {wind_dir} | Flyer conditions: {'Yes' if flyer else 'No'}"
 
         except Exception as e:
             result = f"Error: {str(e)}"
 
     return render_template('index.html', result=result, summary=summary)
-
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
