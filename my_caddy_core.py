@@ -1,31 +1,36 @@
 def get_adjusted_distance(flag_distance_yards, lie_penalty_percent, temperature_f, weather, wind_speed_mph, wind_direction, flyer=False):
-    # Base temp adjustment: every 10°F away from 70 changes carry by ~2 yards
+    """
+    Returns the adjusted carry distance required to hit a shot based on environmental and lie conditions.
+    If flyer is True, it also provides a shorter actual carry range due to unintended flyer effect.
+    """
+
+    # 1. Temperature Adjustment: ~0.2 yards per degree from 70°F
     temp_adjustment = (temperature_f - 70) * 0.2
 
-    # Lie increases the required carry
+    # 2. Lie Penalty: increases the required distance to reach the target
     lie_adjustment = flag_distance_yards * (lie_penalty_percent / 100)
 
-    # Weather logic (no impact as per previous direction)
+    # 3. Weather Adjustment: currently set to zero (can be changed in future logic)
     weather_adjustment = 0
 
-    # Wind adjustment logic: headwind adds distance required, tailwind reduces it
+    # 4. Wind Adjustment: + for headwind, - for tailwind
     wind_multiplier = {
-        'North': 1, 'South': -1, 'East': 0, 'West': 0
+        'North': 1,  # Headwind
+        'South': -1, # Tailwind
+        'East': 0,   # Crosswind
+        'West': 0    # Crosswind
     }
     wind_factor = wind_speed_mph * wind_multiplier.get(wind_direction, 0) * 0.5
 
-    # Calculate total required distance
+    # 5. Final adjusted carry distance (required to reach flag)
     adjusted_distance = flag_distance_yards + lie_adjustment + wind_factor - temp_adjustment + weather_adjustment
     adjusted_distance = round(adjusted_distance, 1)
 
-    # Flyer logic: if flyer is present, range of actual carry is *shorter* than required carry
-    flyer_result = None
+    # 6. Flyer logic: player must hit less than this number to avoid overshooting
     if flyer:
-        low = round(adjusted_distance * 0.90, 1)
-        high = round(adjusted_distance * 0.95, 1)
-        flyer_result = f"{low}–{high} yds"
-
-    if flyer:
-        return f"Adjusted Carry Distance: {adjusted_distance} yds | Flyer range: {flyer_result}"
+        flyer_low = round(adjusted_distance * 0.90, 1)
+        flyer_high = round(adjusted_distance * 0.95, 1)
+        flyer_range = f"{flyer_low}–{flyer_high} yds"
+        return f"Adjusted Carry Distance: {adjusted_distance} yds | Flyer range: {flyer_range}"
     else:
         return f"Adjusted Carry Distance: {adjusted_distance} yds"
