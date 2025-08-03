@@ -6,51 +6,52 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>MyCaddy - Adjusted Distance</h1>
+    <div class="container">
+        <h1>MyCaddy - Adjusted Distance</h1>
 
-    <form method="POST">
-        <label for="distance">Raw Distance to Flag (yards):</label>
-        <input type="number" step="any" name="distance" required><br><br>
+        <form method="POST">
+            <label for="distance">Raw Distance to Flag (yards):</label>
+            <input type="number" step="any" name="distance" required><br><br>
 
-        <label for="lie">Lie Penalty (%):</label>
-        <input type="number" step="any" name="lie" value="10" required><br><br>
+            <label for="lie">Lie Penalty (%):</label>
+            <input type="number" step="any" name="lie" value="10" required><br><br>
 
-        <label for="temperature">Temperature (°F):</label>
-        <input type="number" step="any" name="temperature" value="70" required><br><br>
+            <label for="temperature">Temperature (°F):</label>
+            <input type="number" step="any" name="temperature" value="70" required><br><br>
 
-        <label for="weather">Weather Condition:</label>
-        <select name="weather" id="weather">
-            <option value="Sunny">Sunny</option>
-            <option value="Cloudy">Cloudy</option>
-            <option value="Rain">Rain</option>
-            <option value="Snow">Snow</option>
-        </select><br><br>
+            <label for="weather">Weather Condition:</label>
+            <select name="weather" id="weather">
+                <option value="Sunny">Sunny</option>
+                <option value="Cloudy">Cloudy</option>
+                <option value="Rain">Rain</option>
+                <option value="Snow">Snow</option>
+            </select><br><br>
 
-        <label for="wind_speed">Wind Speed (mph):</label>
-        <input type="number" step="any" name="wind_speed" required><br><br>
+            <label for="wind_speed">Wind Speed (mph):</label>
+            <input type="number" step="any" name="wind_speed" required><br><br>
 
-        <label for="wind_dir">Wind Direction (blowing toward):</label>
-        <select name="wind_dir" id="wind_dir">
-            <option value="North">North (Headwind)</option>
-            <option value="South">South (Tailwind)</option>
-            <option value="East">East (Crosswind)</option>
-            <option value="West">West (Crosswind)</option>
-            <option value="Northeast">Northeast</option>
-            <option value="Northwest">Northwest</option>
-            <option value="Southeast">Southeast</option>
-            <option value="Southwest">Southwest</option>
-        </select><br><br>
+            <label for="wind_dir">Wind Direction (blowing toward):</label>
+            <select name="wind_dir" id="wind_dir">
+                <option value="North">North (Headwind)</option>
+                <option value="South">South (Tailwind)</option>
+                <option value="East">East (Crosswind)</option>
+                <option value="West">West (Crosswind)</option>
+                <option value="Northeast">Northeast</option>
+                <option value="Northwest">Northwest</option>
+                <option value="Southeast">Southeast</option>
+                <option value="Southwest">Southwest</option>
+            </select><br><br>
 
-        <input type="submit" value="Calculate Adjusted Distance">
-    </form>
+            <button type="submit">Calculate Adjusted Distance</button>
+        </form>
 
-    {% if result %}
-        <h2>Adjusted Distance: {{ result }} yards</h2>
-    {% endif %}
+        {% if result %}
+            <div class="result">Adjusted Distance: {{ result }} yards</div>
+        {% endif %}
 
-    {% if summary %}
-        <p>{{ summary }}</p>
-    {% endif %}
+        {% if summary %}
+            <div class="summary">{{ summary }}</div>
+        {% endif %}
+    </div>
 </body>
 </html>
-
