@@ -1,51 +1,66 @@
-<form method="post">
-  <label for="distance">Distance to Flag (yards):</label>
-  <input type="number" id="distance" name="distance" required>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyCaddy Distance Calculator</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>MyCaddy Distance Calculator</h1>
+    
+    <form method="post">
+      <label for="distance">Distance to Flag (yards):</label>
+      <input type="number" id="distance" name="distance" required>
 
-  <label for="lie">Lie Penalty:</label>
-  <select id="lie" name="lie">
-    <option value="0">Fairway (0%)</option>
-    <option value="10">First-Cut (10%)</option>
-    <option value="25">Light-Rough (25%)</option>
-    <option value="50">Rough (50%)</option>
-    <option value="75">Deep-Rough (75%)</option>
-    <option value="100">Hazard/Fescue (100%)</option>
-  </select>
+      <label for="lie">Lie Penalty:</label>
+      <select id="lie" name="lie">
+        <option value="0">Fairway (0%)</option>
+        <option value="10">First-Cut (10%)</option>
+        <option value="25">Light-Rough (25%)</option>
+        <option value="50">Rough (50%)</option>
+        <option value="75">Deep-Rough (75%)</option>
+        <option value="100">Hazard/Fescue (100%)</option>
+      </select>
 
-  <label for="temperature">Temperature (°F):</label>
-  <input type="number" id="temperature" name="temperature" value="70">
+      <label for="temperature">Temperature (°F):</label>
+      <input type="number" id="temperature" name="temperature" value="70" required>
 
-  <label for="weather">Weather:</label>
-  <select id="weather" name="weather">
-    <option value="Clear">Clear</option>
-    <option value="Sunny">Sunny</option>
-    <option value="Cloudy">Cloudy</option>
-    <option value="Rainy">Rainy</option>
-  </select>
+      <label for="weather">Weather:</label>
+      <select id="weather" name="weather">
+        <option value="Clear">Clear</option>
+        <option value="Sunny">Sunny</option>
+        <option value="Cloudy">Cloudy</option>
+        <option value="Rainy">Rainy</option>
+      </select>
 
-  <label for="wind_speed">Wind Speed (mph):</label>
-  <input type="number" id="wind_speed" name="wind_speed" value="0">
+      <label for="wind_speed">Wind Speed (mph):</label>
+      <input type="number" id="wind_speed" name="wind_speed" value="0" required>
 
-  <label for="wind_dir">Wind Direction:</label>
-  <select id="wind_dir" name="wind_dir">
-    <option value="North">North (Headwind)</option>
-    <option value="South">South (Tailwind)</option>
-    <option value="East">East (Crosswind)</option>
-    <option value="West">West (Crosswind)</option>
-  </select>
+      <label for="wind_dir">Wind Direction:</label>
+      <select id="wind_dir" name="wind_dir">
+        <option value="North">North (Headwind)</option>
+        <option value="South">South (Tailwind)</option>
+        <option value="East">East (Crosswind)</option>
+        <option value="West">West (Crosswind)</option>
+      </select>
 
-  <label>
-    <input type="checkbox" name="flyer">
-    Flyer Conditions Present?
-  </label>
+      <label for="flyer">
+        <input type="checkbox" id="flyer" name="flyer">
+        Flyer Conditions Present?
+      </label>
 
-  <button type="submit">Calculate</button>
-</form>
+      <button type="submit">Calculate</button>
+    </form>
 
-{% if summary %}
-  <div class="summary">{{ summary }}</div>
-{% endif %}
+    {% if summary %}
+      <div class="summary">{{ summary }}</div>
+    {% endif %}
 
-{% if result %}
-  <div class="result">{{ result }}</div>
-{% endif %}
+    {% if result %}
+      <div class="result">{{ result }}</div>
+    {% endif %}
+  </div>
+</body>
+</html>
