@@ -25,7 +25,8 @@ form label {
   font-weight: bold;
 }
 
-input[type="number"], select {
+input[type="number"],
+select {
   width: 100%;
   padding: 8px;
   margin-top: 5px;
@@ -34,7 +35,15 @@ input[type="number"], select {
 }
 
 input[type="checkbox"] {
-  margin-right: 5px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+label[for="flyer"],
+form label input[type="checkbox"] {
+  display: inline-block;
+  margin-top: 15px;
+  font-weight: normal;
 }
 
 button {
@@ -54,7 +63,8 @@ button:hover {
   background-color: #99c9ea;
 }
 
-.result, .summary {
+.result,
+.summary {
   margin-top: 20px;
   text-align: center;
   font-size: 1.2em;
@@ -62,7 +72,7 @@ button:hover {
   color: #003366;
 }
 
-/* Mobile styles and accordion */
+/* Responsive Design for Mobile */
 @media (max-width: 600px) {
   body.mobile .container {
     padding: 20px 15px;
@@ -94,38 +104,13 @@ button:hover {
     font-size: 1em;
   }
 
-  body.mobile .collapsible-section {
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    overflow: hidden;
+  body.mobile input[type="checkbox"] {
+    transform: scale(1.2);
+    margin-right: 10px;
   }
 
-  body.mobile .section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #B3D7F0;
-    padding: 10px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-
-  body.mobile .arrow-icon {
-    font-size: 1.2em;
-    transition: transform 0.2s ease;
-  }
-
-  body.mobile .section-body {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease-out, padding 0.3s ease-out;
-    padding: 0 10px;
-  }
-
-  body.mobile .section-body.visible {
-    max-height: 500px;
-    padding: 10px;
+  body.mobile label[for="flyer"] {
+    font-size: 1em;
+    margin-top: 10px;
   }
 }
-
