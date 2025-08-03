@@ -1,36 +1,57 @@
-def get_adjusted_distance(flag_distance_yards, lie_penalty_percent, temperature_f, weather, wind_speed_mph, wind_direction, flyer_present=False):
-    # Temperature adjustment: baseline 70°F, roughly 1% per 10°F
-    temp_delta = temperature_f - 70
-    temp_adjustment = flag_distance_yards * (0.01 * temp_delta / 10)
+def get_adjusted_distance(
+    flag_distance_yards,
+    lie_penalty_percent,
+    temperature_f,
+    weather,
+    wind_speed_mph,
+    wind_direction,
+    flyer_conditions=False
+):
+    """
+    Calculate the adjusted carry distance accounting for lie, temperature, weather, and wind.
+    Flyer conditions provide a possible flyer range, but are not included in the main result.
 
-    # Lie penalty adjustment
-    lie_adjustment = flag_distance_yards * (lie_penalty_percent / 100)
+    - Lie increases required carry distance (e.g., lie penalty of 10% means you need to hit it 10% farther)
+    - Temperature is normalized at 70°F (warmer = more carry, cooler = less)
+    - Wind direction: "North" = into wind, "South" = downwind, "East"/"West" = crosswind
+    - Flyer condition gives a range of flyer carry if user selects it, but does NOT affect the primary adjusted distance
+    """
 
-    # Wind adjustment (simplified: headwind reduces, tailwind increases)
-    wind_multiplier = 0.005  # ~0.5% per mph
-    wind_effect = 0
-    if wind_direction.lower() in ["north", "into", "headwind"]:
-        wind_effect = -wind_speed_mph * wind_multiplier * flag_distance_yards
-    elif wind_direction.lower() in ["south", "with", "tailwind"]:
-        wind_effect = wind_speed_mph * wind_multiplier * flag_distance_yards
-    elif wind_direction.lower() in ["cross"]:
-        wind_effect = 0  # Crosswinds not affecting carry distance for simplicity
+    # Step 1: Lie adjustment (add % to required carry)
+    lie_multiplier = 1 + (lie_penalty_percent / 100.0)
+    distance_with_lie = flag_distance_yards * lie_multiplier
 
-    # Weather adjustment
-    weather_adjustment = 0
-    if weather.lower() == "rainy":
-        weather_adjustment = -0.02 * flag_distance_yards  # Rain reduces carry ~2%
-    elif weather.lower() == "humid":
-        weather_adjustment = 0.005 * flag_distance_yards  # Humid air can increase carry
-    elif weather.lower() == "cold":
-        weather_adjustment = -0.01 * flag_distance_yards
+    # Step 2: Temperature adjustment
+    temp_diff = temperature_f - 70  # Normalize to 70°F
+    temp_adjustment = temp_diff * 0.1  # 0.1 yard per °F
+    distance_with_temp = distance_with_lie + temp_adjustment
 
-    base_adjusted = flag_distance_yards + temp_adjustment + wind_effect + weather_adjustment - lie_adjustment
-
-    # Flyer logic: apply 5–10% *reduction* range if flyer present
-    if flyer_present:
-        min_adjusted = base_adjusted * 0.90
-        max_adjusted = base_adjusted * 0.95
-        return f"Normal: {base_adjusted:.1f} yds | Flyer range: {min_adjusted:.1f}–{max_adjusted:.1f} yds"
+    # Step 3: Weather (rain reduces carry slightly)
+    if weather.lower() in ['rain', 'rainy']:
+        weather_adjustment = -5  # reduce carry in rain
     else:
-        return f"Adjusted Carry Distance: {base_adjusted:.1f} yds"
+        weather_adjustment = 0
+    distance_with_weather = distance_with_temp + weather_adjustment
+
+    # Step 4: Wind
+    if wind_direction.lower() == 'north':  # Into wind
+        wind_adjustment = -0.5 * wind_speed_mph
+    elif wind_direction.lower() == 'south':  # Downwind
+        wind_adjustment = 0.5 * wind_speed_mph
+    else:  # Crosswinds (East/West)
+        wind_adjustment = 0
+    adjusted_distance = distance_with_weather + wind_adjustment
+
+    # Step 5: Flyer conditions (show range if checkbox selected, but not applied to main adjusted_distance)
+    flyer_range = None
+    if flyer_conditions:
+        # Flyers fly farther, but player must still aim to hit normal carry to avoid overshooting
+        # Since lie already inflates adjusted carry, this serves only as awareness
+        flyer_min = adjusted_distance + 5
+        flyer_max = adjusted_distance + 15
+        flyer_range = (round(flyer_min, 1), round(flyer_max, 1))
+
+    return {
+        "adjusted_distance": round(adjusted_distance, 1),
+        "flyer_range": flyer_range
+    }
