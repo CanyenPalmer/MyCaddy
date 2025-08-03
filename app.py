@@ -13,7 +13,7 @@ def index():
             distance = float(request.form['distance'])
             lie = float(request.form['lie'])
             temp = float(request.form['temperature'])
-            weather = request.form['weather']  # still collected, not used in formula
+            weather = request.form['weather']
             wind_dir = request.form['wind_dir']
             wind_speed = float(request.form['wind_speed'])
 
@@ -32,3 +32,7 @@ def index():
             result = f"Error: {str(e)}"
 
     return render_template('index.html', result=result, summary=summary)
+
+# ✅ Ensure this is included to run the app properly
+if __name__ == '__main__':
+    app.run(debug=False)
