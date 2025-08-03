@@ -1,136 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Caddy Distance</title>
-  <link rel="stylesheet" href="/static/style.css" />
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-      document.body.classList.add(isMobile ? "mobile" : "desktop");
-
-      if (isMobile) {
-        const headers = document.querySelectorAll(".section-header");
-        headers.forEach(header => {
-          header.addEventListener("click", () => {
-            const currentBody = header.nextElementSibling;
-            const icon = header.querySelector(".arrow-icon");
-
-            // Collapse others
-            document.querySelectorAll(".section-body.visible").forEach(body => {
-              if (body !== currentBody) {
-                body.classList.remove("visible");
-                const otherIcon = body.previousElementSibling.querySelector(".arrow-icon");
-                if (otherIcon) otherIcon.textContent = "▼";
-              }
-            });
-
-            // Toggle current
-            const isVisible = currentBody.classList.toggle("visible");
-            icon.textContent = isVisible ? "▲" : "▼";
-          });
-        });
-      }
-    });
-  </script>
+    <meta charset="UTF-8">
+    <title>MyCaddy - Adjusted Distance Calculator</title>
 </head>
 <body>
-  <div class="container">
-    <h1>My Caddy Distance</h1>
+    <h1>MyCaddy - Adjusted Distance</h1>
 
     <form method="POST">
-      <div class="collapsible-section">
-        <div class="section-header">Distance to Flag (yards): <span class="arrow-icon">▼</span></div>
-        <div class="section-body">
-          <input type="number" name="distance" step="any" required />
-        </div>
-      </div>
+        <label for="distance">Raw Distance to Flag (yards):</label>
+        <input type="number" step="any" name="distance" required><br><br>
 
-      <div class="collapsible-section">
-        <div class="section-header">Lie Condition (%): <span class="arrow-icon">▼</span></div>
-        <div class="section-body">
-          <select name="lie">
-            <option value="0">Fairway (0%)</option>
-            <option value="10">First-cut (10%)</option>
-            <option value="25">Short-Rough (25%)</option>
-            <option value="50">Rough (50%)</option>
-            <option value="75">Deep Rough (75%)</option>
-            <option value="100">Hazard/Fescue/Buried (100%)</option>
-          </select>
-        </div>
-      </div>
+        <label for="lie">Lie Penalty (%):</label>
+        <input type="number" step="any" name="lie" value="10" required><br><br>
 
-      <div class="collapsible-section">
-        <div class="section-header">Temperature (°F): <span class="arrow-icon">▼</span></div>
-        <div class="section-body">
-          <input type="number" name="temperature" required />
-        </div>
-      </div>
+        <label for="temperature">Temperature (°F):</label>
+        <input type="number" step="any" name="temperature" value="70" required><br><br>
 
-      <div class="collapsible-section">
-        <div class="section-header">Weather: <span class="arrow-icon">▼</span></div>
-        <div class="section-body">
-          <select name="weather">
-            <option>Sunny</option>
-            <option>Cloudy</option>
-            <option>Rain</option>
-            <option>Snow</option>
-          </select>
-        </div>
-      </div>
+        <label for="weather">Weather Condition:</label>
+        <select name="weather" id="weather">
+            <option value="Sunny">Sunny</option>
+            <option value="Cloudy">Cloudy</option>
+            <option value="Rain">Rain</option>
+            <option value="Snow">Snow</option>
+        </select><br><br>
 
-      <div class="collapsible-section">
-        <div class="section-header">Wind Direction: <span class="arrow-icon">▼</span></div>
-        <div class="section-body">
-          <select name="wind_dir">
-            <option>North</option>
-            <option>Northeast</option>
-            <option>East</option>
-            <option>Southeast</option>
-            <option>South</option>
-            <option>Southwest</option>
-            <option>West</option>
-            <option>Northwest</option>
-          </select>
-        </div>
-      </div>
+        <label for="wind_speed">Wind Speed (mph):</label>
+        <input type="number" step="any" name="wind_speed" required><br><br>
 
-      <div class="collapsible-section">
-        <div class="section-header">Wind Speed (mph): <span class="arrow-icon">▼</span></div>
-        <div class="section-body">
-          <input type="number" name="wind_speed" step="any" required />
-        </div>
-      </div>
+        <label for="wind_dir">Wind Direction (blowing toward):</label>
+        <select name="wind_dir" id="wind_dir">
+            <option value="North">North (Headwind)</option>
+            <option value="South">South (Tailwind)</option>
+            <option value="East">East (Crosswind)</option>
+            <option value="West">West (Crosswind)</option>
+            <option value="Northeast">Northeast</option>
+            <option value="Northwest">Northwest</option>
+            <option value="Southeast">Southeast</option>
+            <option value="Southwest">Southwest</option>
+        </select><br><br>
 
-      <div class="collapsible-section">
-        <div class="section-header">Shot Direction: <span class="arrow-icon">▼</span></div>
-        <div class="section-body">
-          <select name="shot_dir">
-            <option>North</option>
-            <option>Northeast</option>
-            <option>East</option>
-            <option>Southeast</option>
-            <option>South</option>
-            <option>Southwest</option>
-            <option>West</option>
-            <option>Northwest</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="collapsible-section">
-        <div class="section-header">Flyer Lie: <span class="arrow-icon">▼</span></div>
-        <div class="section-body">
-          <label><input type="checkbox" name="flyer" /> Enable flyer calculation</label>
-        </div>
-      </div>
-
-      <button type="submit">Calculate</button>
+        <input type="submit" value="Calculate Adjusted Distance">
     </form>
 
-    {% if summary %}<p class="summary">{{ summary }}</p>{% endif %}
-    {% if result %}<p class="result">{{ result }}</p>{% endif %}
-  </div>
+    {% if result %}
+        <h2>Adjusted Distance: {{ result }} yards</h2>
+    {% endif %}
+
+    {% if summary %}
+        <p>{{ summary }}</p>
+    {% endif %}
 </body>
 </html>
