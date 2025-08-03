@@ -5,42 +5,45 @@ def get_adjusted_distance(
     lie_penalty_percent,
     temperature_f,
     wind_speed_mph,
-    wind_direction
+    wind_direction,
+    weather_condition="Sunny"
 ):
     """
-    Calculates adjusted distance based on lie, temperature, and wind.
-    Assumes golfer is always hitting North (toward the hole).
-
-    Parameters:
-    - flag_distance_yards (float): Raw distance to target (yards).
-    - lie_penalty_percent (float): % increase from lie (e.g., 10 for first cut).
-    - temperature_f (float): Air temp in °F; baseline is 70°F.
-    - wind_speed_mph (float): Wind speed in mph.
-    - wind_direction (str): Direction wind is blowing toward (e.g., 'North' = headwind).
-
-    Returns:
-    - float: Adjusted distance (yards), rounded to 1 decimal.
+    Calculates adjusted distance accounting for:
+    - Lie penalty
+    - Temperature effect
+    - Wind effect (relative to golfer's fixed North-facing orientation)
+    - Weather condition (e.g., rain, snow)
     """
 
-    adjusted_distance = flag_distance_yards
+    # Lie adjustment
+    lie_multiplier = 1 + (lie_penalty_percent / 100)
 
-    # 1. Lie adjustment
-    lie_adjustment = adjusted_distance * (lie_penalty_percent / 100)
-    adjusted_distance += lie_adjustment
+    # Temperature effect: baseline at 70°F
+    temp_adjustment = 1 + ((temperature_f - 70) * 0.003)
 
-    # 2. Temperature adjustment: ±0.1 yards per °F from 70
-    temperature_adjustment = (70 - temperature_f) * 0.1
-    adjusted_distance += temperature_adjustment
+    # Weather multiplier
+    weather_factors = {
+        "Sunny": 1.00,
+        "Cloudy": 0.99,
+        "Rain": 0.96,
+        "Snow": 0.92
+    }
+    weather_multiplier = weather_factors.get(weather_condition, 1.00)
 
-    # 3. Wind adjustment
-    direction = wind_direction.lower()
-    if direction == "north":
-        wind_adjustment = 0.9 * wind_speed_mph  # headwind
-    elif direction == "south":
-        wind_adjustment = -0.5 * wind_speed_mph  # tailwind
-    else:
-        wind_adjustment = 0.0  # crosswind or neutral
+    # Wind effect (simplified since shot is always facing North)
+    if wind_direction == "North":  # Headwind
+        wind_adjustment = wind_speed_mph * 0.9
+    elif wind_direction == "South":  # Tailwind
+        wind_adjustment = -wind_speed_mph * 0.5
+    else:  # Crosswinds and others ignored
+        wind_adjustment = 0
 
-    adjusted_distance += wind_adjustment
+    # Base adjusted distance before wind
+    adjusted_distance = flag_distance_yards * lie_multiplier * temp_adjustment * weather_multiplier
 
-    return round(adjusted_distance, 1)
+    # Apply wind impact
+    final_distance = adjusted_distance + wind_adjustment
+
+    return round(final_distance, 1)
+
