@@ -60,13 +60,8 @@ This app supports a wide range of golfers:
 
 ## How to Use
 
-### Prerequisites
+### Visit the live demo
 
-- Install Python 3.x
-- Clone or download this repository.
-
-### Run the Application
-
-```bash
-python my_caddy_calculator.py
+```Visit this site
+https://mycaddy.onrender.com
 
