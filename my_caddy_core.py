@@ -1,64 +1,111 @@
 import math
 
-def get_adjusted_distance(flag_distance_yards, lie_penalty_percent, temperature_f, weather, wind_speed_mph, wind_direction, flyer=False):
-    """
-    Same parameters and same string return format as your current function.
-    - Asymmetric wind: headwind hurts more than tailwind helps.
-    - Distance-based scaling: longer shots feel more wind (no club input needed).
-    """
 
-    # 1) Temperature Adjustment: ~0.2 yards per degree from 70°F
-    temp_adjustment = (temperature_f - 70) * 0.2
+def _effective_lie_penalty(lie_penalty_percent):
+    lie = max(0.0, min(float(lie_penalty_percent), 100.0))
 
-    # 2) Lie Penalty
-    lie_adjustment = flag_distance_yards * (lie_penalty_percent / 100.0)
+    lie_curve = [
+        (0.0, 0.00),
+        (10.0, 0.06),
+        (25.0, 0.12),
+        (50.0, 0.22),
+        (75.0, 0.30),
+        (100.0, 0.40),
+    ]
 
-    # 3) Weather Adjustment (none per your spec)
-    weather_adjustment = 0.0
+    for i in range(len(lie_curve) - 1):
+        x0, y0 = lie_curve[i]
+        x1, y1 = lie_curve[i + 1]
+        if x0 <= lie <= x1:
+            t = (lie - x0) / (x1 - x0)
+            return y0 + t * (y1 - y0)
 
-    # 4) Wind Adjustment (asymmetric + distance-scaled)
+    return lie_curve[-1][1]
+
+
+def _temperature_adjustment(distance_yards, temperature_f):
+    return float(distance_yards) * ((float(temperature_f) - 70.0) / 10.0) * 0.01
+
+
+def _weather_adjustment(distance_yards, weather):
+    condition = str(weather).strip().lower()
+
+    if condition == "rainy":
+        return float(distance_yards) * 0.02
+
+    return 0.0
+
+
+def _wind_adjustment(distance_yards, wind_speed_mph, wind_direction):
+    d = float(distance_yards)
+    speed = max(0.0, float(wind_speed_mph))
     direction = str(wind_direction).strip().lower()
+
     if direction in ("north", "n"):
-        axis = 1.0   # headwind
+        axis = 1.0      # headwind
     elif direction in ("south", "s"):
-        axis = -1.0  # tailwind
-    elif direction in ("east", "e", "west", "w"):
-        axis = 0.0   # crosswind ignored for carry
+        axis = -1.0     # tailwind
     else:
-        axis = 0.0
+        axis = 0.0      # crosswind
 
-    wind_component_mph = wind_speed_mph * axis
+    wind_component_mph = speed * axis
 
-    # Base coefficients (yards per mph per 100 yards)
-    head_base = 1.0
-    tail_base = 0.5
+    if d < 80:
+        dist_scale = 0.60
+    elif d < 130:
+        dist_scale = 0.85
+    elif d < 180:
+        dist_scale = 1.00
+    elif d < 230:
+        dist_scale = 1.15
+    else:
+        dist_scale = 1.25
 
-    # Distance-based scaling (proxy for time aloft / apex) - tweak as you like
-    d = float(flag_distance_yards)
-    if d < 80:        dist_scale = 0.6   # short wedges feel less wind
-    elif d < 130:     dist_scale = 0.85
-    elif d < 180:     dist_scale = 1.0
-    elif d < 230:     dist_scale = 1.15
-    else:             dist_scale = 1.25  # long irons/woods feel more wind
-
-    if wind_component_mph > 0:      # headwind
-        coeff = head_base * dist_scale
-    elif wind_component_mph < 0:    # tailwind
-        coeff = tail_base * dist_scale
+    if wind_component_mph > 0:
+        coeff = 1.00 * dist_scale
+    elif wind_component_mph < 0:
+        coeff = 0.50 * dist_scale
     else:
         coeff = 0.0
 
-    wind_adjustment = (d / 100.0) * coeff * wind_component_mph
+    return (d / 100.0) * coeff * wind_component_mph
 
-    # 5) Final adjusted carry distance
-    adjusted_distance = d + lie_adjustment + wind_adjustment - temp_adjustment + weather_adjustment
+
+def get_adjusted_distance(
+    flag_distance_yards,
+    lie_penalty_percent,
+    temperature_f,
+    weather,
+    wind_speed_mph,
+    wind_direction,
+    flyer=False
+):
+    d = float(flag_distance_yards)
+
+    effective_lie_penalty = _effective_lie_penalty(lie_penalty_percent)
+    lie_adjustment = d * effective_lie_penalty
+
+    wind_adjustment = _wind_adjustment(d, wind_speed_mph, wind_direction)
+
+    temp_adjustment = _temperature_adjustment(d, temperature_f)
+
+    weather_adjustment = _weather_adjustment(d, weather)
+
+    adjusted_distance = (
+        d
+        + lie_adjustment
+        + wind_adjustment
+        - temp_adjustment
+        + weather_adjustment
+    )
+
     adjusted_distance = round(adjusted_distance, 1)
 
-    # 6) Flyer logic (unchanged UI/output)
     if flyer:
         flyer_low = round(adjusted_distance * 0.90, 1)
         flyer_high = round(adjusted_distance * 0.95, 1)
         flyer_range = f"{flyer_low}–{flyer_high} yds"
+
         return f"Adjusted Carry Distance: {adjusted_distance} yds | Flyer range: {flyer_range}"
-    else:
-        return f"Adjusted Carry Distance: {adjusted_distance} yds"
+
+    return f"Adjusted Carry Distance: {adjusted_distance} yds"
