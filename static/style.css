@@ -34,13 +34,26 @@ select {
   border-radius: 4px;
 }
 
+.inline-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.inline-row input[type="number"] {
+  flex: 1;
+}
+
+.inline-row select {
+  flex: 1;
+}
+
 input[type="checkbox"] {
   margin-right: 8px;
   vertical-align: middle;
 }
 
-label[for="flyer"],
-form label input[type="checkbox"] {
+.checkbox-label {
   display: inline-block;
   margin-top: 15px;
   font-weight: normal;
@@ -72,44 +85,51 @@ button:hover {
   color: #003366;
 }
 
-/* Responsive Design for Mobile */
 @media (max-width: 600px) {
-  body.mobile .container {
+  body {
+    padding: 10px;
+  }
+
+  .container {
     padding: 20px 15px;
     margin: 0 10px;
   }
 
-  body.mobile h1 {
+  h1 {
     font-size: 1.4em;
   }
 
-  body.mobile form label {
+  form label {
     font-size: 0.9em;
     margin-top: 10px;
   }
 
-  body.mobile input[type="number"],
-  body.mobile select {
+  input[type="number"],
+  select {
     font-size: 1em;
     padding: 10px;
   }
 
-  body.mobile button {
+  .inline-row {
+    gap: 8px;
+  }
+
+  button {
     font-size: 1em;
     padding: 12px;
   }
 
-  body.mobile .summary,
-  body.mobile .result {
+  .summary,
+  .result {
     font-size: 1em;
   }
 
-  body.mobile input[type="checkbox"] {
+  input[type="checkbox"] {
     transform: scale(1.2);
     margin-right: 10px;
   }
 
-  body.mobile label[for="flyer"] {
+  .checkbox-label {
     font-size: 1em;
     margin-top: 10px;
   }
