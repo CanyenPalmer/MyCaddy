@@ -120,8 +120,9 @@ def get_adjusted_distance(
     elevation_direction="Flat",
 ):
     d = float(flag_distance_yards)
+    lie_input = float(lie_penalty_percent)
 
-    effective_lie_penalty = _effective_lie_penalty(lie_penalty_percent)
+    effective_lie_penalty = _effective_lie_penalty(lie_input)
     lie_adjustment = d * effective_lie_penalty
 
     elevation_adjustment = _elevation_adjustment(
@@ -151,10 +152,19 @@ def get_adjusted_distance(
     adjusted_distance = round(adjusted_distance, 1)
 
     if flyer:
-        flyer_low = round(adjusted_distance * 0.90, 1)
-        flyer_high = round(adjusted_distance * 0.95, 1)
-        flyer_range = f"{flyer_low}–{flyer_high} yds"
+        if lie_input <= 50:
+            flyer_low = round(adjusted_distance * 0.90, 1)
+            flyer_high = round(adjusted_distance * 0.95, 1)
+            flyer_range = f"{flyer_low}–{flyer_high} yds"
 
-        return f"Adjusted Carry Distance: {adjusted_distance} yds | Flyer range: {flyer_range}"
+            return (
+                f"Adjusted Carry Distance: {adjusted_distance} yds | "
+                f"Flyer range: {flyer_range}"
+            )
+
+        return (
+            f"Adjusted Carry Distance: {adjusted_distance} yds | "
+            "Flyer Warning: Deep rough selected. Flyer behavior is less reliable from this lie."
+        )
 
     return f"Adjusted Carry Distance: {adjusted_distance} yds"
