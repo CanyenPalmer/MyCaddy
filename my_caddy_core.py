@@ -1,6 +1,9 @@
 import math
 
 
+DIAGONAL_WIND_FACTOR = math.sqrt(2) / 2
+
+
 def _effective_lie_penalty(lie_penalty_percent):
     lie = max(0.0, min(float(lie_penalty_percent), 100.0))
 
@@ -16,11 +19,29 @@ def _effective_lie_penalty(lie_penalty_percent):
     for i in range(len(lie_curve) - 1):
         x0, y0 = lie_curve[i]
         x1, y1 = lie_curve[i + 1]
+
         if x0 <= lie <= x1:
             t = (lie - x0) / (x1 - x0)
             return y0 + t * (y1 - y0)
 
     return lie_curve[-1][1]
+
+
+def _elevation_adjustment(elevation_feet=0, elevation_direction="Flat"):
+    try:
+        feet = float(elevation_feet or 0)
+    except ValueError:
+        feet = 0.0
+
+    direction = str(elevation_direction or "Flat").strip().lower()
+
+    if direction == "uphill":
+        return feet / 3.0
+
+    if direction == "downhill":
+        return -(feet / 3.0)
+
+    return 0.0
 
 
 def _temperature_adjustment(distance_yards, temperature_f):
@@ -36,19 +57,35 @@ def _weather_adjustment(distance_yards, weather):
     return 0.0
 
 
-def _wind_adjustment(distance_yards, wind_speed_mph, wind_direction):
+def _wind_component(wind_speed_mph=0, wind_direction="None"):
+    try:
+        speed = max(0.0, float(wind_speed_mph or 0))
+    except ValueError:
+        speed = 0.0
+
+    direction = str(wind_direction or "None").strip().lower()
+
+    if direction == "into":
+        return speed
+
+    if direction == "helping":
+        return -speed
+
+    if direction in ("left to right", "right to left"):
+        return 0.0
+
+    if direction in ("into + left to right", "into + right to left"):
+        return speed * DIAGONAL_WIND_FACTOR
+
+    if direction in ("helping + left to right", "helping + right to left"):
+        return -speed * DIAGONAL_WIND_FACTOR
+
+    return 0.0
+
+
+def _wind_adjustment(distance_yards, wind_speed_mph=0, wind_direction="None"):
     d = float(distance_yards)
-    speed = max(0.0, float(wind_speed_mph))
-    direction = str(wind_direction).strip().lower()
-
-    if direction in ("north", "n"):
-        axis = 1.0      # headwind
-    elif direction in ("south", "s"):
-        axis = -1.0     # tailwind
-    else:
-        axis = 0.0      # crosswind
-
-    wind_component_mph = speed * axis
+    wind_component_mph = _wind_component(wind_speed_mph, wind_direction)
 
     if d < 80:
         dist_scale = 0.60
@@ -76,16 +113,27 @@ def get_adjusted_distance(
     lie_penalty_percent,
     temperature_f,
     weather,
-    wind_speed_mph,
-    wind_direction,
-    flyer=False
+    wind_speed_mph=0,
+    wind_direction="None",
+    flyer=False,
+    elevation_feet=0,
+    elevation_direction="Flat",
 ):
     d = float(flag_distance_yards)
 
     effective_lie_penalty = _effective_lie_penalty(lie_penalty_percent)
     lie_adjustment = d * effective_lie_penalty
 
-    wind_adjustment = _wind_adjustment(d, wind_speed_mph, wind_direction)
+    elevation_adjustment = _elevation_adjustment(
+        elevation_feet,
+        elevation_direction
+    )
+
+    wind_adjustment = _wind_adjustment(
+        d,
+        wind_speed_mph,
+        wind_direction
+    )
 
     temp_adjustment = _temperature_adjustment(d, temperature_f)
 
@@ -94,6 +142,7 @@ def get_adjusted_distance(
     adjusted_distance = (
         d
         + lie_adjustment
+        + elevation_adjustment
         + wind_adjustment
         - temp_adjustment
         + weather_adjustment
