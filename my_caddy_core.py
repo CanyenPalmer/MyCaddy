@@ -1,6 +1,5 @@
 import math
 
-
 DIAGONAL_WIND_FACTOR = math.sqrt(2) / 2
 
 
@@ -19,7 +18,6 @@ def _effective_lie_penalty(lie_penalty_percent):
     for i in range(len(lie_curve) - 1):
         x0, y0 = lie_curve[i]
         x1, y1 = lie_curve[i + 1]
-
         if x0 <= lie <= x1:
             t = (lie - x0) / (x1 - x0)
             return y0 + t * (y1 - y0)
@@ -27,144 +25,103 @@ def _effective_lie_penalty(lie_penalty_percent):
     return lie_curve[-1][1]
 
 
-def _elevation_adjustment(elevation_feet=0, elevation_direction="Flat"):
-    try:
-        feet = float(elevation_feet or 0)
-    except ValueError:
-        feet = 0.0
-
-    direction = str(elevation_direction or "Flat").strip().lower()
-
-    if direction == "uphill":
-        return feet / 3.0
-
-    if direction == "downhill":
-        return -(feet / 3.0)
-
-    return 0.0
+def _elevation_adjustment(feet, direction):
+    if direction == "Uphill":
+        return feet / 3
+    if direction == "Downhill":
+        return -(feet / 3)
+    return 0
 
 
-def _temperature_adjustment(distance_yards, temperature_f):
-    return float(distance_yards) * ((float(temperature_f) - 70.0) / 10.0) * 0.01
+def _temperature_adjustment(d, temp):
+    return d * ((temp - 70) / 10) * 0.01
 
 
-def _weather_adjustment(distance_yards, weather):
-    condition = str(weather).strip().lower()
-
-    if condition == "rainy":
-        return float(distance_yards) * 0.02
-
-    return 0.0
+def _weather_adjustment(d, weather):
+    if weather.lower() == "rainy":
+        return d * 0.02
+    return 0
 
 
-def _wind_component(wind_speed_mph=0, wind_direction="None"):
-    try:
-        speed = max(0.0, float(wind_speed_mph or 0))
-    except ValueError:
-        speed = 0.0
-
-    direction = str(wind_direction or "None").strip().lower()
-
-    if direction == "into":
+def _wind_component(speed, direction):
+    if direction == "Into":
         return speed
-
-    if direction == "helping":
+    if direction == "Helping":
         return -speed
-
-    if direction in ("left to right", "right to left"):
-        return 0.0
-
-    if direction in ("into + left to right", "into + right to left"):
+    if "Into +" in direction:
         return speed * DIAGONAL_WIND_FACTOR
-
-    if direction in ("helping + left to right", "helping + right to left"):
+    if "Helping +" in direction:
         return -speed * DIAGONAL_WIND_FACTOR
+    return 0
 
-    return 0.0
 
-
-def _wind_adjustment(distance_yards, wind_speed_mph=0, wind_direction="None"):
-    d = float(distance_yards)
-    wind_component_mph = _wind_component(wind_speed_mph, wind_direction)
+def _wind_adjustment(d, speed, direction):
+    comp = _wind_component(speed, direction)
 
     if d < 80:
-        dist_scale = 0.60
+        scale = 0.60
     elif d < 130:
-        dist_scale = 0.85
+        scale = 0.85
     elif d < 180:
-        dist_scale = 1.00
+        scale = 1.00
     elif d < 230:
-        dist_scale = 1.15
+        scale = 1.15
     else:
-        dist_scale = 1.25
+        scale = 1.25
 
-    if wind_component_mph > 0:
-        coeff = 1.00 * dist_scale
-    elif wind_component_mph < 0:
-        coeff = 0.50 * dist_scale
+    if comp > 0:
+        coeff = 1.0 * scale
+    elif comp < 0:
+        coeff = 0.5 * scale
     else:
-        coeff = 0.0
+        coeff = 0
 
-    return (d / 100.0) * coeff * wind_component_mph
+    return (d / 100) * coeff * comp
 
 
 def get_adjusted_distance(
-    flag_distance_yards,
-    lie_penalty_percent,
-    temperature_f,
+    distance,
+    lie,
+    temp,
     weather,
-    wind_speed_mph=0,
-    wind_direction="None",
-    flyer=False,
-    elevation_feet=0,
-    elevation_direction="Flat",
+    wind_speed,
+    wind_dir,
+    flyer,
+    elevation_feet,
+    elevation_direction
 ):
-    d = float(flag_distance_yards)
-    lie_input = float(lie_penalty_percent)
+    d = float(distance)
 
-    effective_lie_penalty = _effective_lie_penalty(lie_input)
-    lie_adjustment = d * effective_lie_penalty
+    lie_eff = _effective_lie_penalty(lie)
+    lie_adj = d * lie_eff
 
-    elevation_adjustment = _elevation_adjustment(
-        elevation_feet,
-        elevation_direction
-    )
+    elev_adj = _elevation_adjustment(elevation_feet, elevation_direction)
+    wind_adj = _wind_adjustment(d, wind_speed, wind_dir)
+    temp_adj = _temperature_adjustment(d, temp)
+    weather_adj = _weather_adjustment(d, weather)
 
-    wind_adjustment = _wind_adjustment(
-        d,
-        wind_speed_mph,
-        wind_direction
-    )
+    final = d + lie_adj + elev_adj + wind_adj - temp_adj + weather_adj
+    final = round(final, 1)
 
-    temp_adjustment = _temperature_adjustment(d, temperature_f)
-
-    weather_adjustment = _weather_adjustment(d, weather)
-
-    adjusted_distance = (
-        d
-        + lie_adjustment
-        + elevation_adjustment
-        + wind_adjustment
-        - temp_adjustment
-        + weather_adjustment
-    )
-
-    adjusted_distance = round(adjusted_distance, 1)
+    result = {
+        "final": final,
+        "base": d,
+        "lie": round(lie_adj, 1),
+        "elevation": round(elev_adj, 1),
+        "wind": round(wind_adj, 1),
+        "temperature": round(-temp_adj, 1),
+        "weather": round(weather_adj, 1),
+        "flyer": flyer,
+        "lie_input": lie
+    }
 
     if flyer:
-        if lie_input <= 50:
-            flyer_low = round(adjusted_distance * 0.90, 1)
-            flyer_high = round(adjusted_distance * 0.95, 1)
-            flyer_range = f"{flyer_low}–{flyer_high} yds"
-
-            return (
-                f"Adjusted Carry Distance: {adjusted_distance} yds | "
-                f"Flyer range: {flyer_range}"
+        if lie <= 50:
+            result["flyer_range"] = (
+                round(final * 0.90, 1),
+                round(final * 0.95, 1)
             )
+        else:
+            result["flyer_warning"] = True
 
-        return (
-            f"Adjusted Carry Distance: {adjusted_distance} yds | "
-            "Flyer Warning: Deep rough selected. Flyer behavior is less reliable from this lie."
-        )
-
-    return f"Adjusted Carry Distance: {adjusted_distance} yds"
+    return result
