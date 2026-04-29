@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from my_caddy_core import get_adjusted_distance
+from caddy_insights import generate_insight
 
 app = Flask(__name__)
 
@@ -8,50 +9,36 @@ app = Flask(__name__)
 def index():
     result = None
     summary = None
+    insight = None
 
     if request.method == 'POST':
-        try:
-            distance = float(request.form.get('distance') or 0)
-            lie = float(request.form.get('lie') or 0)
+        distance = float(request.form.get('distance') or 0)
+        lie = float(request.form.get('lie') or 0)
 
-            elevation_feet = float(request.form.get('elevation_feet') or 0)
-            elevation_direction = request.form.get('elevation_direction') or 'Flat'
+        elevation_feet = float(request.form.get('elevation_feet') or 0)
+        elevation_direction = request.form.get('elevation_direction') or 'Flat'
 
-            wind_speed = float(request.form.get('wind_speed') or 0)
-            wind_dir = request.form.get('wind_dir') or 'None'
+        wind_speed = float(request.form.get('wind_speed') or 0)
+        wind_dir = request.form.get('wind_dir') or 'None'
 
-            temp = float(request.form.get('temperature') or 70)
-            weather = request.form.get('weather') or 'Clear'
-            flyer_enabled = request.form.get('flyer', 'off') == 'on'
+        temp = float(request.form.get('temperature') or 70)
+        weather = request.form.get('weather') or 'Clear'
+        flyer = request.form.get('flyer') == 'on'
 
-            result = get_adjusted_distance(
-                flag_distance_yards=distance,
-                lie_penalty_percent=lie,
-                temperature_f=temp,
-                weather=weather,
-                wind_speed_mph=wind_speed,
-                wind_direction=wind_dir,
-                flyer=flyer_enabled,
-                elevation_feet=elevation_feet,
-                elevation_direction=elevation_direction
-            )
+        data = get_adjusted_distance(
+            distance, lie, temp, weather,
+            wind_speed, wind_dir, flyer,
+            elevation_feet, elevation_direction
+        )
 
-            summary = (
-                f"Inputs → Distance: {distance} yds | Lie: {lie}% | "
-                f"Elevation: {elevation_feet} ft {elevation_direction} | "
-                f"Wind: {wind_speed} mph {wind_dir} | "
-                f"Temp: {temp}°F | Weather: {weather} | "
-                f"Flyer conditions: {'Yes' if flyer_enabled else 'No'}"
-            )
+        insight = generate_insight(data)
 
-        except Exception as e:
-            result = f"Error: {str(e)}"
+        summary = f"Inputs → Distance: {distance} yds | Lie: {lie}% | Elevation: {elevation_feet} ft {elevation_direction} | Wind: {wind_speed} mph {wind_dir}"
 
-    return render_template('index.html', result=result, summary=summary)
+        result = data
 
+    return render_template('index.html', result=result, summary=summary, insight=insight)
 
-import os
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=False)
+    app.run(debug=True)
