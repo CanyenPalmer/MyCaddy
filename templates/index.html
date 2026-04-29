@@ -1,44 +1,54 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MyCaddy Distance Calculator</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyCaddy</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <div class="container">
-    <h1>MyCaddy Distance Calculator</h1>
 
-    <form method="post">
-      <label for="distance">Distance to Flag (yards):</label>
-      <input type="number" id="distance" name="distance" step="0.1" required>
+<div class="container">
+    <h1>MyCaddy</h1>
 
-      <label for="lie">Lie Penalty:</label>
-      <select id="lie" name="lie">
+```
+<form method="POST">
+
+    <!-- Shot Setup -->
+    <h3>Shot Setup</h3>
+
+    <label>Distance to Flag (yards)</label>
+    <input type="number" name="distance" step="0.1" required>
+
+    <label>Lie</label>
+    <select name="lie">
         <option value="0">Fairway (0%)</option>
-        <option value="10">First-Cut (10%)</option>
-        <option value="25">Light-Rough (25%)</option>
+        <option value="10">First Cut (10%)</option>
+        <option value="25">Light Rough (25%)</option>
         <option value="50">Rough (50%)</option>
-        <option value="75">Deep-Rough (75%)</option>
-        <option value="100">Hazard/Fescue (100%)</option>
-      </select>
+        <option value="75">Deep Rough (75%)</option>
+        <option value="100">Extreme / Buried (100%)</option>
+    </select>
 
-      <label for="elevation_feet">Elevation:</label>
-      <div class="inline-row">
-        <input type="number" id="elevation_feet" name="elevation_feet" step="0.1" placeholder="0 ft">
-        <select id="elevation_direction" name="elevation_direction">
-          <option value="Flat">Flat</option>
-          <option value="Uphill">Uphill</option>
-          <option value="Downhill">Downhill</option>
+    <label>Elevation</label>
+    <div class="inline-row">
+        <input type="number" name="elevation_feet" step="0.1" placeholder="0">
+        <select name="elevation_direction">
+            <option value="Flat">Flat</option>
+            <option value="Uphill">Uphill</option>
+            <option value="Downhill">Downhill</option>
         </select>
-      </div>
+    </div>
 
-      <label for="wind_speed">Wind Speed (mph):</label>
-      <input type="number" id="wind_speed" name="wind_speed" step="0.1" placeholder="0">
+    <!-- Conditions -->
+    <h3>Conditions</h3>
 
-      <label for="wind_dir">Wind Direction:</label>
-      <select id="wind_dir" name="wind_dir">
+    <label>Wind Speed (mph)</label>
+    <input type="number" name="wind_speed" step="0.1" placeholder="0">
+
+    <label>Wind Direction</label>
+    <select name="wind_dir">
         <option value="None">None</option>
         <option value="Into">Into</option>
         <option value="Helping">Helping</option>
@@ -48,34 +58,91 @@
         <option value="Into + Right to Left">Into + Right to Left</option>
         <option value="Helping + Left to Right">Helping + Left to Right</option>
         <option value="Helping + Right to Left">Helping + Right to Left</option>
-      </select>
+    </select>
 
-      <label for="temperature">Temperature (°F):</label>
-      <input type="number" id="temperature" name="temperature" value="70" step="0.1" required>
+    <label>Temperature (°F)</label>
+    <input type="number" name="temperature" value="70" step="0.1">
 
-      <label for="weather">Weather:</label>
-      <select id="weather" name="weather">
+    <label>Weather</label>
+    <select name="weather">
         <option value="Clear">Clear</option>
         <option value="Sunny">Sunny</option>
         <option value="Cloudy">Cloudy</option>
         <option value="Rainy">Rainy</option>
-      </select>
+    </select>
 
-      <label for="flyer" class="checkbox-label">
-        <input type="checkbox" id="flyer" name="flyer">
-        Flyer Conditions Present?
-      </label>
+    <!-- Special -->
+    <h3>Special</h3>
 
-      <button type="submit">Calculate</button>
-    </form>
+    <label class="checkbox-label">
+        <input type="checkbox" name="flyer">
+        Flyer Conditions Present
+    </label>
 
-    {% if summary %}
-      <div class="summary">{{ summary }}</div>
+    <button type="submit">Calculate</button>
+</form>
+
+<!-- RESULT SECTION -->
+{% if result %}
+<div class="result-card">
+
+    <div class="summary">
+        {{ summary }}
+    </div>
+
+    <div class="insight">
+        <strong>Caddy Insight:</strong> {{ insight }}
+    </div>
+
+    {% if result.flyer_range %}
+        <div class="flyer">
+            Flyer range: {{ result.flyer_range[0] }}–{{ result.flyer_range[1] }} yds
+        </div>
+    {% elif result.flyer_warning %}
+        <div class="flyer-warning">
+            Flyer Warning: Deep rough — unpredictable flyer.
+        </div>
     {% endif %}
 
-    {% if result %}
-      <div class="result">{{ result }}</div>
-    {% endif %}
-  </div>
+    <div class="final-yardage">
+        <div class="label">Plays Like</div>
+        <div class="yardage">{{ result.final }} yds</div>
+        <div class="delta">
+            {% set diff = (result.final - result.base) | round(1) %}
+            {% if diff > 0 %}
+                (+{{ diff }} yds)
+            {% elif diff < 0 %}
+                ({{ diff }} yds)
+            {% else %}
+                (no adjustment)
+            {% endif %}
+        </div>
+    </div>
+
+    <details class="breakdown-toggle">
+        <summary>Show Calculation Breakdown</summary>
+        <div class="breakdown">
+            Base: {{ result.base }}<br>
+            Lie: +{{ result.lie }}<br>
+            Elevation: +{{ result.elevation }}<br>
+            Wind: +{{ result.wind }}<br>
+            Temperature: {{ result.temperature }}<br>
+            Weather: +{{ result.weather }}<br>
+            <hr>
+            <strong>Total: {{ result.final }} yds</strong>
+        </div>
+    </details>
+
+</div>
+{% endif %}
+
+<div class="footer">
+    MyCaddy — Plays-Like Carry Engine
+</div>
+```
+
+</div>
+
 </body>
 </html>
+
