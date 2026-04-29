@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,137 +11,161 @@
 <div class="container">
     <h1>MyCaddy</h1>
 
-```
-<form method="POST">
+    <form method="POST">
 
-    <!-- Shot Setup -->
-    <h3>Shot Setup</h3>
+        <h3>Shot Setup</h3>
 
-    <label>Distance to Flag (yards)</label>
-    <input type="number" name="distance" step="0.1" required>
+        <label>Distance to Flag (yards)</label>
+        <input type="number" name="distance" step="0.1" required>
 
-    <label>Lie</label>
-    <select name="lie">
-        <option value="0">Fairway (0%)</option>
-        <option value="10">First Cut (10%)</option>
-        <option value="25">Light Rough (25%)</option>
-        <option value="50">Rough (50%)</option>
-        <option value="75">Deep Rough (75%)</option>
-        <option value="100">Extreme / Buried (100%)</option>
-    </select>
-
-    <label>Elevation</label>
-    <div class="inline-row">
-        <input type="number" name="elevation_feet" step="0.1" placeholder="0">
-        <select name="elevation_direction">
-            <option value="Flat">Flat</option>
-            <option value="Uphill">Uphill</option>
-            <option value="Downhill">Downhill</option>
+        <label>Lie</label>
+        <select name="lie">
+            <option value="0">Fairway (0%)</option>
+            <option value="10">First Cut (10%)</option>
+            <option value="25">Light Rough (25%)</option>
+            <option value="50">Rough (50%)</option>
+            <option value="75">Deep Rough (75%)</option>
+            <option value="100">Extreme / Buried (100%)</option>
         </select>
-    </div>
 
-    <!-- Conditions -->
-    <h3>Conditions</h3>
-
-    <label>Wind Speed (mph)</label>
-    <input type="number" name="wind_speed" step="0.1" placeholder="0">
-
-    <label>Wind Direction</label>
-    <select name="wind_dir">
-        <option value="None">None</option>
-        <option value="Into">Into</option>
-        <option value="Helping">Helping</option>
-        <option value="Left to Right">Left to Right</option>
-        <option value="Right to Left">Right to Left</option>
-        <option value="Into + Left to Right">Into + Left to Right</option>
-        <option value="Into + Right to Left">Into + Right to Left</option>
-        <option value="Helping + Left to Right">Helping + Left to Right</option>
-        <option value="Helping + Right to Left">Helping + Right to Left</option>
-    </select>
-
-    <label>Temperature (°F)</label>
-    <input type="number" name="temperature" value="70" step="0.1">
-
-    <label>Weather</label>
-    <select name="weather">
-        <option value="Clear">Clear</option>
-        <option value="Sunny">Sunny</option>
-        <option value="Cloudy">Cloudy</option>
-        <option value="Rainy">Rainy</option>
-    </select>
-
-    <!-- Special -->
-    <h3>Special</h3>
-
-    <label class="checkbox-label">
-        <input type="checkbox" name="flyer">
-        Flyer Conditions Present
-    </label>
-
-    <button type="submit">Calculate</button>
-</form>
-
-<!-- RESULT SECTION -->
-{% if result %}
-<div class="result-card">
-
-    <div class="summary">
-        {{ summary }}
-    </div>
-
-    <div class="insight">
-        <strong>Caddy Insight:</strong> {{ insight }}
-    </div>
-
-    {% if result.flyer_range %}
-        <div class="flyer">
-            Flyer range: {{ result.flyer_range[0] }}–{{ result.flyer_range[1] }} yds
+        <label>Elevation</label>
+        <div class="inline-row">
+            <input type="number" name="elevation_feet" step="0.1" placeholder="0">
+            <select name="elevation_direction">
+                <option value="Flat">Flat</option>
+                <option value="Uphill">Uphill</option>
+                <option value="Downhill">Downhill</option>
+            </select>
         </div>
-    {% elif result.flyer_warning %}
-        <div class="flyer-warning">
-            Flyer Warning: Deep rough — unpredictable flyer.
+
+        <h3>Conditions</h3>
+
+        <label>Wind Speed (mph)</label>
+        <input type="number" name="wind_speed" step="0.1" placeholder="0">
+
+        <label>Wind Direction</label>
+        <select name="wind_dir">
+            <option value="None">None</option>
+            <option value="Into">Into</option>
+            <option value="Helping">Helping</option>
+            <option value="Left to Right">Left to Right</option>
+            <option value="Right to Left">Right to Left</option>
+            <option value="Into + Left to Right">Into + Left to Right</option>
+            <option value="Into + Right to Left">Into + Right to Left</option>
+            <option value="Helping + Left to Right">Helping + Left to Right</option>
+            <option value="Helping + Right to Left">Helping + Right to Left</option>
+        </select>
+
+        <label>Temperature (°F)</label>
+        <input type="number" name="temperature" value="70" step="0.1">
+
+        <label>Weather</label>
+        <select name="weather">
+            <option value="Clear">Clear</option>
+            <option value="Sunny">Sunny</option>
+            <option value="Cloudy">Cloudy</option>
+            <option value="Rainy">Rainy</option>
+        </select>
+
+        <h3>Special</h3>
+
+        <label class="checkbox-label">
+            <input type="checkbox" name="flyer">
+            Flyer Conditions Present
+        </label>
+
+        <button type="submit">Calculate</button>
+    </form>
+
+    {% if result %}
+    <div class="result-card">
+
+        <div class="summary-card">
+            {{ summary }}
         </div>
+
+        <div class="insight-card">
+            <div class="insight-title">Caddy Insight</div>
+            <div class="insight-text">{{ insight }}</div>
+        </div>
+
+        {% if result.flyer_range %}
+            <div class="flyer-card">
+                <strong>Flyer Range:</strong>
+                {{ result.flyer_range[0] }}–{{ result.flyer_range[1] }} yds
+            </div>
+        {% elif result.flyer_warning %}
+            <div class="flyer-warning-card">
+                <strong>Flyer Warning:</strong>
+                Deep rough selected. Flyer behavior is less reliable from this lie.
+            </div>
+        {% endif %}
+
+        <div class="final-yardage-card">
+            <div class="plays-label">Plays Like</div>
+            <div class="yardage">{{ result.final }} yds</div>
+
+            <div class="delta">
+                {% set diff = (result.final - result.base) | round(1) %}
+                {% if diff > 0 %}
+                    +{{ diff }} yds from base
+                {% elif diff < 0 %}
+                    {{ diff }} yds from base
+                {% else %}
+                    No adjustment from base
+                {% endif %}
+            </div>
+        </div>
+
+        <details class="breakdown-toggle">
+            <summary>Show Calculation Breakdown</summary>
+
+            <div class="breakdown">
+                <div class="breakdown-row">
+                    <span>Base Distance</span>
+                    <span>{{ result.base }} yds</span>
+                </div>
+
+                <div class="breakdown-row">
+                    <span>Lie</span>
+                    <span>{{ "%+.1f"|format(result.lie) }} yds</span>
+                </div>
+
+                <div class="breakdown-row">
+                    <span>Elevation</span>
+                    <span>{{ "%+.1f"|format(result.elevation) }} yds</span>
+                </div>
+
+                <div class="breakdown-row">
+                    <span>Wind</span>
+                    <span>{{ "%+.1f"|format(result.wind) }} yds</span>
+                </div>
+
+                <div class="breakdown-row">
+                    <span>Temperature</span>
+                    <span>{{ "%+.1f"|format(result.temperature) }} yds</span>
+                </div>
+
+                <div class="breakdown-row">
+                    <span>Weather</span>
+                    <span>{{ "%+.1f"|format(result.weather) }} yds</span>
+                </div>
+
+                <div class="breakdown-total">
+                    <span>Total</span>
+                    <span>{{ result.final }} yds</span>
+                </div>
+            </div>
+        </details>
+
+    </div>
     {% endif %}
 
-    <div class="final-yardage">
-        <div class="label">Plays Like</div>
-        <div class="yardage">{{ result.final }} yds</div>
-        <div class="delta">
-            {% set diff = (result.final - result.base) | round(1) %}
-            {% if diff > 0 %}
-                (+{{ diff }} yds)
-            {% elif diff < 0 %}
-                ({{ diff }} yds)
-            {% else %}
-                (no adjustment)
-            {% endif %}
-        </div>
+    <div class="footer">
+        MyCaddy — Plays-Like Carry Engine
     </div>
-
-    <details class="breakdown-toggle">
-        <summary>Show Calculation Breakdown</summary>
-        <div class="breakdown">
-            Base: {{ result.base }}<br>
-            Lie: +{{ result.lie }}<br>
-            Elevation: +{{ result.elevation }}<br>
-            Wind: +{{ result.wind }}<br>
-            Temperature: {{ result.temperature }}<br>
-            Weather: +{{ result.weather }}<br>
-            <hr>
-            <strong>Total: {{ result.final }} yds</strong>
-        </div>
-    </details>
-
-</div>
-{% endif %}
-
-<div class="footer">
-    MyCaddy — Plays-Like Carry Engine
-</div>
-```
 
 </div>
 
 </body>
 </html>
-
