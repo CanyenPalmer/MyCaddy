@@ -16,121 +16,107 @@ body {
 
 h1 {
   text-align: center;
-  color: #003366;
+  margin-bottom: 25px;
 }
 
-form label {
+h3 {
+  margin-top: 25px;
+  margin-bottom: 10px;
+}
+
+label {
   display: block;
   margin-top: 15px;
   font-weight: bold;
 }
 
-input[type="number"],
-select {
+input, select {
   width: 100%;
   padding: 8px;
   margin-top: 5px;
-  border: 1px solid #ccc;
   border-radius: 4px;
 }
 
 .inline-row {
   display: flex;
   gap: 10px;
-  align-items: center;
-}
-
-.inline-row input[type="number"] {
-  flex: 1;
-}
-
-.inline-row select {
-  flex: 1;
-}
-
-input[type="checkbox"] {
-  margin-right: 8px;
-  vertical-align: middle;
-}
-
-.checkbox-label {
-  display: inline-block;
-  margin-top: 15px;
-  font-weight: normal;
 }
 
 button {
   background-color: #B3D7F0;
-  color: #003366;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
+  padding: 12px;
   margin-top: 20px;
-  cursor: pointer;
   width: 100%;
-  font-size: 16px;
   font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-button:hover {
-  background-color: #99c9ea;
+/* RESULT UI */
+
+.result-card {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
-.result,
-.summary {
-  margin-top: 20px;
+.summary-card {
+  padding: 12px;
+  background: #F4FAFE;
+  border-radius: 8px;
+}
+
+.insight-card {
+  padding: 14px;
+  border-left: 4px solid #B3D7F0;
+  background: #F8FBFD;
+  border-radius: 8px;
+}
+
+.flyer-card {
+  padding: 12px;
+  background: #F2F8F2;
+  border-radius: 8px;
+}
+
+.flyer-warning-card {
+  padding: 12px;
+  background: #FFF8E8;
+  border-radius: 8px;
+}
+
+.final-yardage-card {
   text-align: center;
-  font-size: 1.2em;
-  font-weight: bold;
-  color: #003366;
+  padding: 20px;
+  background: #EAF6FD;
+  border-radius: 10px;
 }
 
-@media (max-width: 600px) {
-  body {
-    padding: 10px;
-  }
+.yardage {
+  font-size: 2.4rem;
+  font-weight: bold;
+}
 
-  .container {
-    padding: 20px 15px;
-    margin: 0 10px;
-  }
+.breakdown-toggle summary {
+  background: #B3D7F0;
+  padding: 12px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 4px;
+}
 
-  h1 {
-    font-size: 1.4em;
-  }
+.breakdown {
+  padding: 14px;
+}
 
-  form label {
-    font-size: 0.9em;
-    margin-top: 10px;
-  }
+.breakdown-row {
+  display: flex;
+  justify-content: space-between;
+}
 
-  input[type="number"],
-  select {
-    font-size: 1em;
-    padding: 10px;
-  }
-
-  .inline-row {
-    gap: 8px;
-  }
-
-  button {
-    font-size: 1em;
-    padding: 12px;
-  }
-
-  .summary,
-  .result {
-    font-size: 1em;
-  }
-
-  input[type="checkbox"] {
-    transform: scale(1.2);
-    margin-right: 10px;
-  }
-
-  .checkbox-label {
-    font-size: 1em;
-    margin-top: 10px;
-  }
+.footer {
+  text-align: center;
+  margin-top: 40px;
+  padding-top: 15px;
 }
