@@ -30,8 +30,10 @@ label {
   font-weight: bold;
 }
 
-input, select {
+input,
+select {
   width: 100%;
+  box-sizing: border-box;
   padding: 8px;
   margin-top: 5px;
   border-radius: 4px;
@@ -110,7 +112,8 @@ button {
   padding: 14px;
 }
 
-.breakdown-row {
+.breakdown-row,
+.breakdown-total {
   display: flex;
   justify-content: space-between;
 }
