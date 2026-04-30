@@ -161,6 +161,33 @@
                     {% endif %}
                 {% endif %}
             </div>
+
+            <div class="distance-visual">
+                <div class="distance-visual-labels">
+                    <span>Base {{ distance_bar.base }} yds</span>
+                    <span>Target {{ distance_bar.target }} yds</span>
+                </div>
+
+                <div class="distance-track">
+                    <div
+                        class="distance-base-fill"
+                        style="width: {{ distance_bar.base_width }}%;"
+                    ></div>
+
+                    <div
+                        class="distance-target-fill {{ distance_bar.mode }}"
+                        style="
+                            left: {{ distance_bar.extension_left }}%;
+                            width: {{ distance_bar.extension_width }}%;
+                        "
+                    ></div>
+
+                    <div
+                        class="distance-flag"
+                        style="left: {{ distance_bar.target_width }}%;"
+                    >🚩</div>
+                </div>
+            </div>
         </div>
 
         <div class="insight-card">
