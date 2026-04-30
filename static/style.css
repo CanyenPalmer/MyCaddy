@@ -19,7 +19,7 @@ body::before {
   pointer-events: none;
 }
 
-/* GLASS PANEL (REFINED) */
+/* GLASS PANEL */
 .container {
   max-width: 600px;
   margin: auto;
@@ -49,7 +49,7 @@ h3 {
   margin-bottom: 10px;
 }
 
-/* FORM STYLING */
+/* FORM */
 label {
   display: block;
   margin-top: 15px;
@@ -86,77 +86,63 @@ button {
   border: none;
 }
 
-/* RESULT UI (unchanged for now) */
+/* RESULTS SCREEN */
 
-.result-card {
+.result-screen {
   margin-top: 30px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 20px;
 }
 
-.summary-card {
-  padding: 12px;
-  background: #F4FAFE;
-  border-radius: 8px;
-  color: #003366;
-}
-
-.insight-card {
-  padding: 14px;
+/* CADDY INSIGHT */
+.caddy-insight {
+  background: rgba(255,255,255,0.1);
+  padding: 15px;
   border-left: 4px solid #B3D7F0;
-  background: #F8FBFD;
   border-radius: 8px;
-  color: #003366;
 }
 
-.flyer-card {
-  padding: 12px;
-  background: #F2F8F2;
-  border-radius: 8px;
-  color: #003366;
-}
-
-.flyer-warning-card {
-  padding: 12px;
-  background: #FFF8E8;
-  border-radius: 8px;
-  color: #003366;
-}
-
-.final-yardage-card {
+/* MAIN YARDAGE */
+.main-yardage {
   text-align: center;
-  padding: 20px;
-  background: #EAF6FD;
-  border-radius: 10px;
-  color: #003366;
-}
-
-.yardage {
-  font-size: 2.4rem;
+  font-size: 2.5rem;
   font-weight: bold;
 }
 
-.breakdown-toggle summary {
-  background: #B3D7F0;
-  padding: 12px;
+/* SUPPORTING INFO */
+.supporting-info {
   text-align: center;
-  cursor: pointer;
-  border-radius: 4px;
-  color: #003366;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* METRICS */
+.metric {
+  text-align: center;
+  font-size: 1rem;
+}
+
+/* LIE ICON */
+.lie-icon {
+  font-family: monospace;
+  text-align: center;
+  font-size: 18px;
+  letter-spacing: 2px;
+}
+
+/* BREAKDOWN */
+details {
+  background: rgba(255,255,255,0.1);
+  padding: 10px;
+  border-radius: 6px;
 }
 
 .breakdown {
-  padding: 14px;
-  color: #003366;
+  margin-top: 10px;
 }
 
-.breakdown-row,
-.breakdown-total {
-  display: flex;
-  justify-content: space-between;
-}
-
+/* FOOTER */
 .footer {
   text-align: center;
   margin-top: 40px;
