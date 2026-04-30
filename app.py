@@ -37,6 +37,21 @@ def get_wind_icon(wind_dir):
     return wind_icons.get(wind_dir, "•")
 
 
+def get_impact_class(yardage_effect):
+    yardage_effect = float(yardage_effect)
+
+    if yardage_effect <= -5:
+        return "impact-large-negative"
+    if yardage_effect < 0:
+        return "impact-small-negative"
+    if yardage_effect == 0:
+        return "impact-neutral"
+    if yardage_effect <= 5:
+        return "impact-small-positive"
+
+    return "impact-large-positive"
+
+
 def get_distance_bar(base_distance, target_distance):
     base_distance = max(float(base_distance), 1)
     target_distance = max(float(target_distance), 1)
@@ -111,9 +126,11 @@ def index():
             "elevation_feet": elevation_feet,
             "elevation_direction": elevation_direction,
             "elevation_icon": get_elevation_icon(elevation_direction),
+            "elevation_icon_class": get_impact_class(data["elevation"]),
             "wind_speed": wind_speed,
             "wind_dir": wind_dir,
             "wind_icon": get_wind_icon(wind_dir),
+            "wind_icon_class": get_impact_class(data["wind"]),
             "temperature": temp,
         }
 
