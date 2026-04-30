@@ -146,4 +146,4 @@ def generate_insight(data):
     if direction == "shorter":
         return f"This is playing shorter than the number. Take a little off and hit it {final}."
 
-    return "Good number here. Pick a target and swing freely.
+    return "Good number here. Pick a target and swing freely."
