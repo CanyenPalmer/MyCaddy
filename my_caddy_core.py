@@ -3,26 +3,21 @@ import math
 DIAGONAL_WIND_FACTOR = math.sqrt(2) / 2
 
 
-def _effective_lie_penalty(lie_penalty_percent):
-    lie = max(0.0, min(float(lie_penalty_percent), 30.0))
+def _effective_lie_penalty_range(lie_penalty_percent):
+    lie = float(lie_penalty_percent)
 
-    # UPDATED LIE CURVE
-    lie_curve = [
-        (0.0, 0.00),   # Fairway
-        (5.0, 0.05),   # First Cut
-        (10.0, 0.10),  # Light Rough
-        (25.0, 0.25),  # Rough
-        (30.0, 0.30),  # Heavy Rough
-    ]
+    # UPDATED PGA-STYLE LIE RANGES
+    # Fairway stays deterministic. Other lies use tight caddie-style ranges.
+    lie_ranges = {
+        0.0: (0.00, 0.00, "Fairway"),
+        3.0: (0.02, 0.04, "First Cut"),
+        10.0: (0.08, 0.12, "Light Rough"),
+        20.0: (0.18, 0.22, "Rough"),
+        27.5: (0.25, 0.30, "Heavy Rough"),
+    }
 
-    for i in range(len(lie_curve) - 1):
-        x0, y0 = lie_curve[i]
-        x1, y1 = lie_curve[i + 1]
-        if x0 <= lie <= x1:
-            t = (lie - x0) / (x1 - x0)
-            return y0 + t * (y1 - y0)
-
-    return lie_curve[-1][1]
+    closest_lie = min(lie_ranges.keys(), key=lambda x: abs(x - lie))
+    return lie_ranges[closest_lie]
 
 
 def _elevation_adjustment(feet, direction):
@@ -92,21 +87,32 @@ def get_adjusted_distance(
 ):
     d = float(distance)
 
-    lie_eff = _effective_lie_penalty(lie)
-    lie_adj = d * lie_eff
+    lie_low_eff, lie_high_eff, lie_label = _effective_lie_penalty_range(lie)
+
+    lie_low_adj = d * lie_low_eff
+    lie_high_adj = d * lie_high_eff
+    lie_mid_adj = (lie_low_adj + lie_high_adj) / 2
 
     elev_adj = _elevation_adjustment(elevation_feet, elevation_direction)
     wind_adj = _wind_adjustment(d, wind_speed, wind_dir)
     temp_adj = _temperature_adjustment(d, temp)
     weather_adj = _weather_adjustment(d, weather)
 
-    final = d + lie_adj + elev_adj + wind_adj - temp_adj + weather_adj
-    final = round(final, 1)
+    base_adjusted = d + elev_adj + wind_adj - temp_adj + weather_adj
+
+    final_low = round(base_adjusted + lie_low_adj, 1)
+    final_high = round(base_adjusted + lie_high_adj, 1)
+    final = round((final_low + final_high) / 2, 1)
 
     result = {
         "final": final,
+        "final_low": final_low,
+        "final_high": final_high,
         "base": d,
-        "lie": round(lie_adj, 1),
+        "lie": round(lie_mid_adj, 1),
+        "lie_low": round(lie_low_adj, 1),
+        "lie_high": round(lie_high_adj, 1),
+        "lie_label": lie_label,
         "elevation": round(elev_adj, 1),
         "wind": round(wind_adj, 1),
         "temperature": round(-temp_adj, 1),
