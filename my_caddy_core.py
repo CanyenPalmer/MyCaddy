@@ -150,6 +150,8 @@ def get_adjusted_distance(
         "lie": round(lie_mid_adj, 1),
         "lie_low": round(lie_low_adj, 1),
         "lie_high": round(lie_high_adj, 1),
+        "lie_percent_low": round(lie_low_eff * 100, 1),
+        "lie_percent_high": round(lie_high_eff * 100, 1),
         "lie_label": lie_label,
         "lie_quality": lie_quality,
         "flyer_risk": flyer_risk,
