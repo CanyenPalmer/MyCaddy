@@ -74,8 +74,52 @@
 
     <div class="result-card">
 
-        <div class="summary-card">
-            {{ summary }}
+        <div class="shot-inputs-card">
+            <div class="shot-inputs-title">Shot Inputs</div>
+
+            <div class="shot-input-row">
+                <span class="shot-input-label">Distance</span>
+                <span class="shot-input-value">{{ shot_inputs.distance }} yds</span>
+            </div>
+
+            <div class="shot-input-row">
+                <span class="shot-input-label">Lie</span>
+                <span class="shot-input-value">{{ shot_inputs.lie }}</span>
+            </div>
+
+            <div class="shot-input-row">
+                <span class="shot-input-label">Lie Quality</span>
+                <span class="shot-input-value">
+                    {{ shot_inputs.lie_quality }}
+                    <span class="lie-visual">{{ shot_inputs.lie_icon }}</span>
+                </span>
+            </div>
+
+            <div class="shot-input-row">
+                <span class="shot-input-label">Lie Range</span>
+                <span class="shot-input-value">{{ shot_inputs.lie_range }}</span>
+            </div>
+
+            <div class="shot-input-row">
+                <span class="shot-input-label">Elevation</span>
+                <span class="shot-input-value">
+                    {{ shot_inputs.elevation_feet }} ft {{ shot_inputs.elevation_direction }}
+                    <span class="metric-icon">{{ shot_inputs.elevation_icon }}</span>
+                </span>
+            </div>
+
+            <div class="shot-input-row">
+                <span class="shot-input-label">Wind</span>
+                <span class="shot-input-value">
+                    {{ shot_inputs.wind_speed }} mph {{ shot_inputs.wind_dir }}
+                    <span class="metric-icon">{{ shot_inputs.wind_icon }}</span>
+                </span>
+            </div>
+
+            <div class="shot-input-row">
+                <span class="shot-input-label">Temperature</span>
+                <span class="shot-input-value">{{ shot_inputs.temperature }}°F</span>
+            </div>
         </div>
 
         <div class="insight-card">
