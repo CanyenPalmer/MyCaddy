@@ -25,11 +25,15 @@ body::before {
 }
 
 .container {
-  max-width: 400px;
-  margin: auto;
+  max-width: 600px;
+  width: 100%;
+
+  margin: 40px auto;
+
   background: white;
   color: #003366;
-  padding: 20px;
+
+  padding: 25px;
   border-radius: 10px;
 }
 
