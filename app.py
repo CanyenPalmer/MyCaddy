@@ -23,10 +23,9 @@ def index():
         wind_dir = request.form.get('wind_dir') or 'None'
 
         temp = float(request.form.get('temperature') or 70)
-        weather = request.form.get('weather') or 'Clear'
 
         data = get_adjusted_distance(
-            distance, lie, lie_quality, temp, weather,
+            distance, lie, lie_quality, temp,
             wind_speed, wind_dir,
             elevation_feet, elevation_direction
         )
@@ -38,7 +37,7 @@ def index():
         else:
             lie_range_text = f"{data['lie_percent_low']}–{data['lie_percent_high']}%"
 
-        summary = f"Inputs → Distance: {distance} yds | Lie: {data['lie_label']} | Lie Quality: {lie_quality} | Lie Range: {lie_range_text} | Elevation: {elevation_feet} ft {elevation_direction} | Wind: {wind_speed} mph {wind_dir}"
+        summary = f"Inputs → Distance: {distance} yds | Lie: {data['lie_label']} | Lie Quality: {lie_quality} | Lie Range: {lie_range_text} | Elevation: {elevation_feet} ft {elevation_direction} | Wind: {wind_speed} mph {wind_dir} | Temperature: {temp}°F"
 
         result = data
 
