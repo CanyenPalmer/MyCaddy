@@ -28,8 +28,8 @@ def _effective_lie_penalty_range(lie_penalty_percent, lie_quality):
         },
         20.0: {
             "label": "Rough",
-            "Sitting Up": (0.09, 0.12),
-            "Normal": (0.12, 0.15),
+            "Sitting Up": (0.07, 0.10),
+            "Normal": (0.10, 0.13),
             "Sitting Down": (0.15, 0.18),
         },
         27.5: {
