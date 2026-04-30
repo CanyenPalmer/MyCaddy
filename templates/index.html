@@ -1,117 +1,195 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>MyCaddy</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyCaddy</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
 <div class="container">
+    <h1>MyCaddy</h1>
 
-  <h1>MyCaddy</h1>
+    <form method="POST">
 
-  <!-- INPUT FORM -->
-  <form method="POST">
+        <h3>Shot Setup</h3>
 
-    <label>Distance (yards)</label>
-    <input type="number" name="distance" required>
+        <label>Distance to Flag (yards)</label>
+        <input type="number" name="distance" step="0.1" required>
 
-    <label>Lie</label>
-    <select name="lie">
-      <option>Fairway</option>
-      <option>First Cut</option>
-      <option>Light Rough</option>
-      <option>Rough</option>
-      <option>Heavy Rough</option>
-    </select>
+        <label>Lie</label>
+        <select name="lie">
+            <option value="0">Fairway (0%)</option>
+            <option value="3">First Cut</option>
+            <option value="10">Light Rough</option>
+            <option value="20">Rough</option>
+            <option value="27.5">Heavy Rough</option>
+        </select>
 
-    <label>Lie Quality</label>
-    <select name="lie_quality">
-      <option>Sitting Up</option>
-      <option>Normal</option>
-      <option>Sitting Down</option>
-    </select>
+        <label>Lie Quality</label>
+        <select name="lie_quality">
+            <option value="Normal">Normal</option>
+            <option value="Sitting Up">Sitting Up</option>
+            <option value="Sitting Down">Sitting Down</option>
+        </select>
 
-    <label>Elevation (ft)</label>
-    <input type="number" name="elevation">
+        <label>Elevation</label>
+        <div class="inline-row">
+            <input type="number" name="elevation_feet" step="0.1" placeholder="0">
+            <select name="elevation_direction">
+                <option value="Flat">Flat</option>
+                <option value="Uphill">Uphill</option>
+                <option value="Downhill">Downhill</option>
+            </select>
+        </div>
 
-    <label>Wind Speed (mph)</label>
-    <input type="number" name="wind_speed">
+        <h3>Conditions</h3>
 
-    <label>Wind Direction</label>
-    <input type="text" name="wind_direction" placeholder="Into, Down, Left to Right...">
+        <label>Wind Speed (mph)</label>
+        <input type="number" name="wind_speed" step="0.1" placeholder="0">
 
-    <label>Temperature (°F)</label>
-    <input type="number" name="temperature">
+        <label>Wind Direction</label>
+        <select name="wind_dir">
+            <option value="None">None</option>
+            <option value="Into">Into</option>
+            <option value="Helping">Helping</option>
+            <option value="Left to Right">Left to Right</option>
+            <option value="Right to Left">Right to Left</option>
+            <option value="Into + Left to Right">Into + Left to Right</option>
+            <option value="Into + Right to Left">Into + Right to Left</option>
+            <option value="Helping + Left to Right">Helping + Left to Right</option>
+            <option value="Helping + Right to Left">Helping + Right to Left</option>
+        </select>
 
-    <button type="submit">Calculate Shot</button>
-  </form>
+        <label>Temperature (°F)</label>
+        <input type="number" name="temperature" value="70" step="0.1">
 
-  {% if result %}
-
-  <!-- RESULTS SCREEN -->
-  <div class="result-screen">
-
-    <!-- CADDY INSIGHT -->
-    <div class="caddy-insight">
-      <h3>Caddy Insight</h3>
-      <p>{{ result.insight }}</p>
-    </div>
-
-    <!-- MAIN DISTANCE -->
-    <div class="main-yardage">
-      {{ result.plays_like }} yds
-    </div>
-
-    <!-- SUPPORTING INFO -->
-    <div class="supporting-info">
-      <p>Base: {{ result.base }} yds</p>
-      <p>Adjustment: +{{ result.adjustment }} yds</p>
-    </div>
-
-    <!-- WIND -->
-    <div class="metric">
-      ↙ {{ result.wind_speed }} mph {{ result.wind_description }}
-    </div>
-
-    <!-- ELEVATION -->
-    <div class="metric">
-      {% if result.elevation > 0 %}
-        ↑ +{{ result.elevation }} ft Uphill
-      {% else %}
-        ↓ {{ result.elevation }} ft Downhill
-      {% endif %}
-    </div>
-
-    <!-- LIE ICON -->
-    <div class="lie-icon">
-      {% if result.lie_quality == "Sitting Up" %}
-        ___〇___
-      {% elif result.lie_quality == "Normal" %}
-        ___⌒___
-      {% else %}
-        ___︵___
-      {% endif %}
-    </div>
-
-    <p>+{{ result.lie_adjustment }} yds</p>
-
-    <!-- BREAKDOWN -->
-    <details>
-      <summary>Show Calculation Breakdown</summary>
-      <div class="breakdown">
-        {{ result.breakdown }}
-      </div>
-    </details>
-
-    <!-- NEXT SHOT -->
-    <form method="GET">
-      <button type="submit">Next Shot</button>
+        <button type="submit">Calculate</button>
     </form>
 
-  </div>
+    {% if result %}
+    <div class="result-card">
 
-  {% endif %}
+        <div class="summary-card">
+            {{ summary }}
+        </div>
+
+        <div class="insight-card">
+            <div class="insight-title">Caddy Insight</div>
+            <div class="insight-text">{{ insight }}</div>
+        </div>
+
+        <div class="final-yardage-card">
+            {% if result.final_low == result.final_high %}
+                <div class="plays-label">Plays Like</div>
+                <div class="yardage">{{ result.final }} yds</div>
+            {% else %}
+                <div class="plays-label">Plays Like Range</div>
+                <div class="yardage">{{ result.final_low }}–{{ result.final_high }} yds</div>
+
+                <div class="plays-label">Stock Target</div>
+                <div class="yardage">{{ result.final }} yds</div>
+            {% endif %}
+
+            <div class="delta">
+                {% set diff_low = (result.final_low - result.base) | round(1) %}
+                {% set diff_high = (result.final_high - result.base) | round(1) %}
+
+                {% if diff_low == diff_high %}
+                    {% if diff_low > 0 %}
+                        +{{ diff_low }} yds from base
+                    {% elif diff_low < 0 %}
+                        {{ diff_low }} yds from base
+                    {% else %}
+                        No adjustment from base
+                    {% endif %}
+                {% else %}
+                    {% if diff_low > 0 and diff_high > 0 %}
+                        +{{ diff_low }}–{{ diff_high }} yds from base
+                    {% elif diff_low < 0 and diff_high < 0 %}
+                        {{ diff_low }}–{{ diff_high }} yds from base
+                    {% else %}
+                        {{ diff_low }}–+{{ diff_high }} yds from base
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="insight-card">
+            <div class="insight-title">Flyer Risk</div>
+            <div class="insight-text">{{ result.flyer_risk }}</div>
+        </div>
+
+        {% if result.flyer_range %}
+            <div class="flyer-card">
+                <strong>Possible Flyer Range:</strong>
+                {{ result.flyer_range[0] }}–{{ result.flyer_range[1] }} yds
+                <br>
+                <strong>Flyer Stock Target:</strong>
+                {{ result.flyer_stock }} yds
+            </div>
+        {% endif %}
+
+        <details class="breakdown-toggle">
+            <summary>Show Calculation Breakdown</summary>
+
+            <div class="breakdown">
+                <div class="breakdown-row">
+                    <span>Base Distance</span>
+                    <span>{{ result.base }} yds</span>
+                </div>
+
+                <div class="breakdown-row">
+                    <span>Lie</span>
+                    {% if result.lie_low == result.lie_high %}
+                        <span>{{ "%+.1f"|format(result.lie) }} yds</span>
+                    {% else %}
+                        <span>+{{ result.lie_low }}–{{ result.lie_high }} yds</span>
+                    {% endif %}
+                </div>
+
+                <div class="breakdown-row">
+                    <span>Lie Percentage</span>
+                    {% if result.lie_percent_low == result.lie_percent_high %}
+                        <span>{{ result.lie_percent_low }}%</span>
+                    {% else %}
+                        <span>{{ result.lie_percent_low }}–{{ result.lie_percent_high }}%</span>
+                    {% endif %}
+                </div>
+
+                <div class="breakdown-row">
+                    <span>Elevation</span>
+                    <span>{{ "%+.1f"|format(result.elevation) }} yds</span>
+                </div>
+
+                <div class="breakdown-row">
+                    <span>Wind</span>
+                    <span>{{ "%+.1f"|format(result.wind) }} yds</span>
+                </div>
+
+                <div class="breakdown-row">
+                    <span>Temperature</span>
+                    <span>{{ "%+.1f"|format(result.temperature) }} yds</span>
+                </div>
+
+                <div class="breakdown-total">
+                    <span>Total</span>
+                    {% if result.final_low == result.final_high %}
+                        <span>{{ result.final }} yds</span>
+                    {% else %}
+                        <span>{{ result.final_low }}–{{ result.final_high }} yds</span>
+                    {% endif %}
+                </div>
+            </div>
+        </details>
+
+    </div>
+    {% endif %}
+
+    <div class="footer">
+        MyCaddy — Plays-Like Carry Engine
+    </div>
 
 </div>
 
