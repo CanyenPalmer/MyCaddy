@@ -11,16 +11,24 @@ def generate_insight(data):
     primary = top[0]
     secondary = top[1]
 
+    total_change = abs(data["final"] - data["base"])
+
+    if total_change <= 1:
+        return "Play this one true to its number."
+
+    if total_change <= 2.5:
+        return "There is not much difference in our number."
+
     direction = "longer" if data["final"] > data["base"] else "shorter"
 
     phrases = {
         "wind_longer": "This one's playing into the wind.",
-        "wind_shorter": "This one's helping.",
+        "wind_shorter": "This wind's helping.",
         "lie_longer": "That lie is going to take some off it.",
-        "elevation_longer": "Uphill adds a few.",
-        "elevation_shorter": "Downhill takes some off.",
-        "temperature_longer": "Cool air is holding it up.",
-        "temperature_shorter": "Warm air will let it fly.",
+        "elevation_longer": "Uphill adds a few yards.",
+        "elevation_shorter": "Downhill plays shorter.",
+        "temperature_longer": "It's cold today, so it should fly short.",
+        "temperature_shorter": "Ball is flying further today.",
     }
 
     if primary == "wind":
