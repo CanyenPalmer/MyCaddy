@@ -3,13 +3,11 @@ def generate_insight(data):
         "wind": abs(data["wind"]),
         "lie": abs(data["lie"]),
         "elevation": abs(data["elevation"]),
-        "temperature": abs(data["temperature"]),
-        "weather": abs(data["weather"])
+        "temperature": abs(data["temperature"])
     }
 
     top = sorted(contributions, key=contributions.get, reverse=True)
     primary = top[0]
-    secondary = top[1]
 
     total_change = abs(data["final"] - data["base"])
 
@@ -23,12 +21,12 @@ def generate_insight(data):
 
     phrases = {
         "wind_longer": "This one's playing into the wind.",
-        "wind_shorter": "This wind's helping.",
+        "wind_shorter": "This one's helping.",
         "lie_longer": "That lie is going to take some off it.",
-        "elevation_longer": "Uphill adds a few yards.",
-        "elevation_shorter": "Downhill plays shorter.",
-        "temperature_longer": "It's cold today, so it should fly short.",
-        "temperature_shorter": "Ball is flying further today.",
+        "elevation_longer": "Uphill adds a few.",
+        "elevation_shorter": "Downhill takes some off.",
+        "temperature_longer": "Cool air is holding it up.",
+        "temperature_shorter": "Warm air will let it fly.",
     }
 
     if primary == "wind":
