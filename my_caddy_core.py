@@ -7,28 +7,55 @@ def _effective_lie_penalty_range(lie_penalty_percent, lie_quality):
     lie = float(lie_penalty_percent)
 
     lie_ranges = {
-        0.0: (0.00, 0.00, "Fairway"),
-        3.0: (0.02, 0.04, "First Cut"),
-        10.0: (0.08, 0.12, "Light Rough"),
-        20.0: (0.18, 0.22, "Rough"),
-        27.5: (0.25, 0.30, "Heavy Rough"),
+        0.0: {
+            "label": "Fairway",
+            "flyer_risk": "None",
+            "Sitting Up": (0.00, 0.00),
+            "Normal": (0.00, 0.00),
+            "Sitting Down": (0.00, 0.00),
+        },
+        3.0: {
+            "label": "First Cut",
+            "Sitting Up": (0.01, 0.02),
+            "Normal": (0.02, 0.04),
+            "Sitting Down": (0.03, 0.05),
+        },
+        10.0: {
+            "label": "Light Rough",
+            "Sitting Up": (0.05, 0.07),
+            "Normal": (0.07, 0.10),
+            "Sitting Down": (0.10, 0.12),
+        },
+        20.0: {
+            "label": "Rough",
+            "Sitting Up": (0.09, 0.12),
+            "Normal": (0.12, 0.15),
+            "Sitting Down": (0.15, 0.18),
+        },
+        27.5: {
+            "label": "Heavy Rough",
+            "Sitting Up": (0.14, 0.17),
+            "Normal": (0.17, 0.20),
+            "Sitting Down": (0.20, 0.25),
+        },
     }
 
     closest_lie = min(lie_ranges.keys(), key=lambda x: abs(x - lie))
-    low, high, label = lie_ranges[closest_lie]
+    lie_data = lie_ranges[closest_lie]
+
+    label = lie_data["label"]
+    low, high = lie_data.get(lie_quality, lie_data["Normal"])
 
     if label == "Fairway":
-        return low, high, label, "None"
+        flyer_risk = "None"
+    elif lie_quality == "Sitting Up":
+        flyer_risk = "High"
+    elif lie_quality == "Sitting Down":
+        flyer_risk = "Low"
+    else:
+        flyer_risk = "Medium"
 
-    midpoint = (low + high) / 2
-
-    if lie_quality == "Sitting Up":
-        return low, midpoint, label, "High"
-
-    if lie_quality == "Sitting Down":
-        return midpoint, high, label, "Low"
-
-    return low, high, label, "Medium"
+    return low, high, label, flyer_risk
 
 
 def _elevation_adjustment(feet, direction):
