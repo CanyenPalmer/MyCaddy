@@ -4,15 +4,15 @@ DIAGONAL_WIND_FACTOR = math.sqrt(2) / 2
 
 
 def _effective_lie_penalty(lie_penalty_percent):
-    lie = max(0.0, min(float(lie_penalty_percent), 100.0))
+    lie = max(0.0, min(float(lie_penalty_percent), 50.0))
 
+    # UPDATED LIE CURVE (more realistic + less harsh mid-range)
     lie_curve = [
-        (0.0, 0.00),
-        (10.0, 0.06),
-        (25.0, 0.12),
-        (50.0, 0.22),
-        (75.0, 0.30),
-        (100.0, 0.40),
+        (0.0, 0.00),   # Fairway
+        (5.0, 0.02),   # First Cut
+        (20.0, 0.07),  # Light Rough
+        (35.0, 0.12),  # Rough
+        (50.0, 0.18),  # Heavy Rough
     ]
 
     for i in range(len(lie_curve) - 1):
@@ -115,8 +115,9 @@ def get_adjusted_distance(
         "lie_input": lie
     }
 
+    # Flyer logic remains unchanged
     if flyer:
-        if lie <= 50:
+        if lie <= 35:
             result["flyer_range"] = (
                 round(final * 0.90, 1),
                 round(final * 0.95, 1)
