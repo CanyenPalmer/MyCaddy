@@ -88,13 +88,6 @@ MyCaddy addresses the variability in golf shot distances caused by environmental
 
 ---
 
-### 🌧️ Weather Effects
-
-* Rain conditions apply a **carry penalty**
-* Designed to reflect wet-contact inefficiencies
-
----
-
 ### 🎯 Flyer Logic (Context-Aware)
 
 * User-controlled (not assumed)
