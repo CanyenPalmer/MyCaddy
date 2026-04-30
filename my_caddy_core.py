@@ -4,15 +4,15 @@ DIAGONAL_WIND_FACTOR = math.sqrt(2) / 2
 
 
 def _effective_lie_penalty(lie_penalty_percent):
-    lie = max(0.0, min(float(lie_penalty_percent), 50.0))
+    lie = max(0.0, min(float(lie_penalty_percent), 30.0))
 
-    # UPDATED LIE CURVE (more realistic + less harsh mid-range)
+    # UPDATED LIE CURVE
     lie_curve = [
         (0.0, 0.00),   # Fairway
-        (5.0, 0.02),   # First Cut
-        (20.0, 0.07),  # Light Rough
-        (35.0, 0.12),  # Rough
-        (50.0, 0.18),  # Heavy Rough
+        (5.0, 0.05),   # First Cut
+        (10.0, 0.10),  # Light Rough
+        (25.0, 0.25),  # Rough
+        (30.0, 0.30),  # Heavy Rough
     ]
 
     for i in range(len(lie_curve) - 1):
