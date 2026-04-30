@@ -192,14 +192,14 @@ button {
 }
 
 .distance-visual {
-  margin-top: 16px;
+  margin-top: 24px;
 }
 
 .distance-visual-labels {
   display: flex;
   justify-content: space-between;
   gap: 12px;
-  margin-bottom: 6px;
+  margin-bottom: 12px;
   font-size: 0.82rem;
   font-weight: bold;
   color: rgba(0, 51, 102, 0.82);
@@ -237,9 +237,9 @@ button {
 
 .distance-flag {
   position: absolute;
-  top: -15px;
+  top: -10px;
   transform: translateX(-50%);
-  font-size: 1rem;
+  font-size: 0.95rem;
   line-height: 1;
 }
 
