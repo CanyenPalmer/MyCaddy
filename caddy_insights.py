@@ -75,75 +75,75 @@ def generate_insight(data):
     # Lie-first caddy reads
     if lie_label == "Fairway":
         if direction == "longer":
-            return f"Clean lie, but it is playing a little longer. Play the {final} number with confidence."
+            return f"Clean lie, but it is playing a little longer. Play it {final}."
         if direction == "shorter":
             return f"Clean lie and it is playing shorter. Smooth swing here—do not force it."
-        return "Good lie, clean number. This is one you can trust."
+        return "Good lie, trust the number."
 
     if lie_label == "First Cut":
         if lie_quality == "Sitting Up":
             if flyer_risk in ["Medium", "High", "Medium-High"]:
-                return "It is sitting up in the first cut. This can come out a touch hot, so control the strike."
-            return "Good lie in the first cut. Should come out pretty clean."
+                return "It is sitting up in the first cut, it might come out hot."
+            return "Good lie in the first cut. Should come out clean."
         if lie_quality == "Sitting Down":
-            return "It is sitting down just enough to matter. Stay committed and expect it to come out a little soft."
-        return "First cut lie here. Nothing scary, but make sure you catch it clean."
+            return "It's sitting down. Expect it to come out a little soft."
+        return "Decent lie in the first cut, might take some spin off."
 
     if lie_label == "Light Rough":
         if lie_quality == "Sitting Up":
-            return "Good lie in the light rough. This one can jump a bit, so stay smooth through it."
+            return "Good lie in the light rough. This one can jump a bit, so swing smooth."
         if lie_quality == "Sitting Down":
-            return "The ball is sitting down some. Expect a softer launch and make sure you get through the grass."
-        return "Light rough here. Give it a committed swing and trust the adjusted number."
+            return "The ball is sitting down some. Might come up short, make sure you take enough club."
+        return "Light rough here,make a committed swing."
 
     if lie_label == "Rough":
         if lie_quality == "Sitting Up":
-            return "It is sitting up in the rough. Could jump on you, so keep the strike controlled."
+            return "It's sitting up in the rough, could jump a bit."
         if lie_quality == "Sitting Down":
-            return "This lie is not giving you much help. Get through it and play the full number."
+            return "This lie is not giving you much help. Make sure you get through it."
         return "Rough lie here. Ball-first contact is the priority."
 
     if lie_label == "Heavy Rough":
         if lie_quality == "Sitting Up":
-            return "It is sitting up, but heavy rough is still unpredictable. Keep it simple and make solid contact."
+            return "It is sitting up, but heavy rough is still unpredictable. Catch it clean."
         if lie_quality == "Sitting Down":
-            return "Tough lie here. Do not get cute—get it out clean and take your number."
-        return "Heavy rough here. Contact matters more than perfection."
+            return "Tough lie here. Do not get cute, get it in play."
+        return "Heavy rough here. Take enough club to get out."
 
     # Primary condition reads
     if primary == "wind":
         if wind > 5:
-            return f"Wind is the big factor. This is playing longer, so take enough club and flight it steady."
+            return f"Wind is the big factor. This is playing longer, so take enough club and flight it down."
         if wind > 0:
-            return "There is a little hurt from the wind. Add just enough and stay committed."
+            return "There is a little hurt from the wind. Add just enough and commit."
         if wind < -5:
-            return "Wind is helping a good bit. Take something off and do not chase extra speed."
-        return "The wind is helping slightly. Smooth swing should cover it."
+            return "Wind is helping a good bit. Take some off of it and swing smooth."
+        return "The wind is helping slightly. Expect it to go a little longer."
 
     if primary == "elevation":
         if elevation > 5:
-            return "Uphill is adding real yardage here. Take enough club and finish the swing."
+            return "Uphill adds some yards here. Take enough club to get up."
         if elevation > 0:
-            return "A little uphill here. Add a touch and trust it."
+            return "A little uphill here. Should only add a few yards at most."
         if elevation < -5:
-            return "Downhill is taking a good amount off. Do not overclub this one."
-        return "Slight downhill help. Play it a shade shorter."
+            return "Shot plays way downhill here. Take some off it or club down."
+        return "Slight downhill help. It's gonna play a bit shorter to the number."
 
     if primary == "lie":
         if lie > 8:
-            return "The lie is adding most of the yardage. Make sure you have enough club to get it there."
-        return "The lie is the main adjustment. Trust the number and make clean contact."
+            return "The lie is hurting the most. Make sure you have enough club."
+        return "The lie is the main concern. Trust the number and make clean contact."
 
     if primary == "temperature":
         if temperature > 0:
-            return "Cooler air is making this play a little longer. Take the extra yardage seriously."
-        return "Warm air is helping it carry. Smooth swing and let it fly."
+            return "Cold today so it'll play a little longer."
+        return "It's hot out, should play a little shorter."
 
     # Final fallback
     if direction == "longer":
-        return f"This is playing a little longer than the number. Treat it like {final} and commit."
+        return f"This is playing a little longer than the number. Treat it like {final}."
 
     if direction == "shorter":
-        return f"This is playing shorter than the number. Take a little off and trust {final}."
+        return f"This is playing shorter than the number. Take a little off and hit it {final}."
 
-    return "Good number here. Pick the line and make your normal swing."
+    return "Good number here. Pick a target and swing freely.
