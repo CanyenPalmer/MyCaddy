@@ -49,13 +49,30 @@ def _effective_lie_penalty_range(lie_penalty_percent, lie_quality):
     if label == "Fairway":
         flyer_risk = "None"
     elif lie_quality == "Sitting Up":
-        flyer_risk = "High"
+        sitting_up_risks = {
+            "First Cut": "Medium",
+            "Light Rough": "High",
+            "Rough": "High",
+            "Heavy Rough": "Medium-High",
+        }
+        flyer_risk = sitting_up_risks.get(label, "High")
     elif lie_quality == "Sitting Down":
         flyer_risk = "Low"
     else:
         flyer_risk = "Medium"
 
     return low, high, label, flyer_risk
+
+
+def _flyer_window_for_lie(lie_label):
+    flyer_windows = {
+        "First Cut": (0.95, 0.98),
+        "Light Rough": (0.92, 0.96),
+        "Rough": (0.90, 0.95),
+        "Heavy Rough": (0.88, 0.94),
+    }
+
+    return flyer_windows.get(lie_label)
 
 
 def _elevation_adjustment(feet, direction):
@@ -153,11 +170,19 @@ def get_adjusted_distance(
         "lie_input": lie
     }
 
-    if flyer_risk == "High":
-        result["flyer_range"] = (
-            round(final * 0.90, 1),
-            round(final * 0.95, 1)
-        )
-        result["flyer_stock"] = round((result["flyer_range"][0] + result["flyer_range"][1]) / 2, 1)
+    if lie_quality == "Sitting Up" and lie_label != "Fairway":
+        flyer_window = _flyer_window_for_lie(lie_label)
+
+        if flyer_window:
+            low_factor, high_factor = flyer_window
+
+            result["flyer_range"] = (
+                round(final * low_factor, 1),
+                round(final * high_factor, 1)
+            )
+            result["flyer_stock"] = round(
+                (result["flyer_range"][0] + result["flyer_range"][1]) / 2,
+                1
+            )
 
     return result
