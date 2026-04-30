@@ -70,12 +70,6 @@ def _temperature_adjustment(d, temp):
     return d * ((temp - 70) / 10) * 0.01
 
 
-def _weather_adjustment(d, weather):
-    if weather.lower() == "rainy":
-        return d * 0.02
-    return 0
-
-
 def _wind_component(speed, direction):
     if direction == "Into":
         return speed
@@ -117,7 +111,6 @@ def get_adjusted_distance(
     lie,
     lie_quality,
     temp,
-    weather,
     wind_speed,
     wind_dir,
     elevation_feet,
@@ -134,9 +127,8 @@ def get_adjusted_distance(
     elev_adj = _elevation_adjustment(elevation_feet, elevation_direction)
     wind_adj = _wind_adjustment(d, wind_speed, wind_dir)
     temp_adj = _temperature_adjustment(d, temp)
-    weather_adj = _weather_adjustment(d, weather)
 
-    base_adjusted = d + elev_adj + wind_adj - temp_adj + weather_adj
+    base_adjusted = d + elev_adj + wind_adj - temp_adj
 
     final_low = round(base_adjusted + lie_low_adj, 1)
     final_high = round(base_adjusted + lie_high_adj, 1)
@@ -158,7 +150,6 @@ def get_adjusted_distance(
         "elevation": round(elev_adj, 1),
         "wind": round(wind_adj, 1),
         "temperature": round(-temp_adj, 1),
-        "weather": round(weather_adj, 1),
         "lie_input": lie
     }
 
