@@ -37,12 +37,42 @@ def get_wind_icon(wind_dir):
     return wind_icons.get(wind_dir, "•")
 
 
+def get_distance_bar(base_distance, target_distance):
+    base_distance = max(float(base_distance), 1)
+    target_distance = max(float(target_distance), 1)
+
+    if target_distance >= base_distance:
+        visual_max = min(target_distance, base_distance * 1.15)
+        base_width = (base_distance / visual_max) * 100
+        target_width = 100
+        extension_left = base_width
+        extension_width = max(0, target_width - base_width)
+        mode = "longer"
+    else:
+        base_width = 100
+        target_width = (target_distance / base_distance) * 100
+        extension_left = 0
+        extension_width = target_width
+        mode = "shorter"
+
+    return {
+        "mode": mode,
+        "base_width": round(base_width, 2),
+        "target_width": round(target_width, 2),
+        "extension_left": round(extension_left, 2),
+        "extension_width": round(extension_width, 2),
+        "base": round(base_distance, 1),
+        "target": round(target_distance, 1),
+    }
+
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     result = None
     summary = None
     insight = None
     shot_inputs = None
+    distance_bar = None
 
     if request.method == 'POST':
         distance = float(request.form.get('distance') or 0)
@@ -87,6 +117,8 @@ def index():
             "temperature": temp,
         }
 
+        distance_bar = get_distance_bar(data["base"], data["final"])
+
         result = data
 
     return render_template(
@@ -94,7 +126,8 @@ def index():
         result=result,
         summary=summary,
         insight=insight,
-        shot_inputs=shot_inputs
+        shot_inputs=shot_inputs,
+        distance_bar=distance_bar
     )
 
 
