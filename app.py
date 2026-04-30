@@ -21,7 +21,6 @@ def get_elevation_icon(elevation_direction):
     return "→"
 
 
-# ✅ FIXED: Force TEXT arrows instead of emoji arrows
 def get_wind_icon(wind_dir):
     wind_icons = {
         "None": "•",
@@ -130,7 +129,7 @@ def index():
             "elevation_icon_class": get_impact_class(data["elevation"]),
             "wind_speed": wind_speed,
             "wind_dir": wind_dir,
-            "wind_icon": get_wind_icon(wind_dir),  # ✅ now always text arrows
+            "wind_icon": get_wind_icon(wind_dir),  
             "wind_icon_class": get_impact_class(data["wind"]),
             "temperature": temp,
         }
