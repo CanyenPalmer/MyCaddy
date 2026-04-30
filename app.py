@@ -5,11 +5,44 @@ from caddy_insights import generate_insight
 app = Flask(__name__)
 
 
+def get_lie_icon(lie_label, lie_quality):
+    if lie_label == "Fairway" or lie_quality == "Sitting Up":
+        return "___〇___"
+    if lie_quality == "Sitting Down":
+        return "___︵___"
+    return "___⌒___"
+
+
+def get_elevation_icon(elevation_direction):
+    if elevation_direction == "Uphill":
+        return "↑"
+    if elevation_direction == "Downhill":
+        return "↓"
+    return "→"
+
+
+def get_wind_icon(wind_dir):
+    wind_icons = {
+        "None": "•",
+        "Into": "↓",
+        "Helping": "↑",
+        "Left to Right": "→",
+        "Right to Left": "←",
+        "Into + Left to Right": "↘",
+        "Into + Right to Left": "↙",
+        "Helping + Left to Right": "↗",
+        "Helping + Right to Left": "↖",
+    }
+
+    return wind_icons.get(wind_dir, "•")
+
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     result = None
     summary = None
     insight = None
+    shot_inputs = None
 
     if request.method == 'POST':
         distance = float(request.form.get('distance') or 0)
@@ -39,9 +72,30 @@ def index():
 
         summary = f"Inputs → Distance: {distance} yds | Lie: {data['lie_label']} | Lie Quality: {lie_quality} | Lie Range: {lie_range_text} | Elevation: {elevation_feet} ft {elevation_direction} | Wind: {wind_speed} mph {wind_dir} | Temperature: {temp}°F"
 
+        shot_inputs = {
+            "distance": distance,
+            "lie": data["lie_label"],
+            "lie_quality": lie_quality,
+            "lie_icon": get_lie_icon(data["lie_label"], lie_quality),
+            "lie_range": lie_range_text,
+            "elevation_feet": elevation_feet,
+            "elevation_direction": elevation_direction,
+            "elevation_icon": get_elevation_icon(elevation_direction),
+            "wind_speed": wind_speed,
+            "wind_dir": wind_dir,
+            "wind_icon": get_wind_icon(wind_dir),
+            "temperature": temp,
+        }
+
         result = data
 
-    return render_template('index.html', result=result, summary=summary, insight=insight)
+    return render_template(
+        'index.html',
+        result=result,
+        summary=summary,
+        insight=insight,
+        shot_inputs=shot_inputs
+    )
 
 
 if __name__ == '__main__':
