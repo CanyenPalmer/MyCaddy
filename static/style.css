@@ -164,6 +164,46 @@ button {
   color: #003366;
 }
 
+/* CADDY PROFILE CARD */
+
+.caddy-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  padding: 14px;
+  border-left: 4px solid #B3D7F0;
+  background: rgba(248, 251, 253, 0.92);
+  border-radius: 8px;
+  color: #003366;
+}
+
+.caddy-avatar {
+  flex: 0 0 auto;
+}
+
+.caddy-avatar img {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  border: 2px solid rgba(179, 215, 240, 0.95);
+}
+
+.caddy-content {
+  flex: 1;
+}
+
+.caddy-title {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.caddy-text {
+  line-height: 1.4;
+}
+
 .flyer-card {
   padding: 12px;
   background: rgba(242, 248, 242, 0.92);
