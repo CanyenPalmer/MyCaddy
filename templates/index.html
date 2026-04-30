@@ -152,6 +152,15 @@
                 </div>
 
                 <div class="breakdown-row">
+                    <span>Lie Percentage</span>
+                    {% if result.lie_percent_low == result.lie_percent_high %}
+                        <span>{{ result.lie_percent_low }}%</span>
+                    {% else %}
+                        <span>{{ result.lie_percent_low }}–{{ result.lie_percent_high }}%</span>
+                    {% endif %}
+                </div>
+
+                <div class="breakdown-row">
                     <span>Elevation</span>
                     <span>{{ "%+.1f"|format(result.elevation) }} yds</span>
                 </div>
