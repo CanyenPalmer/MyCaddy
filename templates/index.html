@@ -11,6 +11,8 @@
 <div class="container">
     <h1>MyCaddy</h1>
 
+    {% if not result %}
+
     <form method="POST">
 
         <h3>Shot Setup</h3>
@@ -68,7 +70,8 @@
         <button type="submit">Calculate</button>
     </form>
 
-    {% if result %}
+    {% else %}
+
     <div class="result-card">
 
         <div class="summary-card">
@@ -184,7 +187,12 @@
             </div>
         </details>
 
+        <form method="GET">
+            <button type="submit">Next Shot</button>
+        </form>
+
     </div>
+
     {% endif %}
 
     <div class="footer">
