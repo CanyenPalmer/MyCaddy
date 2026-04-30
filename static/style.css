@@ -95,6 +95,60 @@ button {
   gap: 14px;
 }
 
+/* STRUCTURED SHOT INPUTS */
+
+.shot-inputs-card {
+  padding: 14px;
+  background: rgba(244, 250, 254, 0.92);
+  border-radius: 8px;
+  color: #003366;
+}
+
+.shot-inputs-title {
+  font-weight: bold;
+  font-size: 1.05rem;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.shot-input-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 7px 0;
+  border-bottom: 1px solid rgba(0, 51, 102, 0.12);
+}
+
+.shot-input-row:last-child {
+  border-bottom: none;
+}
+
+.shot-input-label {
+  font-weight: bold;
+  flex: 0 0 38%;
+}
+
+.shot-input-value {
+  text-align: right;
+  flex: 1;
+}
+
+.lie-visual {
+  display: inline-block;
+  margin-left: 6px;
+  font-family: monospace;
+  letter-spacing: 1px;
+  font-weight: bold;
+}
+
+.metric-icon {
+  display: inline-block;
+  margin-left: 6px;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
 .summary-card {
   padding: 12px;
   background: rgba(244, 250, 254, 0.92);
