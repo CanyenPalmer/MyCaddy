@@ -149,6 +149,26 @@ button {
   font-size: 1.1rem;
 }
 
+.impact-large-negative {
+  color: #0B6B2E;
+}
+
+.impact-small-negative {
+  color: #4CAF50;
+}
+
+.impact-neutral {
+  color: #607D8B;
+}
+
+.impact-small-positive {
+  color: #D6A800;
+}
+
+.impact-large-positive {
+  color: #C62828;
+}
+
 .summary-card {
   padding: 12px;
   background: rgba(244, 250, 254, 0.92);
