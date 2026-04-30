@@ -27,6 +27,13 @@
             <option value="27.5">Heavy Rough (25–30%)</option>
         </select>
 
+        <label>Lie Quality</label>
+        <select name="lie_quality">
+            <option value="Normal">Normal</option>
+            <option value="Sitting Up">Sitting Up</option>
+            <option value="Sitting Down">Sitting Down</option>
+        </select>
+
         <label>Elevation</label>
         <div class="inline-row">
             <input type="number" name="elevation_feet" step="0.1" placeholder="0">
@@ -66,13 +73,6 @@
             <option value="Rainy">Rainy</option>
         </select>
 
-        <h3>Special</h3>
-
-        <label class="checkbox-label">
-            <input type="checkbox" name="flyer">
-            Flyer Conditions Present
-        </label>
-
         <button type="submit">Calculate</button>
     </form>
 
@@ -88,25 +88,14 @@
             <div class="insight-text">{{ insight }}</div>
         </div>
 
-        {% if result.flyer_range %}
-            <div class="flyer-card">
-                <strong>Flyer Range:</strong>
-                {{ result.flyer_range[0] }}–{{ result.flyer_range[1] }} yds
-            </div>
-        {% elif result.flyer_warning %}
-            <div class="flyer-warning-card">
-                <strong>Flyer Warning:</strong>
-                Heavy rough selected. Flyer behavior is less reliable from this lie.
-            </div>
-        {% endif %}
-
         <div class="final-yardage-card">
-            <div class="plays-label">Plays Like Range</div>
-
             {% if result.final_low == result.final_high %}
+                <div class="plays-label">Plays Like</div>
                 <div class="yardage">{{ result.final }} yds</div>
             {% else %}
+                <div class="plays-label">Plays Like Range</div>
                 <div class="yardage">{{ result.final_low }}–{{ result.final_high }} yds</div>
+
                 <div class="plays-label">Stock Target</div>
                 <div class="yardage">{{ result.final }} yds</div>
             {% endif %}
@@ -128,6 +117,21 @@
                 {% endif %}
             </div>
         </div>
+
+        <div class="insight-card">
+            <div class="insight-title">Flyer Risk</div>
+            <div class="insight-text">{{ result.flyer_risk }}</div>
+        </div>
+
+        {% if result.flyer_range %}
+            <div class="flyer-card">
+                <strong>Possible Flyer Range:</strong>
+                {{ result.flyer_range[0] }}–{{ result.flyer_range[1] }} yds
+                <br>
+                <strong>Flyer Stock Target:</strong>
+                {{ result.flyer_stock }} yds
+            </div>
+        {% endif %}
 
         <details class="breakdown-toggle">
             <summary>Show Calculation Breakdown</summary>
