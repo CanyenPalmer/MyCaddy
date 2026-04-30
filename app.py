@@ -33,7 +33,12 @@ def index():
 
         insight = generate_insight(data)
 
-        summary = f"Inputs → Distance: {distance} yds | Lie: {data['lie_label']} | Lie Quality: {lie_quality} | Elevation: {elevation_feet} ft {elevation_direction} | Wind: {wind_speed} mph {wind_dir}"
+        if data["lie_percent_low"] == data["lie_percent_high"]:
+            lie_range_text = f"{data['lie_percent_low']}%"
+        else:
+            lie_range_text = f"{data['lie_percent_low']}–{data['lie_percent_high']}%"
+
+        summary = f"Inputs → Distance: {distance} yds | Lie: {data['lie_label']} | Lie Quality: {lie_quality} | Lie Range: {lie_range_text} | Elevation: {elevation_feet} ft {elevation_direction} | Wind: {wind_speed} mph {wind_dir}"
 
         result = data
 
