@@ -3,11 +3,9 @@ import math
 DIAGONAL_WIND_FACTOR = math.sqrt(2) / 2
 
 
-def _effective_lie_penalty_range(lie_penalty_percent):
+def _effective_lie_penalty_range(lie_penalty_percent, lie_quality):
     lie = float(lie_penalty_percent)
 
-    # UPDATED PGA-STYLE LIE RANGES
-    # Fairway stays deterministic. Other lies use tight caddie-style ranges.
     lie_ranges = {
         0.0: (0.00, 0.00, "Fairway"),
         3.0: (0.02, 0.04, "First Cut"),
@@ -17,7 +15,20 @@ def _effective_lie_penalty_range(lie_penalty_percent):
     }
 
     closest_lie = min(lie_ranges.keys(), key=lambda x: abs(x - lie))
-    return lie_ranges[closest_lie]
+    low, high, label = lie_ranges[closest_lie]
+
+    if label == "Fairway":
+        return low, high, label, "None"
+
+    midpoint = (low + high) / 2
+
+    if lie_quality == "Sitting Up":
+        return low, midpoint, label, "High"
+
+    if lie_quality == "Sitting Down":
+        return midpoint, high, label, "Low"
+
+    return low, high, label, "Medium"
 
 
 def _elevation_adjustment(feet, direction):
@@ -77,17 +88,17 @@ def _wind_adjustment(d, speed, direction):
 def get_adjusted_distance(
     distance,
     lie,
+    lie_quality,
     temp,
     weather,
     wind_speed,
     wind_dir,
-    flyer,
     elevation_feet,
     elevation_direction
 ):
     d = float(distance)
 
-    lie_low_eff, lie_high_eff, lie_label = _effective_lie_penalty_range(lie)
+    lie_low_eff, lie_high_eff, lie_label, flyer_risk = _effective_lie_penalty_range(lie, lie_quality)
 
     lie_low_adj = d * lie_low_eff
     lie_high_adj = d * lie_high_eff
@@ -113,22 +124,20 @@ def get_adjusted_distance(
         "lie_low": round(lie_low_adj, 1),
         "lie_high": round(lie_high_adj, 1),
         "lie_label": lie_label,
+        "lie_quality": lie_quality,
+        "flyer_risk": flyer_risk,
         "elevation": round(elev_adj, 1),
         "wind": round(wind_adj, 1),
         "temperature": round(-temp_adj, 1),
         "weather": round(weather_adj, 1),
-        "flyer": flyer,
         "lie_input": lie
     }
 
-    # Flyer logic remains unchanged
-    if flyer:
-        if lie <= 35:
-            result["flyer_range"] = (
-                round(final * 0.90, 1),
-                round(final * 0.95, 1)
-            )
-        else:
-            result["flyer_warning"] = True
+    if flyer_risk == "High":
+        result["flyer_range"] = (
+            round(final * 0.90, 1),
+            round(final * 0.95, 1)
+        )
+        result["flyer_stock"] = round((result["flyer_range"][0] + result["flyer_range"][1]) / 2, 1)
 
     return result
