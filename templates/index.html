@@ -65,14 +65,6 @@
         <label>Temperature (°F)</label>
         <input type="number" name="temperature" value="70" step="0.1">
 
-        <label>Weather</label>
-        <select name="weather">
-            <option value="Clear">Clear</option>
-            <option value="Sunny">Sunny</option>
-            <option value="Cloudy">Cloudy</option>
-            <option value="Rainy">Rainy</option>
-        </select>
-
         <button type="submit">Calculate</button>
     </form>
 
@@ -173,11 +165,6 @@
                 <div class="breakdown-row">
                     <span>Temperature</span>
                     <span>{{ "%+.1f"|format(result.temperature) }} yds</span>
-                </div>
-
-                <div class="breakdown-row">
-                    <span>Weather</span>
-                    <span>{{ "%+.1f"|format(result.weather) }} yds</span>
                 </div>
 
                 <div class="breakdown-total">
