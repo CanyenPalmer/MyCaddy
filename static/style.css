@@ -191,6 +191,58 @@ button {
   font-weight: bold;
 }
 
+.distance-visual {
+  margin-top: 16px;
+}
+
+.distance-visual-labels {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 6px;
+  font-size: 0.82rem;
+  font-weight: bold;
+  color: rgba(0, 51, 102, 0.82);
+}
+
+.distance-track {
+  position: relative;
+  height: 10px;
+  width: 100%;
+  border-radius: 999px;
+  background: rgba(0, 51, 102, 0.12);
+  overflow: visible;
+}
+
+.distance-base-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(90, 105, 120, 0.55);
+}
+
+.distance-target-fill {
+  position: absolute;
+  top: 0;
+  height: 10px;
+  border-radius: 999px;
+  background: #3FAE5A;
+}
+
+.distance-target-fill.shorter {
+  left: 0;
+}
+
+.distance-flag {
+  position: absolute;
+  top: -15px;
+  transform: translateX(-50%);
+  font-size: 1rem;
+  line-height: 1;
+}
+
 .breakdown-toggle summary {
   background: #B3D7F0;
   padding: 12px;
