@@ -105,7 +105,13 @@
                         No adjustment from base
                     {% endif %}
                 {% else %}
-                    +{{ diff_low }}–{{ diff_high }} yds from base
+                    {% if diff_low > 0 and diff_high > 0 %}
+                        +{{ diff_low }}–{{ diff_high }} yds from base
+                    {% elif diff_low < 0 and diff_high < 0 %}
+                        {{ diff_low }}–{{ diff_high }} yds from base
+                    {% else %}
+                        {{ diff_low }}–+{{ diff_high }} yds from base
+                    {% endif %}
                 {% endif %}
             </div>
         </div>
