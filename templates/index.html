@@ -104,7 +104,7 @@
                 <span class="shot-input-label">Elevation</span>
                 <span class="shot-input-value">
                     {{ shot_inputs.elevation_feet }} ft {{ shot_inputs.elevation_direction }}
-                    <span class="metric-icon">{{ shot_inputs.elevation_icon }}</span>
+                    <span class="metric-icon {{ shot_inputs.elevation_icon_class }}">{{ shot_inputs.elevation_icon }}</span>
                 </span>
             </div>
 
@@ -112,7 +112,7 @@
                 <span class="shot-input-label">Wind</span>
                 <span class="shot-input-value">
                     {{ shot_inputs.wind_speed }} mph {{ shot_inputs.wind_dir }}
-                    <span class="metric-icon">{{ shot_inputs.wind_icon }}</span>
+                    <span class="metric-icon {{ shot_inputs.wind_icon_class }}">{{ shot_inputs.wind_icon }}</span>
                 </span>
             </div>
 
