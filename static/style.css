@@ -39,14 +39,43 @@ body::before {
   z-index: 1;
 }
 
+/* BRAND HEADER */
+
+.brand-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
 h1 {
   text-align: center;
-  margin-bottom: 25px;
+  margin: 0;
+
+  font-size: 2.35rem;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  font-weight: 800;
+
+  color: #F5E6B8;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
+}
+
+.brand-subtitle {
+  margin-top: 8px;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(245, 230, 184, 0.86);
 }
 
 h3 {
-  margin-top: 25px;
-  margin-bottom: 10px;
+  margin-top: 28px;
+  margin-bottom: 12px;
+
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+
+  color: #F5E6B8;
 }
 
 /* FORM STYLING */
@@ -54,22 +83,21 @@ label {
   display: block;
   margin-top: 15px;
   font-weight: bold;
-  color: white;
+  color: rgba(255, 255, 255, 0.96);
 }
 
 input,
 select {
   width: 100%;
   box-sizing: border-box;
-  padding: 8px;
+  padding: 10px;
   margin-top: 5px;
-  border-radius: 4px;
+  border-radius: 6px;
 
-  background: rgba(255, 255, 255, 0.85);
-  color: #003366;
-  border: none;
+  background: rgba(250, 246, 232, 0.92);
+  color: #123C2B;
+  border: 1px solid rgba(245, 230, 184, 0.35);
 
-  /* ✅ NEW LINE (prevents mobile zoom) */
   font-size: 16px;
 }
 
@@ -85,14 +113,16 @@ select {
 }
 
 button {
-  background-color: #B3D7F0;
+  background: linear-gradient(135deg, #BFA76A, #F5E6B8);
+  color: #123C2B;
   padding: 12px;
   margin-top: 20px;
   width: 100%;
   font-weight: bold;
-  border-radius: 4px;
+  border-radius: 7px;
   cursor: pointer;
-  border: none;
+  border: 1px solid rgba(245, 230, 184, 0.65);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
 }
 
 /* BUTTON GROUPS */
@@ -119,23 +149,25 @@ button {
   min-height: 42px;
   padding: 8px 10px;
 
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.85);
-  color: #003366;
+  border-radius: 7px;
+  background: rgba(250, 246, 232, 0.90);
+  color: #123C2B;
 
   cursor: pointer;
   font-size: 0.9rem;
   line-height: 1.15;
   user-select: none;
-  border: 1px solid transparent;
+  border: 1px solid rgba(245, 230, 184, 0.38);
   margin-top: 0;
   box-sizing: border-box;
 }
 
 .button-group input[type="radio"]:checked + label {
-  background: #B3D7F0;
-  border: 1px solid #7fbce6;
+  background: linear-gradient(135deg, #1F6B45, #2D8A57);
+  border: 1px solid rgba(245, 230, 184, 0.75);
+  color: #FFF8E8;
   font-weight: bold;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.10);
 }
 
 .button-group.small {
@@ -389,9 +421,12 @@ button {
   justify-content: space-between;
 }
 
+.brand-footer,
 .footer {
   text-align: center;
-  margin-top: 40px;
+  margin-top: 28px;
   padding-top: 15px;
-  color: white;
+  color: rgba(245, 230, 184, 0.76);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
 }
