@@ -26,7 +26,7 @@ def _largest_factor(data):
     return max(factors, key=factors.get)
 
 
-def generate_insight(data):
+def _generate_base_insight(data):
     lie_label = data.get("lie_label", "Fairway")
     lie_quality = data.get("lie_quality", "Normal")
     flyer_risk = data.get("flyer_risk", "None")
@@ -52,7 +52,7 @@ def generate_insight(data):
         return "Pretty stock number here. Pick your target and make a committed swing."
 
     if abs_total_change <= 2.5:
-        return "Not much in this one. It is close to the number, so trust the yardage."
+        return "Not much to this one. Only a few yards off the normal number."
 
     # Complicated shots
     strong_factors = 0
@@ -147,3 +147,18 @@ def generate_insight(data):
         return f"This is playing shorter than the number. Take a little off and hit it {final}."
 
     return "Good number here. Pick a target and swing freely."
+
+
+def generate_insight(data):
+    insight = _generate_base_insight(data)
+
+    lie_label = data.get("lie_label", "Fairway")
+    flyer_risk = data.get("flyer_risk", "None")
+
+    if flyer_risk in ["Medium", "Medium-High", "High"] and lie_label != "Fairway":
+        flyer_note = "Might catch a flyer with this lie."
+
+        if flyer_note not in insight:
+            insight = f"{insight} {flyer_note}"
+
+    return insight
