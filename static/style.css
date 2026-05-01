@@ -286,6 +286,31 @@ button {
   color: #C62828;
 }
 
+.temp-value {
+  font-weight: 800;
+  transition: color 220ms ease;
+}
+
+.temp-cold {
+  color: #4DA6C8;
+}
+
+.temp-cool {
+  color: #2E8FA3;
+}
+
+.temp-neutral {
+  color: #1F6B45;
+}
+
+.temp-warm {
+  color: #C28A2E;
+}
+
+.temp-hot {
+  color: #B94A32;
+}
+
 .summary-card {
   padding: 12px;
   background: rgba(255, 250, 240, 0.97);
@@ -338,6 +363,20 @@ button {
   border: 2px solid rgba(191, 167, 106, 0.9);
 }
 
+.caddy-card.is-speaking .caddy-avatar img {
+  animation: caddySpeaking 720ms ease-in-out infinite;
+}
+
+@keyframes caddySpeaking {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    transform: translateY(-1.5px) scale(1.025);
+  }
+}
+
 .caddy-content {
   flex: 1;
 }
@@ -381,6 +420,27 @@ button {
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);
 }
 
+.result-reveal {
+  opacity: 0;
+  transform: translateY(5px);
+  animation: resultItemReveal 360ms ease-out both;
+}
+
+.result-reveal-primary {
+  animation-delay: 120ms;
+}
+
+.result-reveal-secondary {
+  animation-delay: 230ms;
+}
+
+@keyframes resultItemReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .plays-label {
   margin-top: 8px;
   margin-bottom: 4px;
@@ -401,7 +461,7 @@ button {
 }
 
 /* Stock Target: primary number */
-.final-yardage-card .yardage:nth-of-type(2) {
+.final-yardage-card .yardage.stock-target-value {
   font-size: 2.55rem;
   line-height: 1.05;
   text-shadow:
@@ -410,7 +470,7 @@ button {
 }
 
 /* Plays Like Range: smaller supporting context */
-.final-yardage-card .yardage:nth-of-type(4) {
+.final-yardage-card .yardage.range-value {
   font-size: 1.35rem;
   line-height: 1.15;
   margin-top: 2px;
@@ -463,10 +523,24 @@ button {
   height: 10px;
   border-radius: 999px;
   background: linear-gradient(135deg, #1F6B45, #2D8A57);
+  transform-origin: left center;
+  animation: distanceFillIn 520ms ease-out 260ms both;
 }
 
 .distance-target-fill.shorter {
   left: 0;
+}
+
+@keyframes distanceFillIn {
+  from {
+    transform: scaleX(0);
+    opacity: 0.72;
+  }
+
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
 }
 
 .distance-flag {
@@ -475,6 +549,20 @@ button {
   transform: translateX(-50%);
   font-size: 0.95rem;
   line-height: 1;
+  opacity: 0;
+  animation: flagFadeIn 260ms ease-out 720ms both;
+}
+
+@keyframes flagFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(3px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
 }
 
 .breakdown-toggle summary {
@@ -510,4 +598,23 @@ button {
   color: rgba(245, 230, 184, 0.76);
   font-size: 0.72rem;
   letter-spacing: 0.04em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .caddy-card.is-speaking .caddy-avatar img,
+  .result-reveal,
+  .distance-target-fill,
+  .distance-flag {
+    animation: none;
+  }
+
+  .result-reveal,
+  .distance-flag {
+    opacity: 1;
+    transform: none;
+  }
+
+  .distance-target-fill {
+    transform: none;
+  }
 }
