@@ -20,30 +20,53 @@
         <label>Distance to Flag (yards)</label>
         <input type="number" name="distance" step="0.1" required>
 
+        <!-- LIE -->
         <label>Lie</label>
-        <select name="lie">
-            <option value="0">Fairway (0%)</option>
-            <option value="3">First Cut</option>
-            <option value="10">Light Rough</option>
-            <option value="20">Rough</option>
-            <option value="27.5">Heavy Rough</option>
-        </select>
+        <div class="button-group">
+            <input type="radio" name="lie" value="0" id="lie_fw" checked>
+            <label for="lie_fw">Fairway</label>
 
+            <input type="radio" name="lie" value="3" id="lie_fc">
+            <label for="lie_fc">First Cut</label>
+
+            <input type="radio" name="lie" value="10" id="lie_lr">
+            <label for="lie_lr">Light Rough</label>
+
+            <input type="radio" name="lie" value="20" id="lie_r">
+            <label for="lie_r">Rough</label>
+
+            <input type="radio" name="lie" value="27.5" id="lie_hr">
+            <label for="lie_hr">Heavy Rough</label>
+        </div>
+
+        <!-- LIE QUALITY -->
         <label>Lie Quality</label>
-        <select name="lie_quality">
-            <option value="Normal">Normal</option>
-            <option value="Sitting Up">Sitting Up</option>
-            <option value="Sitting Down">Sitting Down</option>
-        </select>
+        <div class="button-group">
+            <input type="radio" name="lie_quality" value="Normal" id="lq_norm" checked>
+            <label for="lq_norm">Normal</label>
 
+            <input type="radio" name="lie_quality" value="Sitting Up" id="lq_up">
+            <label for="lq_up">Sitting Up</label>
+
+            <input type="radio" name="lie_quality" value="Sitting Down" id="lq_down">
+            <label for="lq_down">Sitting Down</label>
+        </div>
+
+        <!-- ELEVATION -->
         <label>Elevation</label>
         <div class="inline-row">
             <input type="number" name="elevation_feet" step="0.1" placeholder="0">
-            <select name="elevation_direction">
-                <option value="Flat">Flat</option>
-                <option value="Uphill">Uphill</option>
-                <option value="Downhill">Downhill</option>
-            </select>
+
+            <div class="button-group small">
+                <input type="radio" name="elevation_direction" value="Flat" id="el_flat" checked>
+                <label for="el_flat">Flat</label>
+
+                <input type="radio" name="elevation_direction" value="Uphill" id="el_up">
+                <label for="el_up">Uphill</label>
+
+                <input type="radio" name="elevation_direction" value="Downhill" id="el_down">
+                <label for="el_down">Downhill</label>
+            </div>
         </div>
 
         <h3>Conditions</h3>
