@@ -524,7 +524,11 @@ button {
   border-radius: 999px;
   background: linear-gradient(135deg, #1F6B45, #2D8A57);
   transform-origin: left center;
-  animation: distanceFillIn 520ms ease-out 260ms both;
+  transform: scaleX(0);
+}
+
+.distance-visual.animate-distance .distance-target-fill {
+  animation: distanceFillIn 520ms ease-out forwards;
 }
 
 .distance-target-fill.shorter {
@@ -550,7 +554,10 @@ button {
   font-size: 0.95rem;
   line-height: 1;
   opacity: 0;
-  animation: flagFadeIn 260ms ease-out 720ms both;
+}
+
+.distance-visual.animate-distance .distance-flag {
+  animation: flagFadeIn 260ms ease-out 520ms forwards;
 }
 
 @keyframes flagFadeIn {
