@@ -191,7 +191,8 @@
             <div class="insight-text">{{ result.flyer_risk }}</div>
         </div>
 
-        {% if result.flyer_range %}
+        <!-- ✅ ONLY CHANGE HERE -->
+        {% if result.flyer_range and result.flyer_risk == "High" %}
             <div class="flyer-card">
                 <strong>Possible Flyer Range:</strong>
                 {{ result.flyer_range[0] }}–{{ result.flyer_range[1] }} yds
