@@ -183,7 +183,7 @@ button {
 }
 
 /* ============================= */
-/* RESULT UI (UPDATED CLEANLY) */
+/* RESULT UI */
 /* ============================= */
 
 .result-card {
@@ -212,7 +212,7 @@ button {
   }
 }
 
-/* 🔥 READABILITY FIX (KEY CHANGE) */
+/* 🔥 READABILITY FIX */
 
 .shot-inputs-card,
 .summary-card,
@@ -221,13 +221,13 @@ button {
 .flyer-card,
 .flyer-warning-card,
 .breakdown {
-  background: rgba(255, 250, 240, 0.97); /* was too transparent before */
+  background: rgba(255, 250, 240, 0.97);
   color: #123C2B;
   border: 1px solid rgba(191, 167, 106, 0.28);
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);
 }
 
-/* KEEP ORIGINAL STRUCTURE BELOW */
+/* SHOT INPUTS */
 
 .shot-inputs-card {
   padding: 14px;
@@ -264,6 +264,39 @@ button {
   flex: 1;
 }
 
+/* INSIGHT */
+
+.insight-card {
+  padding: 14px;
+  border-left: 4px solid #BFA76A;
+  border-radius: 8px;
+}
+
+/* CADDY (FIXED IMAGE SIZE) */
+
+.caddy-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  padding: 14px;
+  border-left: 4px solid #BFA76A;
+  border-radius: 8px;
+}
+
+.caddy-avatar {
+  flex: 0 0 auto;
+}
+
+.caddy-avatar img {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  border: 2px solid rgba(191, 167, 106, 0.9);
+}
+
 /* FINAL YARDAGE */
 
 .final-yardage-card {
@@ -290,14 +323,7 @@ button {
     0 1px 1px rgba(255, 255, 255, 0.55);
 }
 
-/* INSIGHT + CADDY */
-
-.insight-card,
-.caddy-card {
-  border-left: 4px solid #BFA76A;
-}
-
-/* DISTANCE VISUAL */
+/* DISTANCE */
 
 .distance-track {
   background: rgba(18, 60, 43, 0.15);
