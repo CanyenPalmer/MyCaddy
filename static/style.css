@@ -86,6 +86,44 @@ button {
   border: none;
 }
 
+/* BUTTON GROUPS */
+
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.button-group input[type="radio"] {
+  display: none;
+}
+
+.button-group label {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.85);
+  color: #003366;
+  cursor: pointer;
+  font-size: 0.9rem;
+  user-select: none;
+  border: 1px solid transparent;
+  margin-top: 0;
+}
+
+.button-group input[type="radio"]:checked + label {
+  background: #B3D7F0;
+  border: 1px solid #7fbce6;
+  font-weight: bold;
+}
+
+.button-group.small label {
+  font-size: 0.85rem;
+  padding: 6px;
+}
+
 /* RESULT UI */
 
 .result-card {
