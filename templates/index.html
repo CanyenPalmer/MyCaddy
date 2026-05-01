@@ -145,14 +145,13 @@
                 <div class="yardage">{{ result.final }} yds</div>
             {% endif %}
 
-            <!-- ✅ UPDATED DELTA -->
             <div class="delta">
                 {% set diff_low = (result.final_low - result.base) | round(1) %}
                 {% set diff_high = (result.final_high - result.base) | round(1) %}
 
                 {% if diff_low == diff_high %}
                     {% if diff_low > 0 %}
-                        +{{ diff_low }} yds longer
+                        {{ diff_low }} yds longer
                     {% elif diff_low < 0 %}
                         {{ diff_low | abs }} yds shorter
                     {% else %}
@@ -160,15 +159,13 @@
                     {% endif %}
                 {% else %}
                     {% if diff_low > 0 and diff_high > 0 %}
-                        +{{ diff_low }}–{{ diff_high }} yds longer
-
+                        {{ diff_low }}–{{ diff_high }} yds longer
                     {% elif diff_low < 0 and diff_high < 0 %}
                         {% set low_abs = diff_low | abs %}
                         {% set high_abs = diff_high | abs %}
                         {{ high_abs }}–{{ low_abs }} yds shorter
-
                     {% else %}
-                        {{ diff_low }}–+{{ diff_high }} yds
+                        {{ diff_low }}–{{ diff_high }} yds
                     {% endif %}
                 {% endif %}
             </div>
@@ -180,23 +177,11 @@
                 </div>
 
                 <div class="distance-track">
-                    <div
-                        class="distance-base-fill"
-                        style="width: {{ distance_bar.base_width }}%;"
-                    ></div>
-
-                    <div
-                        class="distance-target-fill {{ distance_bar.mode }}"
-                        style="
-                            left: {{ distance_bar.extension_left }}%;
-                            width: {{ distance_bar.extension_width }}%;
-                        "
-                    ></div>
-
-                    <div
-                        class="distance-flag"
-                        style="left: {{ distance_bar.target_width }}%;"
-                    >🚩</div>
+                    <div class="distance-base-fill" style="width: {{ distance_bar.base_width }}%;"></div>
+                    <div class="distance-target-fill {{ distance_bar.mode }}"
+                         style="left: {{ distance_bar.extension_left }}%; width: {{ distance_bar.extension_width }}%;">
+                    </div>
+                    <div class="distance-flag" style="left: {{ distance_bar.target_width }}%;">🚩</div>
                 </div>
             </div>
         </div>
