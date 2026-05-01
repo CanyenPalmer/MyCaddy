@@ -292,27 +292,47 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (prefersReducedMotion || fullText.length === 0) {
             caddyText.textContent = fullText;
-            return;
+        } else {
+            caddyText.textContent = "";
+            caddyCard.classList.add("is-speaking");
+
+            let index = 0;
+            const typingSpeed = 18;
+
+            const typeInsight = function () {
+                caddyText.textContent += fullText.charAt(index);
+                index += 1;
+
+                if (index < fullText.length) {
+                    window.setTimeout(typeInsight, typingSpeed);
+                } else {
+                    caddyCard.classList.remove("is-speaking");
+                }
+            };
+
+            window.setTimeout(typeInsight, 120);
         }
+    }
 
-        caddyText.textContent = "";
-        caddyCard.classList.add("is-speaking");
+    const distanceVisual = document.querySelector(".distance-visual");
 
-        let index = 0;
-        const typingSpeed = 18;
+    if (distanceVisual) {
+        if (prefersReducedMotion || !("IntersectionObserver" in window)) {
+            distanceVisual.classList.add("animate-distance");
+        } else {
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        distanceVisual.classList.add("animate-distance");
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.35
+            });
 
-        const typeInsight = function () {
-            caddyText.textContent += fullText.charAt(index);
-            index += 1;
-
-            if (index < fullText.length) {
-                window.setTimeout(typeInsight, typingSpeed);
-            } else {
-                caddyCard.classList.remove("is-speaking");
-            }
-        };
-
-        window.setTimeout(typeInsight, 120);
+            observer.observe(distanceVisual);
+        }
     }
 
 });
