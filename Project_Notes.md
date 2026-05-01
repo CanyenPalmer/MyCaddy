@@ -152,7 +152,7 @@ The system takes user inputs and applies a series of adjustments:
 
 ## Next Steps
 
-### Immediate (Sunday Testing)
+### Immediate (User-Testing)
 - Test 10–30 real shots
 - Track:
   - Input distance
