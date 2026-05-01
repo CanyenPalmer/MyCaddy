@@ -195,9 +195,9 @@ button {
 
 .shot-inputs-card {
   padding: 14px;
-  background: rgba(244, 250, 254, 0.92);
+  background: rgba(250, 246, 232, 0.92);
   border-radius: 8px;
-  color: #003366;
+  color: #123C2B;
 }
 
 .shot-inputs-title {
@@ -213,7 +213,7 @@ button {
   align-items: center;
   gap: 12px;
   padding: 7px 0;
-  border-bottom: 1px solid rgba(0, 51, 102, 0.12);
+  border-bottom: 1px solid rgba(18, 60, 43, 0.15);
 }
 
 .shot-input-row:last-child {
@@ -267,17 +267,17 @@ button {
 
 .summary-card {
   padding: 12px;
-  background: rgba(244, 250, 254, 0.92);
+  background: rgba(250, 246, 232, 0.92);
   border-radius: 8px;
-  color: #003366;
+  color: #123C2B;
 }
 
 .insight-card {
   padding: 14px;
-  border-left: 4px solid #B3D7F0;
-  background: rgba(248, 251, 253, 0.92);
+  border-left: 4px solid #BFA76A;
+  background: rgba(255, 250, 240, 0.92);
   border-radius: 8px;
-  color: #003366;
+  color: #123C2B;
 }
 
 /* CADDY PROFILE CARD */
@@ -288,10 +288,10 @@ button {
   gap: 14px;
 
   padding: 14px;
-  border-left: 4px solid #B3D7F0;
-  background: rgba(248, 251, 253, 0.92);
+  border-left: 4px solid #BFA76A;
+  background: rgba(255, 250, 240, 0.92);
   border-radius: 8px;
-  color: #003366;
+  color: #123C2B;
 }
 
 .caddy-avatar {
@@ -304,7 +304,7 @@ button {
   border-radius: 50%;
   object-fit: cover;
   display: block;
-  border: 2px solid rgba(179, 215, 240, 0.95);
+  border: 2px solid rgba(191, 167, 106, 0.9);
 }
 
 .caddy-content {
@@ -322,29 +322,35 @@ button {
 
 .flyer-card {
   padding: 12px;
-  background: rgba(242, 248, 242, 0.92);
+  background: rgba(240, 248, 240, 0.92);
   border-radius: 8px;
-  color: #003366;
+  color: #123C2B;
 }
 
 .flyer-warning-card {
   padding: 12px;
-  background: rgba(255, 248, 232, 0.92);
+  background: rgba(255, 243, 220, 0.92);
   border-radius: 8px;
-  color: #003366;
+  color: #123C2B;
 }
 
 .final-yardage-card {
   text-align: center;
   padding: 20px;
-  background: rgba(234, 246, 253, 0.94);
+  background: linear-gradient(
+    135deg,
+    rgba(191, 167, 106, 0.25),
+    rgba(245, 230, 184, 0.35)
+  );
   border-radius: 10px;
-  color: #003366;
+  color: #123C2B;
+  border: 1px solid rgba(245, 230, 184, 0.5);
 }
 
 .yardage {
   font-size: 2.4rem;
   font-weight: bold;
+  color: #1F6B45;
 }
 
 .distance-visual {
@@ -358,7 +364,7 @@ button {
   margin-bottom: 12px;
   font-size: 0.82rem;
   font-weight: bold;
-  color: rgba(0, 51, 102, 0.82);
+  color: rgba(18, 60, 43, 0.85);
 }
 
 .distance-track {
@@ -366,7 +372,7 @@ button {
   height: 10px;
   width: 100%;
   border-radius: 999px;
-  background: rgba(0, 51, 102, 0.12);
+  background: rgba(18, 60, 43, 0.15);
   overflow: visible;
 }
 
@@ -376,7 +382,7 @@ button {
   top: 0;
   height: 10px;
   border-radius: 999px;
-  background: rgba(90, 105, 120, 0.55);
+  background: rgba(120, 110, 90, 0.55);
 }
 
 .distance-target-fill {
@@ -384,7 +390,7 @@ button {
   top: 0;
   height: 10px;
   border-radius: 999px;
-  background: #3FAE5A;
+  background: linear-gradient(135deg, #1F6B45, #2D8A57);
 }
 
 .distance-target-fill.shorter {
@@ -400,18 +406,18 @@ button {
 }
 
 .breakdown-toggle summary {
-  background: #B3D7F0;
+  background: linear-gradient(135deg, #BFA76A, #F5E6B8);
   padding: 12px;
   text-align: center;
   cursor: pointer;
   border-radius: 4px;
-  color: #003366;
+  color: #123C2B;
 }
 
 .breakdown {
   padding: 14px;
-  color: #003366;
-  background: rgba(255, 255, 255, 0.88);
+  color: #123C2B;
+  background: rgba(255, 250, 240, 0.95);
   border-radius: 0 0 8px 8px;
 }
 
