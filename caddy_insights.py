@@ -92,7 +92,7 @@ def _generate_base_insight(data):
             return "Good lie in the first cut. Should come out clean."
         if lie_quality == "Sitting Down":
             return "It's sitting down. Expect it to come out a little soft."
-        return "Decent lie in the first cut, but can take some spin off."
+        return "Decent lie in the first cut, but it can take some spin off."
 
     if lie_label == "Light Rough":
         if lie_quality == "Sitting Up":
