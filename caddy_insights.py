@@ -65,17 +65,17 @@ def _generate_base_insight(data):
     # Near-stock shots
     if abs_total_change <= 1:
         if strong_factors >= 2:
-            return "A lot working here, but it plays close to the number."
-        return "Pretty stock number here. Pick your target and make a committed swing."
+            return "A few different things happening here, but it plays close to the number."
+        return "Pretty close to the normal number. Pick your target and make a committed swing."
 
     if abs_total_change <= 2.5:
         if strong_factors >= 2:
-            return "A lot working here, but it plays close to the number."
+            return "A few things going on here, but it plays close to the number."
         return f"Not playing much different from the original number, should play {final}."
 
     # Complicated shots
     if strong_factors >= 3:
-        return f"A few things are working on this shot. Play it around {window}."
+        return f"A lot of factors at play here. Hit it around {window}."
 
     # Lie-first caddy reads
     if lie_label == "Fairway":
