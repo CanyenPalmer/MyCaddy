@@ -135,14 +135,14 @@
 
         <div class="final-yardage-card">
             {% if result.final_low == result.final_high %}
-                <div class="plays-label">Plays Like</div>
-                <div class="yardage">{{ result.final }} yds</div>
-            {% else %}
-                <div class="plays-label">Plays Like Range</div>
-                <div class="yardage">{{ result.final_low }}–{{ result.final_high }} yds</div>
-
                 <div class="plays-label">Stock Target</div>
                 <div class="yardage">{{ result.final }} yds</div>
+            {% else %}
+                <div class="plays-label">Stock Target</div>
+                <div class="yardage">{{ result.final }} yds</div>
+
+                <div class="plays-label">Plays Like Range</div>
+                <div class="yardage">{{ result.final_low }}–{{ result.final_high }} yds</div>
             {% endif %}
 
             <div class="delta">
