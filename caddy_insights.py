@@ -88,17 +88,17 @@ def _generate_base_insight(data):
     if lie_label == "First Cut":
         if lie_quality == "Sitting Up":
             if flyer_risk in ["Medium", "High", "Medium-High"]:
-                return "It is sitting up in the first cut, it might come out hot."
+                return "It is sitting up in the first cut and can come out hot."
             return "Good lie in the first cut. Should come out clean."
         if lie_quality == "Sitting Down":
             return "It's sitting down. Expect it to come out a little soft."
-        return "Decent lie in the first cut, might take some spin off."
+        return "Decent lie in the first cut, but can take some spin off."
 
     if lie_label == "Light Rough":
         if lie_quality == "Sitting Up":
             return "Good lie in the light rough. This one can jump a bit, so swing smooth."
         if lie_quality == "Sitting Down":
-            return "The ball is sitting down some. Might come up short, make sure you take enough club."
+            return "The ball is sitting down some. It can come up short, make sure you take enough club."
         return "Light rough here, make a committed swing."
 
     if lie_label == "Rough":
