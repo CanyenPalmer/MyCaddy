@@ -47,14 +47,7 @@ def _generate_base_insight(data):
     primary = _largest_factor(data)
     window = _window_text(data)
 
-    # Near-stock shots
-    if abs_total_change <= 1:
-        return "Pretty stock number here. Pick your target and make a committed swing."
-
-    if abs_total_change <= 2.5:
-        return "Not much to this one. Only a few yards off the normal number."
-
-    # Complicated shots
+    # Count strong factors
     strong_factors = 0
 
     if abs(wind) >= 5:
@@ -69,15 +62,27 @@ def _generate_base_insight(data):
     if abs(temperature) >= 3:
         strong_factors += 1
 
+    # Near-stock shots
+    if abs_total_change <= 1:
+        if strong_factors >= 2:
+            return "A lot working here, but it plays close to the number."
+        return "Pretty stock number here. Pick your target and make a committed swing."
+
+    if abs_total_change <= 2.5:
+        if strong_factors >= 2:
+            return "A lot working here, but it plays close to the number."
+        return f"Not playing much different from the original number, should play {final}."
+
+    # Complicated shots
     if strong_factors >= 3:
-        return f"A few things are working on this shot. Do not overthink it—play it around {window} yards and commit."
+        return f"A few things are working on this shot. Play it around {window}."
 
     # Lie-first caddy reads
     if lie_label == "Fairway":
         if direction == "longer":
             return f"Clean lie, but it is playing a little longer. Play it {final}."
         if direction == "shorter":
-            return f"Clean lie and it is playing shorter. Smooth swing here—do not force it."
+            return f"Clean lie and it is playing shorter. Smooth swing here, do not force it."
         return "Good lie, trust the number."
 
     if lie_label == "First Cut":
@@ -94,7 +99,7 @@ def _generate_base_insight(data):
             return "Good lie in the light rough. This one can jump a bit, so swing smooth."
         if lie_quality == "Sitting Down":
             return "The ball is sitting down some. Might come up short, make sure you take enough club."
-        return "Light rough here,make a committed swing."
+        return "Light rough here, make a committed swing."
 
     if lie_label == "Rough":
         if lie_quality == "Sitting Up":
