@@ -68,6 +68,9 @@ select {
   background: rgba(255, 255, 255, 0.85);
   color: #003366;
   border: none;
+
+  /* ✅ NEW LINE (prevents mobile zoom) */
+  font-size: 16px;
 }
 
 .inline-row {
