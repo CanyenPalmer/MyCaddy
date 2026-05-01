@@ -13,7 +13,7 @@
 
     {% if not result %}
 
-    <form method="POST">
+    <form method="POST" id="shot-form">
 
         <h3>Shot Setup</h3>
 
@@ -186,75 +186,6 @@
             </div>
         </div>
 
-        <div class="insight-card">
-            <div class="insight-title">Flyer Risk</div>
-            <div class="insight-text">{{ result.flyer_risk }}</div>
-        </div>
-
-        <!-- ✅ ONLY CHANGE HERE -->
-        {% if result.flyer_range and result.flyer_risk == "High" %}
-            <div class="flyer-card">
-                <strong>Possible Flyer Range:</strong>
-                {{ result.flyer_range[0] }}–{{ result.flyer_range[1] }} yds
-                <br>
-                <strong>Flyer Stock Target:</strong>
-                {{ result.flyer_stock }} yds
-            </div>
-        {% endif %}
-
-        <details class="breakdown-toggle">
-            <summary>Show Calculation Breakdown</summary>
-
-            <div class="breakdown">
-                <div class="breakdown-row">
-                    <span>Base Distance</span>
-                    <span>{{ result.base }} yds</span>
-                </div>
-
-                <div class="breakdown-row">
-                    <span>Lie</span>
-                    {% if result.lie_low == result.lie_high %}
-                        <span>{{ "%+.1f"|format(result.lie) }} yds</span>
-                    {% else %}
-                        <span>+{{ result.lie_low }}–{{ result.lie_high }} yds</span>
-                    {% endif %}
-                </div>
-
-                <div class="breakdown-row">
-                    <span>Lie Percentage</span>
-                    {% if result.lie_percent_low == result.lie_percent_high %}
-                        <span>{{ result.lie_percent_low }}%</span>
-                    {% else %}
-                        <span>{{ result.lie_percent_low }}–{{ result.lie_percent_high }}%</span>
-                    {% endif %}
-                </div>
-
-                <div class="breakdown-row">
-                    <span>Elevation</span>
-                    <span>{{ "%+.1f"|format(result.elevation) }} yds</span>
-                </div>
-
-                <div class="breakdown-row">
-                    <span>Wind</span>
-                    <span>{{ "%+.1f"|format(result.wind) }} yds</span>
-                </div>
-
-                <div class="breakdown-row">
-                    <span>Temperature</span>
-                    <span>{{ "%+.1f"|format(result.temperature) }} yds</span>
-                </div>
-
-                <div class="breakdown-total">
-                    <span>Total</span>
-                    {% if result.final_low == result.final_high %}
-                        <span>{{ result.final }} yds</span>
-                    {% else %}
-                        <span>{{ result.final_low }}–{{ result.final_high }} yds</span>
-                    {% endif %}
-                </div>
-            </div>
-        </details>
-
         <form method="GET">
             <button type="submit">Next Shot</button>
         </form>
@@ -263,11 +194,38 @@
 
     {% endif %}
 
-    <div class="footer">
-        MyCaddy — Plays-Like Carry Engine
-    </div>
-
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const form = document.getElementById("shot-form");
+    if (!form) return;
+
+    const windSpeed = form.querySelector('[name="wind_speed"]');
+    const windDir = form.querySelector('[name="wind_dir"]');
+    const temp = form.querySelector('[name="temperature"]');
+
+    if (sessionStorage.getItem("wind_speed")) {
+        windSpeed.value = sessionStorage.getItem("wind_speed");
+    }
+
+    if (sessionStorage.getItem("wind_dir")) {
+        windDir.value = sessionStorage.getItem("wind_dir");
+    }
+
+    if (sessionStorage.getItem("temperature")) {
+        temp.value = sessionStorage.getItem("temperature");
+    }
+
+    form.addEventListener("submit", function () {
+        sessionStorage.setItem("wind_speed", windSpeed.value);
+        sessionStorage.setItem("wind_dir", windDir.value);
+        sessionStorage.setItem("temperature", temp.value);
+    });
+
+});
+</script>
 
 </body>
 </html>
