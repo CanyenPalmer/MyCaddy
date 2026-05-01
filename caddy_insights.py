@@ -160,7 +160,17 @@ def generate_insight(data):
     lie_label = data.get("lie_label", "Fairway")
     flyer_risk = data.get("flyer_risk", "None")
 
-    if flyer_risk in ["Medium", "Medium-High", "High"] and lie_label != "Fairway":
+    if flyer_risk == "High" and lie_label != "Fairway":
+        flyer_note = "Might catch a flyer with this lie."
+
+        if data.get("flyer_range"):
+            flyer_window = f"{data['flyer_range'][0]}–{data['flyer_range'][1]}"
+            flyer_note = f"{flyer_note} If it jumps, it could play {flyer_window}."
+
+        if flyer_note not in insight:
+            insight = f"{insight} {flyer_note}"
+
+    elif flyer_risk in ["Medium", "Medium-High"] and lie_label != "Fairway":
         flyer_note = "Might catch a flyer with this lie."
 
         if flyer_note not in insight:
