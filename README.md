@@ -32,6 +32,10 @@ Outputs are designed to be:
 - Deterministic and reproducible
 - Aligned with real-world decision workflows
 
+### Tech Stack
+
+Python · Flask · Data Modeling · Feature Engineering · EDA · Statistical Analysis · Rule-Based Systems · HTML/CSS
+
 ---
 
 ## System Architecture
