@@ -1,11 +1,4 @@
 # MyCaddy: Golf Decision & Coaching System
-
-[![Live on Render](https://img.shields.io/badge/Render-Live%20Demo-46E3B7?logo=render&logoColor=white)](https://mycaddy.onrender.com)
-![GitHub last commit](https://img.shields.io/github/last-commit/CanyenPalmer/MyCaddy)
-![GitHub repo size](https://img.shields.io/github/repo-size/CanyenPalmer/MyCaddy)
-![Top language](https://img.shields.io/github/languages/top/CanyenPalmer/MyCaddy)
-![Language count](https://img.shields.io/github/languages/count/CanyenPalmer/MyCaddy)
-
 **Author:** Palmer Projects  
 **Version:** v2.1.1  
 **License:** © Palmer Projects. All rights reserved.
@@ -13,6 +6,8 @@
 ---
 
 # Data Science & System Design Overview
+
+MyCaddy is an applied data science and decision systems project that models real-world golf conditions to generate interpretable, high-confidence decision outputs.
 
 Golf performance depends on both **accurate decision-making under variable conditions** and the ability to **analyze outcomes to improve future performance**. MyCaddy addresses both problems through a structured modeling and analytics system.
 
@@ -22,10 +17,10 @@ Golf performance depends on both **accurate decision-making under variable condi
 
 Traditional golf decision-making relies on static yardage and intuition, which fails to account for:
 
-- Environmental variability (wind, elevation, temperature)
-- Lie-based strike degradation
-- Round-to-round performance inconsistency
-- Lack of structured post-round analysis
+- Environmental variability (wind, elevation, temperature)  
+- Lie-based strike degradation  
+- Round-to-round performance inconsistency  
+- Lack of structured post-round analysis  
 
 ---
 
@@ -37,8 +32,12 @@ The platform is built as a **dual-system architecture**:
 - **MyCoach:** Post-round analytics and decision system for performance evaluation  
 
 This separation ensures:
+
 - low cognitive load during play  
 - structured, high-signal feedback after play  
+
+**System Flow:**  
+Inputs → Feature Engineering → Modeling Pipeline → Evaluation → Decision Outputs
 
 ---
 
@@ -46,10 +45,10 @@ This separation ensures:
 
 Key input variables were engineered to represent real-world golf conditions:
 
-- Wind (directional vector decomposition)
-- Elevation (continuous vertical scaling)
-- Lie condition (nonlinear penalty modeling)
-- Temperature (air density proxy)
+- Wind (directional vector decomposition)  
+- Elevation (continuous vertical scaling)  
+- Lie condition (nonlinear penalty modeling)  
+- Temperature (air density proxy)  
 
 The system applies a **deterministic transformation pipeline**:
 
@@ -61,20 +60,20 @@ Input Features → Adjustment Functions → Aggregated Output
 
 The system incorporates applied mathematical concepts including:
 
-- Linear approximations  
+- **Linear approximations**  
   - Elevation: ~3 ft ≈ 1 yard  
 
-- Trigonometric decomposition  
+- **Trigonometric decomposition**  
   - Wind direction resolved into components  
   - Diagonal wind scaled using cosine (~0.707)  
 
-- Nonlinear scaling  
+- **Nonlinear scaling**  
   - Lie penalties modeled as percentage-based degradation  
 
-- Proportional modeling  
+- **Proportional modeling**  
   - Temperature: ~1% carry change per 10°F  
 
-- Constraint-based logic  
+- **Constraint-based logic**  
   - Prevents unrealistic or unstable outputs  
 
 ---
@@ -95,6 +94,7 @@ Each metric is classified using a **gap-based severity model**:
 - Major Gap  
 
 This enables:
+
 - standardized performance interpretation  
 - consistent cross-round comparisons  
 
@@ -126,12 +126,16 @@ The system is designed to produce **interpretable and actionable outputs**:
 - Primary decision variable (Stock Target)  
 - Contextual uncertainty band (Plays-Like Range)  
 - Natural-language explanation layer (Caddy Insight)  
-- Coaching outputs:
-  - strengths  
-  - ranked weaknesses  
-  - targeted drills  
+
+Coaching outputs include:
+
+- strengths  
+- ranked weaknesses  
+- primary focus  
+- targeted drills  
 
 All outputs are:
+
 - deterministic  
 - interpretable  
 - aligned with real-world decision workflows  
@@ -140,10 +144,7 @@ All outputs are:
 
 ## Technology Stack
 
-- Python 3  
-- Flask  
-- HTML / CSS (Mobile-First UI)  
-- Custom modeling and analytics logic  
+Python · Flask · Data Modeling · Feature Engineering · EDA · Statistical Analysis · Rule-Based Systems · HTML/CSS
 
 ---
 
@@ -156,17 +157,17 @@ All outputs are:
 
 ---
 
-# Overview
+# Product Overview
 
 MyCaddy is a structured golf performance system designed to support both:
 
-- **In-round decision making**
-- **Post-round improvement**
+- **In-round decision making**  
+- **Post-round improvement**  
 
 Rather than focusing on a single function, the system mirrors how competitive golfers operate:
 
 > Make better decisions during the round.  
-> Learn from the round afterward.
+> Learn from the round afterward.  
 
 ---
 
@@ -198,6 +199,7 @@ A structured coaching engine that analyzes performance and produces targeted imp
 - MyCoach operates **after play**  
 
 This ensures:
+
 - minimal cognitive load  
 - focused decisions  
 - structured improvement  
@@ -215,6 +217,7 @@ Pipeline:
 5. Temperature Scaling  
 
 Outputs:
+
 - Stock Target  
 - Plays-Like Range  
 - Caddy Insight  
@@ -224,6 +227,7 @@ Outputs:
 ## MyCoach Engine
 
 ### Inputs
+
 - Score / Par  
 - Fairways  
 - GIR  
@@ -235,6 +239,7 @@ Outputs:
 ---
 
 ### Outputs
+
 - Round Tier  
 - PGA comparisons  
 - Strengths  
@@ -245,6 +250,7 @@ Outputs:
 ---
 
 ### Design Principles
+
 - No over-coaching  
 - No fabricated weaknesses  
 - Direct mapping:
@@ -263,12 +269,14 @@ Outputs:
 ## Validation
 
 Tested across:
+
 - wind scenarios  
 - elevation  
 - lie conditions  
 - scoring profiles  
 
 Expected:
+
 > ±2–5 yards accuracy  
 
 ---
