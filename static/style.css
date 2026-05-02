@@ -782,6 +782,62 @@ textarea {
   margin-bottom: 0;
 }
 
+/* MYCOACH EXPANDED REPORT ADDITIONS */
+
+.coach-small-note {
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: rgba(18, 60, 43, 0.78);
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+.pga-comparison-card {
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  background: rgba(143, 169, 199, 0.13);
+  border: 1px solid rgba(143, 169, 199, 0.30);
+}
+
+.pga-comparison-title {
+  font-weight: 800;
+  margin-bottom: 8px;
+  color: #123C2B;
+}
+
+.pga-status {
+  margin-top: 10px;
+  padding: 8px;
+  border-radius: 7px;
+  background: rgba(18, 60, 43, 0.08);
+  font-weight: 700;
+  font-size: 0.88rem;
+  line-height: 1.35;
+}
+
+.practice-drill-card {
+  margin-top: 12px;
+  padding: 14px;
+  border-radius: 8px;
+  background: rgba(245, 230, 184, 0.22);
+  border: 1px solid rgba(191, 167, 106, 0.35);
+}
+
+.practice-drill-title {
+  font-weight: 900;
+  margin-bottom: 10px;
+  color: #123C2B;
+}
+
+.practice-drill-block {
+  margin-top: 10px;
+}
+
+.practice-drill-block p {
+  margin-top: 4px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .coach-card.is-speaking .coach-avatar img {
     animation: none;
