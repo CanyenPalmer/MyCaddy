@@ -12,6 +12,23 @@
 
 ---
 
+## Data Science & Analytics Overview
+
+MyCaddy is an applied data science system that combines deterministic modeling, feature engineering, and rule-based decision systems to support both real-time decision-making and post-round performance analysis.
+
+The system leverages:
+- Feature engineering (wind, elevation, temperature, lie variables)
+- Exploratory data analysis (EDA) and performance evaluation
+- Statistical modeling and proportional scaling
+- Rule-based decision systems for structured output generation
+
+Outputs are designed to be:
+- Fully interpretable (no black-box modeling)
+- Deterministic and reproducible
+- Aligned with real-world decision workflows
+
+---
+
 ## Overview
 
 MyCaddy is a structured golf performance system designed to support both **in-round decision making** and **post-round improvement**.
