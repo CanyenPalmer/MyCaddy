@@ -490,6 +490,7 @@ def _focuses_from_ranked_weaknesses(ranked_weaknesses):
         return ["Consistency"]
 
     sorted_focuses = sorted(focus_scores.items(), key=lambda item: item[1], reverse=True)
+
     top_focus, top_score = sorted_focuses[0]
 
     if len(sorted_focuses) == 1:
@@ -506,7 +507,7 @@ def _focuses_from_ranked_weaknesses(ranked_weaknesses):
     if top_focus == "Putting" and second_focus == "Short Game":
         return ["Short Game"]
 
-    if second_score >= top_score - 2 and second_score >= 4:
+    if second_score >= 5 or second_score >= (top_score * 0.5):
         return [top_focus, second_focus]
 
     return [top_focus]
