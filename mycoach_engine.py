@@ -274,6 +274,34 @@ def _gap_score(value, reference_key):
     ref = PGA_REFERENCES[reference_key]
     tour_average = ref["tour_average"]
 
+    if reference_key == "putts":
+        gap = value - tour_average
+
+        if gap <= 0:
+            return {
+                "gap": round(gap, 1),
+                "severity": 0,
+                "label": "Strength",
+            }
+        if gap <= 3:
+            return {
+                "gap": round(gap, 1),
+                "severity": 1,
+                "label": "Small Gap",
+            }
+        if gap <= 6:
+            return {
+                "gap": round(gap, 1),
+                "severity": 2,
+                "label": "Moderate Gap",
+            }
+
+        return {
+            "gap": round(gap, 1),
+            "severity": 3,
+            "label": "Major Gap",
+        }
+
     if ref["higher_is_better"]:
         gap = tour_average - value
     else:
