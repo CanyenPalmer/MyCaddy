@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyCoach</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <div class="tool-menu">
+        <a href="/">MyCaddy</a>
+        <span>|</span>
+        <a href="/mycoach" class="active">MyCoach</a>
+    </div>
+
+    <div class="brand-header">
+        <h1>MyCoach</h1>
+        <div class="brand-subtitle">After-Round Performance Report</div>
+    </div>
+
+    {% if not report %}
+
+    <form method="POST" id="mycoach-form">
+
+        <h3>Round Score</h3>
+
+        <label>Holes Played</label>
+        <select name="holes">
+            <option value="18" selected>18</option>
+            <option value="9">9</option>
+        </select>
+
+        <label>Course Par</label>
+        <input type="number" name="par" value="72" required>
+
+        <label>Your Score</label>
+        <input type="number" name="score" required>
+
+        <h3>Ball Striking</h3>
+
+        <label>Fairways Hit</label>
+        <input type="number" name="fairways_hit" min="0" required>
+
+        <label>Fairways Possible</label>
+        <input type="number" name="fairways_possible" value="14" min="0" required>
+
+        <label>Greens in Regulation</label>
+        <input type="number" name="greens_hit" min="0" required>
+
+        <label>Main Driver Miss</label>
+        <select name="driver_miss">
+            <option value="No clear pattern">No clear pattern</option>
+            <option value="Left">Left</option>
+            <option value="Right">Right</option>
+            <option value="Short">Short</option>
+            <option value="Penalty trouble">Penalty trouble</option>
+        </select>
+
+        <label>Main Approach Miss</label>
+        <select name="approach_miss">
+            <option value="No clear pattern">No clear pattern</option>
+            <option value="Short">Short</option>
+            <option value="Long">Long</option>
+            <option value="Left">Left</option>
+            <option value="Right">Right</option>
+        </select>
+
+        <h3>Scoring</h3>
+
+        <label>Total Putts</label>
+        <input type="number" name="putts" min="0" required>
+
+        <label>Three-Putts</label>
+        <input type="number" name="three_putts" value="0" min="0">
+
+        <label>Penalty Strokes</label>
+        <input type="number" name="penalties" value="0" min="0">
+
+        <label>Up-and-Downs Made</label>
+        <input type="number" name="up_and_downs" value="0" min="0">
+
+        <label>Up-and-Down Chances</label>
+        <input type="number" name="up_and_down_chances" value="0" min="0">
+
+        <h3>Round Notes</h3>
+
+        <label>Anything you noticed?</label>
+        <textarea name="round_notes" rows="4" placeholder="Example: struggled with distance control, missed right under pressure, putted well inside 6 feet..."></textarea>
+
+        <button type="submit">Generate MyCoach Report</button>
+    </form>
+
+    {% else %}
+
+    <div class="result-card">
+
+        <div class="coach-card">
+            <div class="coach-avatar">
+                <img src="{{ url_for('static', filename='images/coach-avatar.png') }}" alt="Coach avatar">
+            </div>
+
+            <div class="coach-content">
+                <div class="coach-title">Coach Report:</div>
+                <div class="coach-text" data-coach-text="{{ report.coach_insight }}">{{ report.coach_insight }}</div>
+            </div>
+        </div>
+
+        <div class="coach-report-card">
+            <div class="coach-report-title">Round Summary</div>
+
+            <div class="coach-metric-row">
+                <span>Score</span>
+                <strong>{{ report.score }}</strong>
+            </div>
+
+            <div class="coach-metric-row">
+                <span>To Par</span>
+                <strong>
+                    {% if report.score_to_par > 0 %}
+                        +{{ report.score_to_par }}
+                    {% elif report.score_to_par < 0 %}
+                        {{ report.score_to_par }}
+                    {% else %}
+                        E
+                    {% endif %}
+                </strong>
+            </div>
+
+            <div class="coach-metric-row">
+                <span>Fairways</span>
+                <strong>{{ report.fairway_pct }}%</strong>
+            </div>
+
+            <div class="coach-metric-row">
+                <span>GIR</span>
+                <strong>{{ report.gir_pct }}%</strong>
+            </div>
+
+            <div class="coach-metric-row">
+                <span>Putts</span>
+                <strong>{{ report.putts }}</strong>
+            </div>
+
+            <div class="coach-metric-row">
+                <span>Penalty Strokes</span>
+                <strong>{{ report.penalties }}</strong>
+            </div>
+
+            <div class="coach-priority">
+                Primary Focus: {{ report.main_priority }}
+            </div>
+        </div>
+
+        <div class="coach-section-card">
+            <h3>Strengths</h3>
+            <ul>
+                {% for item in report.strengths %}
+                    <li>{{ item }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="coach-section-card">
+            <h3>Areas to Improve</h3>
+            <ul>
+                {% for item in report.weaknesses %}
+                    <li>{{ item }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="coach-section-card">
+            <h3>Practice Plan</h3>
+            <ul>
+                {% for item in report.practice_focus %}
+                    <li>{{ item }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        {% if report.round_notes %}
+        <div class="coach-section-card">
+            <h3>Your Notes</h3>
+            <p>{{ report.round_notes }}</p>
+        </div>
+        {% endif %}
+
+        <form method="GET">
+            <button type="submit">Enter Another Round</button>
+        </form>
+
+    </div>
+
+    {% endif %}
+
+    <div class="brand-footer">
+        © 2025 Palmer Projects. All rights reserved.
+    </div>
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const coachText = document.querySelector(".coach-text");
+    const coachCard = document.querySelector(".coach-card");
+
+    if (coachText && coachCard) {
+        const fullText = coachText.dataset.coachText || coachText.textContent.trim();
+
+        if (prefersReducedMotion || fullText.length === 0) {
+            coachText.textContent = fullText;
+        } else {
+            coachText.textContent = "";
+            coachCard.classList.add("is-speaking");
+
+            let index = 0;
+            const typingSpeed = 18;
+
+            const typeInsight = function () {
+                coachText.textContent += fullText.charAt(index);
+                index += 1;
+
+                if (index < fullText.length) {
+                    window.setTimeout(typeInsight, typingSpeed);
+                } else {
+                    coachCard.classList.remove("is-speaking");
+                }
+            };
+
+            window.setTimeout(typeInsight, 120);
+        }
+    }
+});
+</script>
+
+</body>
+</html>
