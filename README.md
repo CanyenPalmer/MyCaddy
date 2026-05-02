@@ -50,7 +50,7 @@ Outputs are designed to be:
 
 ---
 
-## Overview
+## Product Overview
 
 MyCaddy is a structured golf performance system designed to support both **in-round decision making** and **post-round improvement**.
 
