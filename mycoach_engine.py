@@ -103,13 +103,13 @@ def generate_mycoach_report(form):
         round_summary = "High-variance round. The priority should be reducing big mistakes before chasing aggressive scoring."
 
     if penalties >= 2:
-        main_priority = "Course management"
+        main_priority = "Course Management"
     elif gir_pct < 40:
-        main_priority = "Approach play"
+        main_priority = "Approach Play"
     elif putts >= 36 or three_putts >= 2:
         main_priority = "Putting"
     elif fairway_pct < 45:
-        main_priority = "Driving accuracy"
+        main_priority = "Driving Accuracy"
     else:
         main_priority = "Consistency"
 
