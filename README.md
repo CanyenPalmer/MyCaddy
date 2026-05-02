@@ -12,7 +12,7 @@
 
 ---
 
-## Data Science & Analytics Overview
+## Data Science & System Design Overview
 
 MyCaddy is an applied data science system that combines deterministic modeling, feature engineering, and rule-based decision systems to support both real-time decision-making and post-round performance analysis.
 
@@ -31,6 +31,18 @@ Outputs are designed to be:
 - Fully interpretable (no black-box modeling)
 - Deterministic and reproducible
 - Aligned with real-world decision workflows
+
+---
+
+## System Architecture
+
+### MyCaddy (In-Round Decision Engine)
+
+![MyCaddy System](./assets/mycaddy-mermaid-diagram.png)
+
+### MyCoach (Post-Round Analysis Engine)
+
+![MyCoach System](./assets/mycoach-mermaid-diagram.png)
 
 ---
 
