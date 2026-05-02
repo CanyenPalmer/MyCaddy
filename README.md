@@ -40,9 +40,13 @@ Outputs are designed to be:
 
 ![MyCaddy System](./assets/mycaddy-mermaid-diagram.png)
 
+*Real-time decision engine transforming environmental inputs into a precise, playable carry distance.*
+
 ### MyCoach (Post-Round Analysis Engine)
 
 ![MyCoach System](./assets/mycoach-mermaid-diagram.png)
+
+*Post-round analytics engine converting performance data into structured insights and targeted improvement plans.*
 
 ---
 
