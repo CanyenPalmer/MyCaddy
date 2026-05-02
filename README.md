@@ -1,4 +1,4 @@
-# MyCaddy: Caddie-Style Golf Carry Distance Calculator
+# MyCaddy: Golf Decision & Coaching System
 
 [![Live on Render](https://img.shields.io/badge/Render-Live%20Demo-46E3B7?logo=render&logoColor=white)](https://mycaddy.onrender.com)
 ![GitHub last commit](https://img.shields.io/github/last-commit/CanyenPalmer/MyCaddy)
@@ -14,248 +14,291 @@
 
 ## Overview
 
-MyCaddy is a physics-informed golf carry distance calculator designed to estimate the true “plays-like” yardage of a shot under real on-course conditions.
+MyCaddy is a structured golf performance system designed to support both **in-round decision making** and **post-round improvement**.
 
-Rather than recommending a club selection, the system focuses on a more fundamental question:
+Rather than focusing on a single feature, the platform is built around two distinct tools that mirror how serious golfers actually operate:
 
-> What carry distance should this shot effectively play as?
+> Make better decisions during the round.  
+> Learn from the round afterward.
 
-This approach mirrors how competitive golfers and professional caddies construct numbers in tournament environments.
+---
+
+## MyCaddy Platform (v2.1.1)
+
+MyCaddy has evolved into a two-system golf performance platform:
+
+### MyCaddy (In-Round Tool)
+
+A physics-informed carry distance engine designed for real-time decision making.
+
+- Answers: *“What does this shot play like?”*
+- Focus: speed, clarity, and trust during a round
+- Produces a **plays-like carry distance**, not a club recommendation
+
+---
+
+### MyCoach (Post-Round Tool)
+
+A structured coaching engine that analyzes round performance and produces targeted improvement plans.
+
+- Answers: *“What did this round reveal about my game?”*
+- Focus: development, pattern recognition, and practice direction
+- Uses PGA Tour benchmarks and rule-based evaluation logic
+
+---
+
+### System Philosophy
+
+The tools are intentionally separated:
+
+- MyCaddy operates **during play**
+- MyCoach operates **after the round**
+
+This separation ensures:
+- no cognitive overload during a round
+- clear, focused improvement after the round
 
 ---
 
 ## Project Purpose
 
-Carry distance in golf is highly sensitive to environmental and lie-based variables. Static yardage alone is insufficient for consistent decision-making.
+Golf performance depends on two things:
 
-MyCaddy introduces a structured adjustment framework that incorporates:
+1. Making correct decisions under varying conditions  
+2. Understanding what actually impacted your score  
 
-- Lie conditions
-- Elevation change
-- Wind speed and direction
-- Temperature
-
-The goal is to produce a **stable, interpretable carry estimate** that improves decision quality without increasing cognitive load.
+MyCaddy addresses both.
 
 ---
 
-## Core Calculation Model
+## Core Calculation Model (MyCaddy)
 
-The model follows a deterministic adjustment pipeline:
+The carry engine follows a deterministic adjustment pipeline:
 
 1. **Base Distance**
-   - User-provided yardage to target
+   - User-provided yardage
 
 2. **Lie Adjustment**
-   - Nonlinear percentage-based penalty
-   - Reflects strike degradation and energy transfer loss
+   - Nonlinear percentage penalty
 
-3. **Elevation Adjustment**
-   - Converted using:
-     - 3 feet ≈ 1 yard
+3. **Elevation**
+   - 3 feet ≈ 1 yard
 
-4. **Wind Adjustment**
-   - Directional decomposition:
-     - Headwind / tailwind
-     - Crosswind
-     - Quartering wind (cosine-based scaling ~0.707)
+4. **Wind**
+   - Directional decomposition
+   - Cosine scaling for diagonal wind
 
-5. **Temperature Adjustment**
-   - Air density proxy:
-     - ~1% carry change per 10°F deviation
+5. **Temperature**
+   - ~1% carry change per 10°F
 
 6. **Final Output**
-   - Stock Target (primary decision value)
-   - Plays-Like Range (uncertainty band)
-   - Caddy Insight (interpretable explanation)
+   - Stock Target
+   - Plays-Like Range
+   - Caddy Insight
 
 ---
 
-## Interface and Decision System (v2.1.1)
-
-The application has evolved from a pure calculation tool into a structured decision interface.
+## Interface and Decision System
 
 ### Output Hierarchy
 
-- **Stock Target**
-  - Primary carry number
-  - Intended to be trusted and acted upon
+- **Stock Target** → primary number  
+- **Plays-Like Range** → variability band  
+- **Caddy Insight** → explanation  
 
-- **Plays-Like Range**
-  - Secondary contextual band
-  - Represents variability, not indecision
+### Visualization
 
-- **Caddy Insight**
-  - Natural-language interpretation of conditions
-  - Translates model adjustments into human-readable reasoning
+- Distance progression bar  
+- Scroll-triggered animations  
+- Temperature-based color encoding  
 
-### Visualization Layer
+### Interaction
 
-- Distance progression bar:
-  - Displays base vs adjusted carry
-  - Reinforces magnitude of adjustment
+- Typing-based insight delivery  
+- Avatar feedback  
+- Mobile-first design  
 
-- Scroll-triggered animation:
-  - Activates only when visible
-  - Avoids wasted interaction on mobile
+---
 
-- Temperature color encoding:
-  - Cold → neutral → hot spectrum
-  - Provides quick environmental interpretation
+## MyCoach Engine (v2.1.1)
 
-### Interaction Design
+MyCoach is a rule-based performance analysis system.
 
-- Typing-based insight delivery
-- Subtle avatar feedback during output
-- Mobile-first layout optimized for in-round use
+### Inputs
+
+- Score and par  
+- Fairways hit  
+- Greens in regulation  
+- Putts and three-putts  
+- Scrambling  
+- Penalties  
+- Miss patterns  
+- Round issues  
+
+---
+
+### Output Structure
+
+- **Round Tier** (performance classification)  
+- **PGA Tour comparison metrics**  
+- **Strengths**  
+- **Ranked weaknesses**  
+- **Primary focus (single or dual)**  
+- **Practice plan with real drills**  
+
+---
+
+### Coaching Logic
+
+- Uses **PGA Tour Top 10, Top 50, and Average benchmarks**
+- Ranks weaknesses based on scoring impact
+- Determines whether to assign:
+  - single focus
+  - dual focus
+- Maps each weakness to a **specific drill**
+
+---
+
+### Design Principles
+
+- No over-coaching  
+- No fabricated weaknesses  
+- Focus prioritization  
+- Direct mapping:  
+  **problem → drill → improvement path**
+
+---
+
+### Practice System
+
+The practice engine assigns **real drills**, such as:
+
+- Distance Ladder Approach Drill  
+- Tee Shot Start-Line Gate Drill  
+- Up-and-Down Challenge  
+- Death Star Putting Drill  
+
+Each drill includes:
+- setup  
+- execution  
+- goal  
+- purpose  
 
 ---
 
 ## Wind Modeling
 
-Wind effects are decomposed into directional components:
-
-- Headwind / tailwind → primary distance modifier
-- Crosswind → informational (non-distance altering)
-- Diagonal wind → scaled using cosine decomposition
-
-This ensures stability and avoids exaggerated wind effects.
+- Headwind / tailwind → distance modifier  
+- Crosswind → informational  
+- Diagonal → cosine scaled  
 
 ---
 
 ## Lie Penalty System
 
-The lie model applies a bounded nonlinear penalty:
-
-- Fairway → no penalty
-- First cut → minimal reduction
-- Rough → moderate degradation
-- Heavy rough → severe penalty
-
-The system is designed to:
-- Avoid unrealistic extremes
-- Maintain consistency across varying conditions
-- Reflect real strike variability rather than deterministic loss
-
----
-
-## Elevation Adjustment
-
-Elevation is converted using a standard approximation:
-
-- 3 feet of elevation change ≈ 1 yard of carry adjustment
-
-Supports:
-- Uphill
-- Downhill
-- Flat
+- Fairway → none  
+- First cut → minimal  
+- Rough → moderate  
+- Heavy rough → severe  
 
 ---
 
 ## Temperature Scaling
 
-Temperature is treated as a proxy for air density:
+- Warmer → more carry  
+- Colder → less carry  
 
-- Warmer air → reduced resistance → increased carry
-- Colder air → increased resistance → reduced carry
-
-Approximation used:
-- ~1% carry change per 10°F
+Approximation:
+- ~1% per 10°F  
 
 ---
 
 ## Flyer Logic
 
-Flyer behavior is context-dependent and user-controlled.
-
-| Lie Condition                | Behavior                          |
-|----------------------------|----------------------------------|
-| ≤ 50% rough severity        | Provides flyer-adjusted range     |
-| ≥ 75% rough severity        | Displays uncertainty warning      |
-
-This prevents false precision in poor lies while still offering actionable information.
+| Condition | Behavior |
+|----------|--------|
+| Light rough | Adjusted range |
+| Heavy rough | Uncertainty warning |
 
 ---
 
 ## Performance Philosophy
 
-The system is designed around four constraints:
+The system is built on:
 
-- **Speed** — usable during play
-- **Stability** — no volatile outputs
-- **Clarity** — minimal interpretation required
-- **Trust** — consistent directional behavior
+- **Speed**
+- **Stability**
+- **Clarity**
+- **Trust**
 
 ---
 
 ## Technology Stack
 
-- Python 3
-- Flask
-- HTML / CSS (mobile-first UI)
-- Custom mathematical modeling functions
+- Python 3  
+- Flask  
+- HTML / CSS  
+- Custom modeling logic  
 
 ---
 
 ## Target Users
 
-- Developing golfers learning environmental effects
-- Amateur players improving course management
-- Competitive players refining decision processes
-- Advanced players simulating tournament conditions
+- Developing golfers  
+- Amateur players  
+- Competitive players  
+- Advanced players  
 
 ---
 
 ## Validation Status
 
-The model has been evaluated across:
+Tested across:
 
-- Wind scenarios (head, tail, cross, diagonal)
-- Elevation changes
-- Temperature ranges
-- Lie conditions
-- Flyer and non-flyer cases
+- Wind scenarios  
+- Elevation  
+- Temperature  
+- Lie conditions  
+- Round performance profiles  
 
-Expected performance:
-
-> Designed to fall within approximately ±2–5 yards under realistic inputs, pending real-course validation.
+Expected accuracy:
+> ±2–5 yards under realistic inputs  
 
 ---
 
 ## Roadmap
 
-Future development directions include:
-
-- Player-specific calibration
-- Shot dispersion modeling
-- Expanded environmental variables (altitude, humidity)
-- Decision-support extensions (club recommendation layer)
+- Player-specific calibration  
+- Shot dispersion modeling  
+- Multi-round tracking (MyCoach expansion)  
+- Additional environmental variables  
 
 ---
 
 ## Disclaimer
 
-MyCaddy estimates carry distance only.
+MyCaddy estimates:
 
-It does not account for:
+- Carry distance only  
+- Does not account for rollout  
+- Does not select clubs  
 
-- Rollout
-- Individual swing variability
-- Club selection
-
-Final decisions remain the responsibility of the player.
+Final decisions remain with the player.
 
 ---
 
 ## Summary
 
-MyCaddy provides a structured method for translating raw yardage into a condition-adjusted carry value.
+MyCaddy is a structured golf decision and coaching system that combines:
 
-It operates at the intersection of:
+- Physics-based modeling  
+- Data-driven evaluation  
+- Real-world golf strategy  
 
-- Applied physics
-- Data modeling
-- On-course decision systems
+It bridges the gap between:
 
-The current version (v2.1.1) represents a stable, test-ready implementation suitable for real-world validation.
+- **in-round execution**
+- **post-round improvement**
+
+Version v2.1.1 represents a stable, production-ready implementation suitable for real-world use.
 
