@@ -1,242 +1,44 @@
 # MyCaddy: Golf Decision & Coaching System
 
 [![Live on Render](https://img.shields.io/badge/Render-Live%20Demo-46E3B7?logo=render&logoColor=white)](https://mycaddy.onrender.com)
-![GitHub last commit](https://img.shields.io/github/last-commit/CanyenPalmer/MyCaddy)
-![GitHub repo size](https://img.shields.io/github/repo-size/CanyenPalmer/MyCaddy)
-![Top language](https://img.shields.io/github/languages/top/CanyenPalmer/MyCaddy)
-![Language count](https://img.shields.io/github/languages/count/CanyenPalmer/MyCaddy)
 
 **Author:** Palmer Projects  
 **Version:** v2.1.1  
-**License:** © Palmer Projects. All rights reserved.
 
 ---
 
-# Case Study: Data-Driven Golf Decision & Coaching System
+## Case Study
 
-MyCaddy is an applied data science and decision systems project designed to model real-world golf conditions and convert them into **interpretable, high-confidence decision outputs**.
+MyCaddy is an applied data science and analytics system designed to model real-world golf conditions and translate them into interpretable, high-confidence decision outputs. The project was developed to address two fundamental gaps in golf performance: the lack of structured, data-driven decision-making during play, and the absence of a consistent analytical framework for evaluating performance after a round.
 
-The system answers two core questions:
-
-1. *What does this shot actually play like?*  
-2. *What did this round reveal about my game?*  
+Traditional golf decision-making is largely heuristic. Players rely on static yardage, subjective adjustments, and incomplete environmental interpretation. This introduces variability that directly impacts scoring outcomes. At the same time, post-round evaluation is typically unstructured, preventing players from identifying statistically meaningful weaknesses or establishing a repeatable improvement process. MyCaddy approaches both problems through a unified data pipeline that supports real-time inference and post-hoc analysis within a single system.
 
 ---
 
-# Problem
+## Methodology
 
-Golf decision-making and improvement suffer from two key limitations:
+The system is built on a deterministic modeling framework supported by structured feature engineering and applied statistical reasoning. Input variables were selected based on their influence on ball flight and scoring outcomes, including wind, elevation, temperature, and lie conditions. Each variable is transformed through engineered features designed to approximate real-world physics while maintaining computational efficiency and interpretability.
 
-### 1. In-Round Decisions
-Players rely on:
-- static yardage
-- feel-based adjustments
-- inconsistent environmental interpretation  
+Wind is modeled using vector decomposition, allowing directional components such as headwind, tailwind, and diagonal wind to be represented independently. Elevation is approximated using a linear transformation, while temperature is incorporated through proportional scaling as a proxy for air density. Lie conditions are represented through nonlinear penalty functions to capture the variability in strike quality across different surfaces. These transformations form a consistent modeling pipeline in which raw inputs are converted into structured features and aggregated into a single output variable representing effective carry distance.
 
-This leads to:
-- miscalculated distances  
-- poor club selection  
-- inconsistent outcomes  
+The system deliberately avoids black-box machine learning in favor of deterministic and interpretable modeling. This design choice ensures reproducibility, stability across edge cases, and alignment with real-world decision-making processes where transparency is critical.
 
 ---
 
-### 2. Post-Round Analysis
+## System Design and Analytics Framework
 
-Most players lack:
-- structured evaluation frameworks  
-- benchmark comparisons  
-- actionable feedback loops  
+MyCaddy operates as a dual-system architecture composed of a real-time inference engine and a post-round analytics engine. The in-round component functions as a deterministic prediction system, converting engineered features into a “plays-like” carry distance. Outputs are structured hierarchically, with a primary decision variable supported by an uncertainty band and a contextual explanation layer. This output design reflects principles of human-centered analytics, where clarity and usability are prioritized alongside accuracy.
 
-This results in:
-- repeated mistakes  
-- inefficient practice  
-- no clear improvement path  
+The post-round component extends the pipeline into a formal evaluation framework. Performance data is analyzed using comparative benchmarking against PGA Tour distributions, including top-tier and average performance levels. Metrics are evaluated using a gap-based classification system, allowing performance to be segmented into interpretable tiers such as strength, moderate gap, or major gap. This introduces standardization into what is typically a subjective evaluation process.
+
+A rule-based decision system is then applied to transform analytical findings into actionable outputs. Weaknesses are ranked according to severity and scoring impact, and a constrained optimization approach is used to determine whether a single focus area or multiple areas should be prioritized. This ensures that recommendations remain targeted and avoids overfitting feedback to noise within a single round. The final outputs include structured insights, prioritized improvement areas, and mapped practice interventions, forming a closed-loop system from data ingestion to decision support.
 
 ---
 
-# Solution
+## Results and Impact
 
-MyCaddy addresses both problems through a **dual-system architecture**:
+The modeling system demonstrates an expected accuracy of approximately ±2–5 yards under realistic environmental conditions, with stable outputs observed across a wide range of input scenarios. More importantly, the system maintains full interpretability, allowing users to trace outputs back to their underlying feature transformations and modeling assumptions. This transparency is critical in establishing trust and enabling users to incorporate the system into real decision-making workflows.
 
-- **MyCaddy:** Real-time deterministic modeling engine  
-- **MyCoach:** Post-round analytics and decision system  
+From an analytics perspective, the project demonstrates the ability to design and implement an end-to-end data pipeline that integrates feature engineering, deterministic modeling, performance evaluation, and rule-based decision systems. It highlights how data science techniques can be applied outside traditional domains to solve domain-specific problems with measurable impact.
 
-This separation ensures:
-
-- fast, low-friction decision-making during play  
-- structured, high-signal feedback after play  
-
----
-
-# System Architecture
-
-### MyCaddy (In-Round Decision Engine)
-
-![MyCaddy System](./assets/mycaddy-mermaid-diagram.png)
-
-*Real-time decision engine transforming environmental inputs into a precise, playable carry distance.*
-
----
-
-### MyCoach (Post-Round Analysis Engine)
-
-![MyCoach System](./assets/mycoach-mermaid-diagram.png)
-
-*Post-round analytics engine converting performance data into structured insights and targeted improvement plans.*
-
----
-
-# Data Science Approach
-
-## Feature Engineering
-
-Key variables were engineered to represent real-world conditions:
-
-- Wind (vector decomposition)  
-- Elevation (continuous scaling)  
-- Lie (nonlinear penalty modeling)  
-- Temperature (air density proxy)  
-
----
-
-## Modeling Strategy
-
-The system uses a **deterministic modeling pipeline**:
-
-Input Features → Adjustment Functions → Aggregated Output  
-
-Techniques include:
-
-- Linear approximations (elevation)  
-- Trigonometric decomposition (wind)  
-- Nonlinear scaling (lie penalties)  
-- Proportional modeling (temperature)  
-- Constraint-based logic for stability  
-
----
-
-## Analytics Framework
-
-Performance is evaluated against external benchmarks:
-
-- PGA Tour Top 10  
-- PGA Tour Top 50  
-- PGA Tour Average  
-
-Metrics are classified using a **gap-based severity model**:
-
-- Strength  
-- Small Gap  
-- Moderate Gap  
-- Major Gap  
-
----
-
-## Decision System Design
-
-The MyCoach engine implements a rule-based system:
-
-- Weakness ranking based on:
-  - severity  
-  - scoring impact  
-  - contextual inputs  
-
-- Focus determination:
-  - single focus  
-  - dual focus  
-
-- Constraint rules:
-  - prevent over-coaching  
-  - ensure actionable outputs  
-
----
-
-# Outputs
-
-The system produces structured, interpretable outputs:
-
-### MyCaddy
-- Stock Target (primary decision variable)  
-- Plays-Like Range (uncertainty band)  
-- Caddy Insight (explanation layer)  
-
----
-
-### MyCoach
-- Strengths  
-- Ranked weaknesses  
-- Primary focus areas  
-- Practice plan with targeted drills  
-
----
-
-# Technology Stack
-
-Python · Flask · Data Modeling · Feature Engineering · EDA · Statistical Analysis · Rule-Based Systems · HTML/CSS
-
----
-
-# Results
-
-- ±2–5 yard expected accuracy under realistic conditions  
-- Stable outputs across environmental scenarios  
-- Fully interpretable (no black-box modeling)  
-- Direct mapping: data → decision → action  
-
----
-
-# Impact
-
-This project demonstrates the ability to:
-
-- Translate real-world physical variables into structured data models  
-- Design end-to-end data pipelines  
-- Build interpretable decision systems  
-- Apply analytics to solve real-world performance problems  
-
----
-
-# Product Overview
-
-MyCaddy is designed for:
-
-- Amateur golfers  
-- Competitive players  
-- Data-driven athletes  
-
-The system mirrors how high-level players operate:
-
-> Make better decisions during the round  
-> Learn from the round afterward  
-
----
-
-# Roadmap
-
-- Player-specific calibration  
-- Shot dispersion modeling  
-- Multi-round tracking  
-- Expanded analytics capabilities  
-
----
-
-# Disclaimer
-
-- Estimates carry distance only  
-- Does not model rollout  
-- Does not recommend clubs  
-
----
-
-# Summary
-
-MyCaddy is a **data-driven decision and coaching system** that combines:
-
-- physics-based modeling  
-- structured analytics  
-- real-world decision logic  
-
-It bridges:
-
-> execution during the round  
-> improvement after the round  
+Ultimately, MyCaddy bridges the gap between real-time decision-making and long-term performance improvement. By combining modeling accuracy with structured analytics and interpretable outputs, the system provides both immediate utility during play and a scalable framework for continuous improvement over time.
