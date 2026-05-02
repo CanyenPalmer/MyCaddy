@@ -18,9 +18,14 @@ MyCaddy is an applied data science system that combines deterministic modeling, 
 
 The system leverages:
 - Feature engineering (wind, elevation, temperature, lie variables)
-- Exploratory data analysis (EDA) and performance evaluation
+- Exploratory Data Analysis (EDA) and performance evaluation
 - Statistical modeling and proportional scaling
 - Rule-based decision systems for structured output generation
+
+Model validation and evaluation are performed through:
+- Iterative testing across environmental scenarios
+- Performance benchmarking against expected outcomes
+- Consistency checks to ensure stability and reproducibility
 
 Outputs are designed to be:
 - Fully interpretable (no black-box modeling)
@@ -233,7 +238,7 @@ Approximation:
 ## Flyer Logic
 
 | Condition | Behavior |
-|----------|--------|
+|----------|----------|
 | Light rough | Adjusted range |
 | Heavy rough | Uncertainty warning |
 
@@ -318,4 +323,3 @@ It bridges the gap between:
 - **post-round improvement**
 
 Version v2.1.1 represents a stable, production-ready implementation suitable for real-world use.
-
