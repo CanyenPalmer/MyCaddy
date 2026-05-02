@@ -49,22 +49,26 @@
         <label>Greens in Regulation</label>
         <input type="number" name="greens_hit" min="0" required>
 
-        <label>Main Driver Miss</label>
-        <select name="driver_miss">
-            <option value="No clear pattern">No clear pattern</option>
+        <label>Main Tee Box Miss</label>
+        <select name="tee_box_miss">
+            <option value="No Issues">No Issues</option>
             <option value="Left">Left</option>
             <option value="Right">Right</option>
             <option value="Short">Short</option>
-            <option value="Penalty trouble">Penalty trouble</option>
+            <option value="Long">Long</option>
+            <option value="Penalty Trouble">Penalty Trouble</option>
+            <option value="Inconsistent">Inconsistent</option>
+            <option value="Bad Swing">Bad Swing</option>
         </select>
 
         <label>Main Approach Miss</label>
         <select name="approach_miss">
-            <option value="No clear pattern">No clear pattern</option>
+            <option value="No Issues">No Issues</option>
             <option value="Short">Short</option>
             <option value="Long">Long</option>
             <option value="Left">Left</option>
             <option value="Right">Right</option>
+            <option value="Bad Swing">Bad Swing</option>
         </select>
 
         <h3>Scoring</h3>
@@ -84,10 +88,27 @@
         <label>Up-and-Down Chances</label>
         <input type="number" name="up_and_down_chances" value="0" min="0">
 
-        <h3>Round Notes</h3>
+        <h3>Round Trend</h3>
 
-        <label>Anything you noticed?</label>
-        <textarea name="round_notes" rows="4" placeholder="Example: struggled with distance control, missed right under pressure, putted well inside 6 feet..."></textarea>
+        <label>Main Issue From The Round</label>
+        <select name="round_issue">
+            <option value="No Major Issues">No Major Issues</option>
+            <option value="Poor Tee Shot Accuracy">Poor Tee Shot Accuracy</option>
+            <option value="Poor Approach Distance Control">Poor Approach Distance Control</option>
+            <option value="Poor Approach Accuracy">Poor Approach Accuracy</option>
+            <option value="Poor Short Game - Chipping">Poor Short Game - Chipping</option>
+            <option value="Poor Short Game - Putting">Poor Short Game - Putting</option>
+            <option value="Poor Short Game - Both">Poor Short Game - Both</option>
+            <option value="Poor Putting Speed">Poor Putting Speed</option>
+            <option value="Poor Putting Start Line">Poor Putting Start Line</option>
+            <option value="Poor Putting Green Reading">Poor Putting Green Reading</option>
+            <option value="Too Many Penalties">Too Many Penalties</option>
+            <option value="Bad Club Selection">Bad Club Selection</option>
+            <option value="Poor Course Management">Poor Course Management</option>
+            <option value="Struggled Under Pressure">Struggled Under Pressure</option>
+            <option value="Slow Start">Slow Start</option>
+            <option value="Poor Finish">Poor Finish</option>
+        </select>
 
         <button type="submit">Generate MyCoach Report</button>
     </form>
@@ -129,6 +150,16 @@
             </div>
 
             <div class="coach-metric-row">
+                <span>Round Tier</span>
+                <strong>{{ report.round_tier.name }}</strong>
+            </div>
+
+            <div class="coach-metric-row">
+                <span>Primary Focus</span>
+                <strong>{{ report.focus_text }}</strong>
+            </div>
+
+            <div class="coach-metric-row">
                 <span>Fairways</span>
                 <strong>{{ report.fairway_pct }}%</strong>
             </div>
@@ -147,10 +178,41 @@
                 <span>Penalty Strokes</span>
                 <strong>{{ report.penalties }}</strong>
             </div>
+        </div>
 
-            <div class="coach-priority">
-                Primary Focus: {{ report.main_priority }}
-            </div>
+        <div class="coach-section-card">
+            <h3>PGA Tour Reference Comparison</h3>
+            <p class="coach-small-note">
+                These are reference benchmarks for context. They are meant to show the gap between your round profile and elite scoring standards.
+            </p>
+
+            {% for item in report.pga_comparisons %}
+                <div class="pga-comparison-card">
+                    <div class="pga-comparison-title">{{ item.label }}</div>
+
+                    <div class="coach-metric-row">
+                        <span>Your Round</span>
+                        <strong>{{ item.player_value }}</strong>
+                    </div>
+
+                    <div class="coach-metric-row">
+                        <span>PGA Tour Top 10 Avg</span>
+                        <strong>{{ item.top_10 }}</strong>
+                    </div>
+
+                    <div class="coach-metric-row">
+                        <span>PGA Tour Top 50 Avg</span>
+                        <strong>{{ item.top_50 }}</strong>
+                    </div>
+
+                    <div class="coach-metric-row">
+                        <span>PGA Tour Average</span>
+                        <strong>{{ item.tour_average }}</strong>
+                    </div>
+
+                    <div class="pga-status">{{ item.status }}</div>
+                </div>
+            {% endfor %}
         </div>
 
         <div class="coach-section-card">
@@ -173,19 +235,33 @@
 
         <div class="coach-section-card">
             <h3>Practice Plan</h3>
-            <ul>
-                {% for item in report.practice_focus %}
-                    <li>{{ item }}</li>
-                {% endfor %}
-            </ul>
-        </div>
 
-        {% if report.round_notes %}
-        <div class="coach-section-card">
-            <h3>Your Notes</h3>
-            <p>{{ report.round_notes }}</p>
+            {% for drill in report.practice_plan %}
+                <div class="practice-drill-card">
+                    <div class="practice-drill-title">Drill: {{ drill.name }}</div>
+
+                    <div class="practice-drill-block">
+                        <strong>Setup:</strong>
+                        <p>{{ drill.setup }}</p>
+                    </div>
+
+                    <div class="practice-drill-block">
+                        <strong>Execution:</strong>
+                        <p>{{ drill.execution }}</p>
+                    </div>
+
+                    <div class="practice-drill-block">
+                        <strong>Goal:</strong>
+                        <p>{{ drill.goal }}</p>
+                    </div>
+
+                    <div class="practice-drill-block">
+                        <strong>What It Helps:</strong>
+                        <p>{{ drill.helps }}</p>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
-        {% endif %}
 
         <form method="GET">
             <button type="submit">Enter Another Round</button>
