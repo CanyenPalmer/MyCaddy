@@ -58,19 +58,89 @@ PGA_REFERENCES = {
 
 
 DRILLS = {
-    "Tee Box Accuracy": {
-        "name": "Fairway Finder Start-Line Drill",
-        "setup": "On the range, pick a fairway-width target window. Place two alignment sticks or clubs on the ground to create a start-line gate just a few yards in front of the ball.",
-        "execution": "Hit 10 tee shots using the club you normally trust from the tee. Your only goal is to start the ball through the gate and finish inside the target window. Track how many out of 10 would be playable.",
-        "goal": "Finish 7 out of 10 balls inside the target window before increasing speed or changing clubs.",
-        "helps": "Tee shot commitment, start-line control, and choosing a reliable club when accuracy matters.",
+    "Tee Box Right Miss": {
+        "name": "Tee Shot Start-Line Gate Drill",
+        "setup": "On the range, choose a fairway-width target. Place two alignment sticks or clubs on the ground to create a start-line gate a few yards in front of the ball.",
+        "execution": "Hit 10 tee shots using the club you normally trust off the tee. Your only goal is to start the ball through the gate and finish inside the target window.",
+        "goal": "Get 7 out of 10 tee shots starting through the gate and finishing playable.",
+        "helps": "Right misses, open-face delivery, poor start line, and tee-shot commitment.",
     },
-    "Approach Play": {
-        "name": "Green-Center Approach Drill",
-        "setup": "Pick three approach distances. Instead of aiming at pins, choose the center of the green or the safest section of the target.",
-        "execution": "Hit 5 balls from each distance. Score each ball as green hit, safe miss, or short-side/big miss. The goal is to remove high-cost misses, not chase perfect shots.",
-        "goal": "Hit or safely miss 10 out of 15 shots before moving to harder targets.",
-        "helps": "Approach discipline, distance control, and smarter target selection.",
+    "Tee Box Left Miss": {
+        "name": "Hold-Off Tee Shot Drill",
+        "setup": "Pick a target and create a start-line gate slightly right of the target if you tend to miss left.",
+        "execution": "Hit controlled tee shots at 75 percent speed while feeling the clubface stay stable through impact. Do not chase distance during this drill.",
+        "goal": "Hit 7 out of 10 tee shots without the ball starting or curving hard left.",
+        "helps": "Left misses, over-release patterns, and tee shots that turn over too aggressively.",
+    },
+    "Tee Box Penalty Trouble": {
+        "name": "Trouble-Side Avoidance Drill",
+        "setup": "Pick a range target and define one side as penalty trouble. Choose a target line that removes that side from play.",
+        "execution": "Hit 10 tee shots. Score each shot as safe, playable miss, or penalty-side miss.",
+        "goal": "Complete 10 tee shots with zero penalty-side misses.",
+        "helps": "Penalty avoidance, conservative target selection, and smarter tee-box decisions.",
+    },
+    "Tee Box Inconsistent": {
+        "name": "Fairway Finder Drill",
+        "setup": "Choose your most reliable tee club. Pick a narrow but realistic target window.",
+        "execution": "Hit 10 balls using a shorter, controlled finish. Track only whether each ball would be playable from the tee.",
+        "goal": "Get 7 out of 10 balls into a playable position before increasing speed.",
+        "helps": "Tee-box consistency, tempo, and building a reliable fairway-finder shot.",
+    },
+    "Tee Box Bad Swing": {
+        "name": "Tempo Tee Shot Ladder",
+        "setup": "Use your normal tee club and pick a wide target. Prepare to hit three speed levels: 60 percent, 75 percent, and 90 percent.",
+        "execution": "Hit 3 balls at each speed. Only move up if contact and balance are stable. If contact breaks down, return to the previous speed.",
+        "goal": "Finish the ladder with balanced contact on at least 7 out of 9 swings.",
+        "helps": "Bad swing patterns, rushed tempo, and tee shots where mechanics break under speed.",
+    },
+    "Tee Box Short": {
+        "name": "Efficient Contact Tee Drill",
+        "setup": "Tee the ball at your normal height and place a small towel several inches behind the ball.",
+        "execution": "Hit tee shots without striking the towel. Focus on centered contact and a balanced finish, not swinging harder.",
+        "goal": "Hit 8 out of 10 tee shots with clean contact and balanced finish.",
+        "helps": "Short tee shots caused by poor contact, steep delivery, or inefficient strike.",
+    },
+    "Tee Box Long": {
+        "name": "Controlled Target Tee Drill",
+        "setup": "Choose a target where going long creates trouble. Use one less club or a smoother tee swing.",
+        "execution": "Hit 10 tee shots trying to finish short of the trouble while staying in play.",
+        "goal": "Keep 8 out of 10 shots short of the long-side trouble and playable.",
+        "helps": "Over-aggressive tee shots, long misses, and better club selection from the tee.",
+    },
+    "Approach Short": {
+        "name": "One-More-Club Approach Drill",
+        "setup": "Pick approach targets where a front miss would be costly. Choose the club that reaches the middle or back half of the target.",
+        "execution": "Hit 10 approach shots with smooth tempo. Track whether each shot finishes short, pin-high, or safely past the front edge.",
+        "goal": "Get 7 out of 10 shots past the front edge without creating a big miss.",
+        "helps": "Short approach misses, club selection honesty, and distance control.",
+    },
+    "Approach Long": {
+        "name": "Back-Edge Control Drill",
+        "setup": "Pick a green or target zone and define a clear back edge that the ball must not pass.",
+        "execution": "Hit 10 approach shots while choosing clubs and targets that keep the ball under control. Score each shot as safe, long, or big miss.",
+        "goal": "Keep 8 out of 10 shots from finishing long of the back edge.",
+        "helps": "Long approach misses, distance discipline, and avoiding over-clubbed shots.",
+    },
+    "Approach Left": {
+        "name": "Approach Start-Line Gate Drill",
+        "setup": "Set an alignment stick or visual gate a few yards in front of the ball on your intended start line.",
+        "execution": "Hit 10 approach shots focusing only on starting the ball through the intended window.",
+        "goal": "Start 7 out of 10 shots on the intended line.",
+        "helps": "Left approach misses, poor start line, and face/path control.",
+    },
+    "Approach Right": {
+        "name": "Face-Control Approach Drill",
+        "setup": "Pick a target and create a start-line window. Use a mid-iron or scoring club.",
+        "execution": "Hit 10 shots with a three-quarter finish. Focus on starting the ball at the target and holding your finish.",
+        "goal": "Start 7 out of 10 shots inside the window without a right-side leak.",
+        "helps": "Right approach misses, face control, and committed approach swings.",
+    },
+    "Approach Bad Swing": {
+        "name": "Three-Quarter Contact Drill",
+        "setup": "Choose a comfortable approach distance and take one more club than usual.",
+        "execution": "Hit 10 three-quarter approach shots with a balanced finish. Do not chase full distance.",
+        "goal": "Strike 8 out of 10 shots solidly before returning to full swings.",
+        "helps": "Poor approach contact, rushed tempo, and swing breakdowns under pressure.",
     },
     "Approach Distance Control": {
         "name": "Distance Ladder Approach Drill",
@@ -78,6 +148,13 @@ DRILLS = {
         "execution": "Hit 3 balls to the short number, 3 to the middle number, and 3 to the long number. Repeat the ladder twice. Track whether each ball finishes pin-high, short, or long.",
         "goal": "Get at least 6 out of 9 balls finishing within a playable distance window.",
         "helps": "Carry control, club selection, and reducing short/long approach misses.",
+    },
+    "Approach Accuracy": {
+        "name": "Green-Center Discipline Drill",
+        "setup": "Pick three approach distances. Instead of aiming at pins, choose the center of the green or the safest section of the target.",
+        "execution": "Hit 5 balls from each distance. Score each ball as green hit, safe miss, or short-side/big miss.",
+        "goal": "Hit or safely miss 10 out of 15 shots before moving to harder targets.",
+        "helps": "Approach discipline, target selection, and avoiding short-sided misses.",
     },
     "Putting Speed": {
         "name": "Ladder Speed Control Drill",
@@ -100,12 +177,26 @@ DRILLS = {
         "goal": "Correctly match read and speed on at least 6 out of 8 putts.",
         "helps": "Green reading, speed matching, and confidence on breaking putts.",
     },
-    "Short Game": {
+    "Death Star Putting": {
+        "name": "Death Star Putting Drill",
+        "setup": "Place 6 to 8 balls or tees in a circle around the hole. Start at 3 feet. Advanced players can repeat the same circle from 6 feet and 9 feet.",
+        "execution": "Move around the circle and make each putt. If you miss, restart the circle from the beginning.",
+        "goal": "Complete the full circle without a miss. For advanced work, complete it at 3 feet, then 6 feet, then 9 feet.",
+        "helps": "Short-putt conversion, pressure putting, start line, and face control.",
+    },
+    "Short Game Chipping": {
+        "name": "Landing Spot Towel Drill",
+        "setup": "Place a small towel on the green where you want the ball to land. Choose 3 common chipping lies.",
+        "execution": "Hit 5 chips from each lie trying to land the ball on the towel and let it release toward the hole.",
+        "goal": "Land 10 out of 15 chips on or near the towel.",
+        "helps": "Chipping contact, landing spot control, and predictable rollout.",
+    },
+    "Short Game Both": {
         "name": "Up-and-Down Challenge",
         "setup": "Pick 9 short-game spots around a practice green: easy, medium, and difficult lies.",
         "execution": "Play one ball from each spot and finish the hole. Track whether you get up and down. Use your normal pre-shot routine on every attempt.",
         "goal": "Get up and down at least 4 out of 9 times, then work toward 5 or 6.",
-        "helps": "Chipping execution, recovery scoring, and converting missed greens into pars.",
+        "helps": "Chipping execution, recovery putting, and converting missed greens into pars.",
     },
     "Penalties": {
         "name": "Trouble Avoidance Target Drill",
@@ -120,6 +211,13 @@ DRILLS = {
         "execution": "Your goal is to avoid doubles or worse. When out of position, practice returning to safety instead of forcing a heroic recovery.",
         "goal": "Complete 6 trouble scenarios without making a double-bogey decision.",
         "helps": "Damage control, decision-making, and smarter scoring under pressure.",
+    },
+    "Club Selection": {
+        "name": "Middle-of-Green Club Selection Drill",
+        "setup": "Pick approach targets where being short or long creates a difficult next shot. Use the club that carries to the middle of the green.",
+        "execution": "Hit 10 approach shots and track whether your club choice gave you a safe result, even when the strike was not perfect.",
+        "goal": "Get 7 out of 10 shots finishing in a safe zone.",
+        "helps": "Club selection, distance honesty, and reducing avoidable short/long misses.",
     },
     "Pressure": {
         "name": "3-6-9 Pressure Putting Drill",
@@ -141,13 +239,6 @@ DRILLS = {
         "execution": "Treat each shot like the final three holes of a good round. If you lose focus or rush, restart the sequence.",
         "goal": "Complete all 6 shots with full routine and committed targets.",
         "helps": "Late-round focus, closing discipline, and maintaining decision quality when tired.",
-    },
-    "Club Selection": {
-        "name": "One-More-Club Discipline Drill",
-        "setup": "Pick approach targets where a front miss is costly. Choose the club that reaches the middle or back half of the target.",
-        "execution": "Hit 10 shots focusing on smooth tempo instead of forcing a shorter club. Track how often you finish pin-high or safely long.",
-        "goal": "Get 7 out of 10 shots past the front edge without a big miss.",
-        "helps": "Club selection, distance honesty, and reducing short misses.",
     },
 }
 
@@ -179,40 +270,64 @@ def _score_round_tier(score_to_par):
     }
 
 
-def _compare_to_pga(value, reference_key):
+def _gap_score(value, reference_key):
     ref = PGA_REFERENCES[reference_key]
-    top_10 = ref["top_10"]
-    top_50 = ref["top_50"]
     tour_average = ref["tour_average"]
 
     if ref["higher_is_better"]:
-        if value >= top_10:
-            status = "At or above the elite PGA reference."
-        elif value >= top_50:
-            status = "Near a strong PGA reference."
-        elif value >= tour_average:
-            status = "Near the PGA Tour average reference."
-        else:
-            status = "Below the PGA reference range."
+        gap = tour_average - value
     else:
-        if value <= top_10:
-            status = "At or above the elite PGA reference."
-        elif value <= top_50:
-            status = "Near a strong PGA reference."
-        elif value <= tour_average:
-            status = "Near the PGA Tour average reference."
-        else:
-            status = "Below the PGA reference range."
+        gap = value - tour_average
 
+    if gap <= 0:
+        severity = 0
+        label = "Strength"
+    elif gap <= 10:
+        severity = 1
+        label = "Small Gap"
+    elif gap <= 25:
+        severity = 2
+        label = "Moderate Gap"
+    else:
+        severity = 3
+        label = "Major Gap"
+
+    return {
+        "gap": round(gap, 1),
+        "severity": severity,
+        "label": label,
+    }
+
+
+def _format_value(value, reference_key):
+    ref = PGA_REFERENCES[reference_key]
     unit = ref["unit"]
+    return f"{value}{unit}" if unit else str(value)
+
+
+def _compare_to_pga(value, reference_key):
+    ref = PGA_REFERENCES[reference_key]
+    gap_data = _gap_score(value, reference_key)
+
+    if gap_data["severity"] == 0:
+        status = "This compares well against the PGA Tour average reference and should be treated as a strength from this round."
+    elif gap_data["severity"] == 1:
+        status = "This is close to the PGA Tour average reference, but still represents a small scoring opportunity."
+    elif gap_data["severity"] == 2:
+        status = "This is a meaningful gap relative to PGA Tour benchmarks and should receive practice attention."
+    else:
+        status = "This is a major gap relative to PGA Tour benchmarks and is likely one of the biggest scoring separators from this round."
 
     return {
         "label": ref["label"],
-        "player_value": f"{value}{unit}" if unit else str(value),
-        "top_10": f"{top_10}{unit}" if unit else str(top_10),
-        "top_50": f"{top_50}{unit}" if unit else str(top_50),
-        "tour_average": f"{tour_average}{unit}" if unit else str(tour_average),
+        "player_value": _format_value(value, reference_key),
+        "top_10": _format_value(ref["top_10"], reference_key),
+        "top_50": _format_value(ref["top_50"], reference_key),
+        "tour_average": _format_value(ref["tour_average"], reference_key),
         "status": status,
+        "gap_label": gap_data["label"],
+        "gap": gap_data["gap"],
+        "severity": gap_data["severity"],
     }
 
 
@@ -221,61 +336,58 @@ def _add_unique(items, item):
         items.append(item)
 
 
-def _build_focus_scores(
+def _ranked_weaknesses(
     fairway_pct,
     gir_pct,
     putts,
     penalties,
-    three_putts,
     up_down_pct,
     up_and_down_chances,
+    three_putts,
     tee_box_miss,
     approach_miss,
     round_issue,
 ):
-    focus_scores = {
-        "Tee Box Accuracy": 0,
-        "Approach Play": 0,
-        "Short Game": 0,
-        "Putting": 0,
-        "Course Management": 0,
-    }
+    weaknesses = []
 
-    if fairway_pct < 45:
-        focus_scores["Tee Box Accuracy"] += 3
-    elif fairway_pct < 60:
-        focus_scores["Tee Box Accuracy"] += 1
+    fairway_gap = _gap_score(fairway_pct, "fairways")
+    gir_gap = _gap_score(gir_pct, "gir")
+    putt_gap = _gap_score(putts, "putts")
+    penalty_gap = _gap_score(penalties, "penalties")
 
-    if tee_box_miss not in ["No Issues", ""]:
-        focus_scores["Tee Box Accuracy"] += 2
+    weaknesses.append({
+        "focus": "Tee Box Accuracy",
+        "score": fairway_gap["severity"] * 3 + (2 if tee_box_miss != "No Issues" else 0),
+        "text": "Tee box accuracy created pressure. Too many holes likely started from recovery positions.",
+    })
 
-    if gir_pct < 40:
-        focus_scores["Approach Play"] += 3
-    elif gir_pct < 60:
-        focus_scores["Approach Play"] += 1
+    weaknesses.append({
+        "focus": "Approach Play",
+        "score": gir_gap["severity"] * 3 + (2 if approach_miss != "No Issues" else 0),
+        "text": "Approach play was a major scoring leak. Missing greens at this rate forces the short game to carry too much of the round.",
+    })
 
-    if approach_miss not in ["No Issues", ""]:
-        focus_scores["Approach Play"] += 2
+    weaknesses.append({
+        "focus": "Putting",
+        "score": putt_gap["severity"] * 3 + (2 if three_putts >= 2 else 0),
+        "text": "Putting cost strokes. This usually points to poor speed control, missed short putts, or too many long second putts.",
+    })
 
-    if putts >= 36:
-        focus_scores["Putting"] += 3
-    elif putts >= 33:
-        focus_scores["Putting"] += 1
+    weaknesses.append({
+        "focus": "Course Management",
+        "score": penalty_gap["severity"] * 3,
+        "text": "Penalty strokes had a major impact. These are high-cost mistakes that should be reduced before chasing aggressive scoring.",
+    })
 
-    if three_putts >= 2:
-        focus_scores["Putting"] += 2
+    if up_and_down_chances > 0:
+        scramble_gap = _gap_score(up_down_pct, "scrambling")
+        weaknesses.append({
+            "focus": "Short Game",
+            "score": scramble_gap["severity"] * 3,
+            "text": "Scrambling was below target. Missed greens were turning into bogeys too often.",
+        })
 
-    if up_and_down_chances > 0 and up_down_pct < 35:
-        focus_scores["Short Game"] += 3
-    elif up_and_down_chances > 0 and up_down_pct < 50:
-        focus_scores["Short Game"] += 1
-
-    if penalties >= 2:
-        focus_scores["Course Management"] += 3
-    elif penalties == 1:
-        focus_scores["Course Management"] += 1
-
-    issue_map = {
+    issue_boosts = {
         "Poor Tee Shot Accuracy": "Tee Box Accuracy",
         "Poor Approach Distance Control": "Approach Play",
         "Poor Approach Accuracy": "Approach Play",
@@ -293,75 +405,195 @@ def _build_focus_scores(
         "Poor Finish": "Course Management",
     }
 
-    if round_issue in issue_map:
-        focus_scores[issue_map[round_issue]] += 2
+    if round_issue in issue_boosts:
+        boosted_focus = issue_boosts[round_issue]
 
-    if round_issue == "Poor Short Game - Both":
-        focus_scores["Putting"] += 2
+        for item in weaknesses:
+            if item["focus"] == boosted_focus:
+                item["score"] += 2
 
-    return focus_scores
+        if round_issue == "Poor Short Game - Both":
+            for item in weaknesses:
+                if item["focus"] == "Putting":
+                    item["score"] += 2
+
+    if tee_box_miss != "No Issues":
+        weaknesses.append({
+            "focus": "Tee Box Accuracy",
+            "score": 2,
+            "text": f"Your main tee box miss was {tee_box_miss.lower()}. That pattern should guide the tee-shot drill selection.",
+        })
+
+    if approach_miss != "No Issues":
+        weaknesses.append({
+            "focus": "Approach Play",
+            "score": 2,
+            "text": f"Your main approach miss was {approach_miss.lower()}. That matters because approach play is one of the largest scoring separators.",
+        })
+
+    if round_issue != "No Major Issues":
+        weaknesses.append({
+            "focus": issue_boosts.get(round_issue, "Course Management"),
+            "score": 2,
+            "text": f"You identified {round_issue.lower()} as a round trend. That self-scouting input should influence the practice plan.",
+        })
+
+    filtered = [item for item in weaknesses if item["score"] > 0]
+    filtered.sort(key=lambda item: item["score"], reverse=True)
+
+    final_texts = []
+    seen_texts = set()
+
+    for item in filtered:
+        if item["text"] not in seen_texts:
+            final_texts.append(item["text"])
+            seen_texts.add(item["text"])
+
+    return filtered, final_texts[:4]
 
 
-def _primary_focus_from_scores(focus_scores):
-    highest_score = max(focus_scores.values())
+def _build_strengths(fairway_pct, gir_pct, putts, penalties, up_down_pct, up_and_down_chances):
+    strengths = []
 
-    if highest_score <= 0:
+    if _gap_score(fairway_pct, "fairways")["severity"] == 0:
+        _add_unique(strengths, "Tee box accuracy compared well against the PGA Tour average reference. You put yourself in enough playable positions to keep the round organized.")
+
+    if _gap_score(gir_pct, "gir")["severity"] == 0:
+        _add_unique(strengths, "Approach play compared well against the PGA Tour average reference. Hitting greens keeps pressure off the short game.")
+
+    if _gap_score(putts, "putts")["severity"] == 0:
+        _add_unique(strengths, "Putting volume compared well against the PGA Tour average reference. A putt total in this range usually means you avoided giving away strokes on the greens.")
+
+    if penalties == 0:
+        _add_unique(strengths, "You avoided penalty strokes, which protects the scorecard and keeps momentum stable.")
+
+    if up_and_down_chances > 0 and _gap_score(up_down_pct, "scrambling")["severity"] == 0:
+        _add_unique(strengths, "Scrambling compared well against the PGA Tour average reference. You turned missed greens into saves at a strong rate.")
+
+    if not strengths:
+        strengths.append("No statistical category stood out as a true strength in this round. The focus should be on stabilizing the biggest scoring leaks first.")
+
+    return strengths[:4]
+
+
+def _focuses_from_ranked_weaknesses(ranked_weaknesses):
+    if not ranked_weaknesses:
         return ["Consistency"]
 
-    top_focuses = [
-        focus for focus, score in focus_scores.items()
-        if score == highest_score
-    ]
+    focus_scores = {}
 
-    if "Short Game" in top_focuses and "Putting" in top_focuses:
+    for item in ranked_weaknesses:
+        focus = item["focus"]
+        focus_scores[focus] = focus_scores.get(focus, 0) + item["score"]
+
+    if not focus_scores:
+        return ["Consistency"]
+
+    sorted_focuses = sorted(focus_scores.items(), key=lambda item: item[1], reverse=True)
+    top_focus, top_score = sorted_focuses[0]
+
+    if len(sorted_focuses) == 1:
+        return [top_focus]
+
+    second_focus, second_score = sorted_focuses[1]
+
+    if top_score <= 0:
+        return ["Consistency"]
+
+    if top_focus == "Short Game" and second_focus == "Putting":
         return ["Short Game"]
 
-    return top_focuses[:2]
+    if top_focus == "Putting" and second_focus == "Short Game":
+        return ["Short Game"]
+
+    if second_score >= top_score - 2 and second_score >= 4:
+        return [top_focus, second_focus]
+
+    return [top_focus]
 
 
-def _build_practice_plan(primary_focuses, round_issue):
-    drill_keys = []
+def _select_drill_for_focus(focus, tee_box_miss, approach_miss, round_issue):
+    if focus == "Tee Box Accuracy":
+        if tee_box_miss == "Right":
+            return DRILLS["Tee Box Right Miss"]
+        if tee_box_miss == "Left":
+            return DRILLS["Tee Box Left Miss"]
+        if tee_box_miss == "Short":
+            return DRILLS["Tee Box Short"]
+        if tee_box_miss == "Long":
+            return DRILLS["Tee Box Long"]
+        if tee_box_miss == "Penalty Trouble":
+            return DRILLS["Tee Box Penalty Trouble"]
+        if tee_box_miss == "Inconsistent":
+            return DRILLS["Tee Box Inconsistent"]
+        if tee_box_miss == "Bad Swing":
+            return DRILLS["Tee Box Bad Swing"]
+        return DRILLS["Tee Box Inconsistent"]
+
+    if focus == "Approach Play":
+        if round_issue == "Poor Approach Distance Control":
+            return DRILLS["Approach Distance Control"]
+        if round_issue == "Poor Approach Accuracy":
+            return DRILLS["Approach Accuracy"]
+        if approach_miss == "Short":
+            return DRILLS["Approach Short"]
+        if approach_miss == "Long":
+            return DRILLS["Approach Long"]
+        if approach_miss == "Left":
+            return DRILLS["Approach Left"]
+        if approach_miss == "Right":
+            return DRILLS["Approach Right"]
+        if approach_miss == "Bad Swing":
+            return DRILLS["Approach Bad Swing"]
+        return DRILLS["Approach Accuracy"]
+
+    if focus == "Putting":
+        if round_issue == "Poor Putting Speed":
+            return DRILLS["Putting Speed"]
+        if round_issue == "Poor Putting Start Line":
+            return DRILLS["Putting Start Line"]
+        if round_issue == "Poor Putting Green Reading":
+            return DRILLS["Putting Green Reading"]
+        if round_issue == "Poor Short Game - Putting":
+            return DRILLS["Death Star Putting"]
+        return DRILLS["Putting Speed"]
+
+    if focus == "Short Game":
+        if round_issue == "Poor Short Game - Chipping":
+            return DRILLS["Short Game Chipping"]
+        if round_issue == "Poor Short Game - Both":
+            return DRILLS["Short Game Both"]
+        return DRILLS["Short Game Both"]
+
+    if focus == "Course Management":
+        if round_issue == "Too Many Penalties":
+            return DRILLS["Penalties"]
+        if round_issue == "Bad Club Selection":
+            return DRILLS["Club Selection"]
+        if round_issue == "Poor Course Management":
+            return DRILLS["Course Management"]
+        if round_issue == "Struggled Under Pressure":
+            return DRILLS["Pressure"]
+        if round_issue == "Slow Start":
+            return DRILLS["Slow Start"]
+        if round_issue == "Poor Finish":
+            return DRILLS["Poor Finish"]
+        return DRILLS["Course Management"]
+
+    return DRILLS["Approach Accuracy"]
+
+
+def _build_practice_plan(primary_focuses, tee_box_miss, approach_miss, round_issue):
+    drills = []
 
     for focus in primary_focuses:
-        if focus == "Tee Box Accuracy":
-            drill_keys.append("Tee Box Accuracy")
-        elif focus == "Approach Play":
-            if round_issue == "Poor Approach Distance Control":
-                drill_keys.append("Approach Distance Control")
-            else:
-                drill_keys.append("Approach Play")
-        elif focus == "Putting":
-            if round_issue == "Poor Putting Speed":
-                drill_keys.append("Putting Speed")
-            elif round_issue == "Poor Putting Start Line":
-                drill_keys.append("Putting Start Line")
-            elif round_issue == "Poor Putting Green Reading":
-                drill_keys.append("Putting Green Reading")
-            else:
-                drill_keys.append("Putting Speed")
-        elif focus == "Short Game":
-            drill_keys.append("Short Game")
-        elif focus == "Course Management":
-            if round_issue == "Too Many Penalties":
-                drill_keys.append("Penalties")
-            elif round_issue == "Bad Club Selection":
-                drill_keys.append("Club Selection")
-            elif round_issue == "Struggled Under Pressure":
-                drill_keys.append("Pressure")
-            elif round_issue == "Slow Start":
-                drill_keys.append("Slow Start")
-            elif round_issue == "Poor Finish":
-                drill_keys.append("Poor Finish")
-            else:
-                drill_keys.append("Course Management")
+        drill = _select_drill_for_focus(focus, tee_box_miss, approach_miss, round_issue)
 
-    if not drill_keys:
-        drill_keys.append("Approach Play")
+        if drill not in drills:
+            drills.append(drill)
 
-    drills = []
-    for key in drill_keys:
-        if key in DRILLS and DRILLS[key] not in drills:
-            drills.append(DRILLS[key])
+    if len(drills) == 0:
+        drills.append(DRILLS["Approach Accuracy"])
 
     return drills[:2]
 
@@ -399,94 +631,60 @@ def generate_mycoach_report(form):
         _compare_to_pga(penalties, "penalties"),
     ]
 
-    strengths = []
-    weaknesses = []
-
-    if fairway_pct >= 60:
-        _add_unique(strengths, "Tee box accuracy was a strength. You put yourself in enough playable positions to keep the round organized.")
-    elif fairway_pct < 45:
-        _add_unique(weaknesses, "Tee box accuracy created pressure. Too many holes likely started from recovery positions.")
-
-    if gir_pct >= 60:
-        _add_unique(strengths, "Approach play compared well against a strong reference point. Hitting greens keeps stress off the short game.")
-    elif gir_pct < 40:
-        _add_unique(weaknesses, "Approach play was a major scoring leak. Missing greens at this rate forces the short game to carry too much of the round.")
-
-    if putts <= 30:
-        _add_unique(strengths, "Putting volume was strong. A putt total in this range usually means you avoided giving away strokes on the greens.")
-    elif putts >= 36:
-        _add_unique(weaknesses, "Putting cost strokes. This usually points to poor speed control, missed short putts, or too many long second putts.")
-
-    if penalties == 0:
-        _add_unique(strengths, "You avoided penalty strokes, which protects the scorecard and keeps momentum stable.")
-    elif penalties >= 2:
-        _add_unique(weaknesses, "Penalty strokes had a major impact. These are high-cost mistakes that should be reduced before chasing aggressive scoring.")
-
-    if three_putts >= 2:
-        _add_unique(weaknesses, "Three-putts added avoidable damage. Most three-putt problems begin with speed control, not the second putt.")
-
-    if up_and_down_chances > 0:
-        if up_down_pct >= 55:
-            _add_unique(strengths, "Scrambling was a strength. You turned missed greens into saves at a strong rate.")
-        elif up_down_pct < 35:
-            _add_unique(weaknesses, "Scrambling was below target. Missed greens were turning into bogeys too often.")
-
-    if tee_box_miss not in ["No Issues", ""]:
-        _add_unique(weaknesses, f"Your main tee box miss was {tee_box_miss.lower()}. That pattern should guide your next tee-shot practice session.")
-
-    if approach_miss not in ["No Issues", ""]:
-        _add_unique(weaknesses, f"Your main approach miss was {approach_miss.lower()}. That pattern matters because approach play is one of the biggest scoring separators.")
-
-    if round_issue != "No Major Issues":
-        _add_unique(weaknesses, f"You identified {round_issue.lower()} as a round trend. That self-scouting input should influence the practice plan.")
-
-    if not strengths:
-        strengths.append("You completed the round with enough detail to identify clear improvement priorities. That alone makes the next practice session more targeted.")
-
-    if not weaknesses:
-        weaknesses.append("No major weakness dominated the round. The next step is building repeatability and comparing your best patterns against stronger scoring benchmarks.")
-
-    focus_scores = _build_focus_scores(
+    strengths = _build_strengths(
         fairway_pct,
         gir_pct,
         putts,
         penalties,
-        three_putts,
         up_down_pct,
         up_and_down_chances,
+    )
+
+    ranked_weaknesses, weaknesses = _ranked_weaknesses(
+        fairway_pct,
+        gir_pct,
+        putts,
+        penalties,
+        up_down_pct,
+        up_and_down_chances,
+        three_putts,
         tee_box_miss,
         approach_miss,
         round_issue,
     )
 
-    primary_focuses = _primary_focus_from_scores(focus_scores)
-
-    practice_plan = _build_practice_plan(primary_focuses, round_issue)
+    primary_focuses = _focuses_from_ranked_weaknesses(ranked_weaknesses)
+    practice_plan = _build_practice_plan(primary_focuses, tee_box_miss, approach_miss, round_issue)
 
     if len(primary_focuses) == 1:
         focus_text = primary_focuses[0]
     else:
         focus_text = " + ".join(primary_focuses)
 
-    miss_sentences = []
+    pattern_sentences = []
 
-    if tee_box_miss not in ["No Issues", ""]:
-        miss_sentences.append(f"Your tee box miss pattern was {tee_box_miss.lower()}.")
+    if tee_box_miss != "No Issues":
+        pattern_sentences.append(f"Your tee box miss pattern was {tee_box_miss.lower()}.")
 
-    if approach_miss not in ["No Issues", ""]:
-        miss_sentences.append(f"Your approach miss pattern was {approach_miss.lower()}.")
+    if approach_miss != "No Issues":
+        pattern_sentences.append(f"Your approach miss pattern was {approach_miss.lower()}.")
 
     if round_issue != "No Major Issues":
-        miss_sentences.append(f"The round trend you identified was {round_issue.lower()}.")
+        pattern_sentences.append(f"The round trend you identified was {round_issue.lower()}.")
 
-    if miss_sentences:
-        pattern_text = " ".join(miss_sentences)
+    if pattern_sentences:
+        pattern_text = " ".join(pattern_sentences)
     else:
         pattern_text = "There was no major miss pattern selected, so the report is driven primarily by your scoring statistics."
 
+    if len(primary_focuses) == 1:
+        focus_sentence = f"Your primary focus is {focus_text.lower()}."
+    else:
+        focus_sentence = f"Your primary focuses are {focus_text.lower()}."
+
     coach_insight = (
-        f"{round_tier['description']} Your primary focus is {focus_text.lower()}. "
-        f"{pattern_text} The practice plan below is built to attack the clearest scoring leak from this round."
+        f"{round_tier['description']} {focus_sentence} "
+        f"{pattern_text} The practice plan below is built around the most direct fixes for the scoring leaks shown in this round."
     )
 
     return {
@@ -504,8 +702,8 @@ def generate_mycoach_report(form):
         "focus_text": focus_text,
         "round_tier": round_tier,
         "coach_insight": coach_insight,
-        "strengths": strengths[:4],
-        "weaknesses": weaknesses[:4],
+        "strengths": strengths,
+        "weaknesses": weaknesses,
         "practice_plan": practice_plan,
         "tee_box_miss": tee_box_miss,
         "approach_miss": approach_miss,
