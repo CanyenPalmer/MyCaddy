@@ -1,258 +1,303 @@
-# MyCaddy Project Log
+# MyCaddy: Golf Decision & Coaching System
 
-## Overview
+[![Live on Render](https://img.shields.io/badge/Render-Live%20Demo-46E3B7?logo=render&logoColor=white)](https://mycaddy.onrender.com)
+![GitHub last commit](https://img.shields.io/github/last-commit/CanyenPalmer/MyCaddy)
+![GitHub repo size](https://img.shields.io/github/repo-size/CanyenPalmer/MyCaddy)
+![Top language](https://img.shields.io/github/languages/top/CanyenPalmer/MyCaddy)
+![Language count](https://img.shields.io/github/languages/count/CanyenPalmer/MyCaddy)
 
-**Project Name:** MyCaddy  
-**Current Version:** v2.1.1  
-**Founder:** Palmer Projects  
+**Author:** Palmer Projects  
+**Version:** v2.1.1  
+**License:** © Palmer Projects. All rights reserved.
 
 ---
 
-## Product Evolution
+# Data Science & System Design Overview
 
-MyCaddy has evolved from a **physics-based yardage calculator** into a **two-system golf performance platform**:
+Golf performance depends on both **accurate decision-making under variable conditions** and the ability to **analyze outcomes to improve future performance**. MyCaddy addresses both problems through a structured modeling and analytics system.
+
+---
+
+## Problem Context
+
+Traditional golf decision-making relies on static yardage and intuition, which fails to account for:
+
+- Environmental variability (wind, elevation, temperature)
+- Lie-based strike degradation
+- Round-to-round performance inconsistency
+- Lack of structured post-round analysis
+
+---
+
+## System Design
+
+The platform is built as a **dual-system architecture**:
+
+- **MyCaddy:** Real-time deterministic modeling engine for carry distance  
+- **MyCoach:** Post-round analytics and decision system for performance evaluation  
+
+This separation ensures:
+- low cognitive load during play  
+- structured, high-signal feedback after play  
+
+---
+
+## Data Modeling & Feature Engineering
+
+Key input variables were engineered to represent real-world golf conditions:
+
+- Wind (directional vector decomposition)
+- Elevation (continuous vertical scaling)
+- Lie condition (nonlinear penalty modeling)
+- Temperature (air density proxy)
+
+The system applies a **deterministic transformation pipeline**:
+
+Input Features → Adjustment Functions → Aggregated Output
+
+---
+
+## Mathematical Modeling
+
+The system incorporates applied mathematical concepts including:
+
+- Linear approximations  
+  - Elevation: ~3 ft ≈ 1 yard  
+
+- Trigonometric decomposition  
+  - Wind direction resolved into components  
+  - Diagonal wind scaled using cosine (~0.707)  
+
+- Nonlinear scaling  
+  - Lie penalties modeled as percentage-based degradation  
+
+- Proportional modeling  
+  - Temperature: ~1% carry change per 10°F  
+
+- Constraint-based logic  
+  - Prevents unrealistic or unstable outputs  
+
+---
+
+## Analytics & Evaluation Framework
+
+A structured evaluation layer compares performance against external benchmarks:
+
+- PGA Tour Top 10 averages  
+- PGA Tour Top 50 averages  
+- PGA Tour overall averages  
+
+Each metric is classified using a **gap-based severity model**:
+
+- Strength  
+- Small Gap  
+- Moderate Gap  
+- Major Gap  
+
+This enables:
+- standardized performance interpretation  
+- consistent cross-round comparisons  
+
+---
+
+## Decision System Logic
+
+The MyCoach engine implements a rule-based decision system:
+
+- Weaknesses are ranked by:
+  - severity of gap  
+  - scoring impact  
+  - contextual inputs (miss patterns)  
+
+- Focus selection logic determines:
+  - single focus (primary issue)  
+  - dual focus (multiple high-impact issues)  
+
+- Constraint rules prevent:
+  - over-coaching  
+  - unnecessary recommendations  
+
+---
+
+## Output Engineering
+
+The system is designed to produce **interpretable and actionable outputs**:
+
+- Primary decision variable (Stock Target)  
+- Contextual uncertainty band (Plays-Like Range)  
+- Natural-language explanation layer (Caddy Insight)  
+- Coaching outputs:
+  - strengths  
+  - ranked weaknesses  
+  - targeted drills  
+
+All outputs are:
+- deterministic  
+- interpretable  
+- aligned with real-world decision workflows  
+
+---
+
+## Technology Stack
+
+- Python 3  
+- Flask  
+- HTML / CSS (Mobile-First UI)  
+- Custom modeling and analytics logic  
+
+---
+
+## Results & Performance
+
+- Expected accuracy: **±2–5 yards** under realistic conditions  
+- Stable outputs across environmental scenarios  
+- Fully interpretable model (no black-box behavior)  
+- Direct mapping from data → decision → action  
+
+---
+
+# Overview
+
+MyCaddy is a structured golf performance system designed to support both:
+
+- **In-round decision making**
+- **Post-round improvement**
+
+Rather than focusing on a single function, the system mirrors how competitive golfers operate:
+
+> Make better decisions during the round.  
+> Learn from the round afterward.
+
+---
+
+## MyCaddy Platform (v2.1.1)
 
 ### MyCaddy (In-Round Tool)
-- Calculates *plays-like carry distance*
-- Designed for real-time decision making
+
+A physics-informed carry distance engine designed for real-time decision making.
+
+- Answers: *“What does this shot play like?”*  
+- Produces a **plays-like carry distance**, not a club recommendation  
+- Optimized for speed, clarity, and trust  
+
+---
 
 ### MyCoach (Post-Round Tool)
-- Analyzes round performance
-- Identifies scoring weaknesses
-- Generates targeted practice plans
+
+A structured coaching engine that analyzes performance and produces targeted improvement plans.
+
+- Answers: *“What did this round reveal about my game?”*  
+- Uses PGA benchmarks and decision logic  
+- Outputs drills tied directly to weaknesses  
 
 ---
 
-## Core Purpose
+### System Philosophy
 
-The system addresses two fundamental problems in golf:
+- MyCaddy operates **during play**  
+- MyCoach operates **after play**  
 
-1. **In-round decision accuracy**
-2. **Post-round performance understanding**
+This ensures:
+- minimal cognitive load  
+- focused decisions  
+- structured improvement  
 
 ---
 
-## MyCaddy Engine (Carry System)
+## Core Calculation Model (MyCaddy)
 
-### Inputs
-- Distance to target
-- Lie condition
-- Elevation
-- Wind
-- Temperature
+Pipeline:
 
-### Adjustment Pipeline
 1. Base Distance  
 2. Lie Adjustment  
-3. Elevation Adjustment  
+3. Elevation (3 ft ≈ 1 yd)  
 4. Wind Decomposition  
 5. Temperature Scaling  
 
-### Outputs
-- **Stock Target**
-- **Plays-Like Range**
-- **Caddy Insight**
+Outputs:
+- Stock Target  
+- Plays-Like Range  
+- Caddy Insight  
 
 ---
 
-## MyCoach Engine (Coaching System)
-
-### Purpose
-Transform a completed round into a **clear improvement plan**
-
----
+## MyCoach Engine
 
 ### Inputs
-- Score / Par
-- Fairways Hit
-- GIR
-- Putts / 3-putts
-- Scrambling
-- Penalties
-- Miss patterns
-- Round issue selection
+- Score / Par  
+- Fairways  
+- GIR  
+- Putts / 3-putts  
+- Scrambling  
+- Penalties  
+- Miss patterns  
 
 ---
 
-### Core Logic
-
-#### 1. PGA Benchmark Comparison
-Each stat is evaluated against:
-- PGA Tour Top 10
-- Top 50
-- Tour Average
-
-#### 2. Gap Scoring System
-Each category is classified as:
-- Strength
-- Small Gap
-- Moderate Gap
-- Major Gap
-
-#### 3. Weakness Ranking
-Categories are ranked based on:
-- Severity of gap
-- Impact on scoring
-- User-selected round issue
+### Outputs
+- Round Tier  
+- PGA comparisons  
+- Strengths  
+- Ranked weaknesses  
+- Primary focus (single or dual)  
+- Practice plan  
 
 ---
 
-### 4. Focus Selection Logic
-
-System determines:
-- **Single focus** OR
-- **Dual focus**
-
-Rules:
-- Dual focus triggered only if second weakness is significant
-- Prevents over-coaching
+### Design Principles
+- No over-coaching  
+- No fabricated weaknesses  
+- Direct mapping:
+  - problem → drill  
 
 ---
 
-### 5. Drill Mapping System
+## Target Users
 
-Each weakness maps directly to a **specific drill**
-
-Examples:
-- Poor approach distance → Distance Ladder Drill
-- Tee miss right → Start-Line Gate Drill
-- Poor short game → Up-and-Down Challenge
+- Amateur golfers  
+- Competitive players  
+- Data-driven athletes  
 
 ---
 
-### Design Constraints
+## Validation
 
-- No over-coaching
-- No fabricated weaknesses
-- Always actionable output
-- Always tied to scoring impact
+Tested across:
+- wind scenarios  
+- elevation  
+- lie conditions  
+- scoring profiles  
 
----
-
-## System Philosophy
-
-- Clarity over complexity  
-- Single trusted output  
-- Speed during play  
-- Structure after play  
-- Consistency builds trust  
+Expected:
+> ±2–5 yards accuracy  
 
 ---
 
-## Development Timeline
+## Roadmap
 
-### v1 → v2 (Foundation Phase)
-- Built base carry engine
-- Implemented environmental adjustments
-- Established calculation pipeline
-
----
-
-### v2 Redesign (UI + Experience)
-
-#### UI Overhaul
-- Premium green + gold palette
-- Mobile-first layout
-- Improved readability
-
-#### Results Screen
-- Strong hierarchy
-- Emphasis on Stock Target
-- Simplified visuals
+- Player-specific calibration  
+- Multi-round tracking  
+- Shot dispersion modeling  
 
 ---
 
-### v2.1.1 (System Expansion Phase)
+## Disclaimer
 
-#### MyCaddy Improvements
-- Distance progression bar
-- Scroll-triggered animations
-- Temperature color system
-
----
-
-#### MyCoach Implementation (Major Milestone)
-
-Built a full coaching system including:
-
-- PGA comparison engine
-- Gap severity classification
-- Weakness ranking logic
-- Focus selection system
-- Drill mapping engine
+- Carry distance only  
+- No rollout modeling  
+- No club selection  
 
 ---
 
-#### Key Breakthrough
+## Summary
 
-Transitioned from:
-> “showing stats”
+MyCaddy is a **decision + coaching system** that combines:
 
-to:
-> **making decisions about what matters most**
+- physics-based modeling  
+- structured analytics  
+- real-world golf strategy  
 
----
+It bridges:
 
-## Current State
-
-### Strengths
-- Dual-system architecture
-- Real-world usable logic
-- Clean UI / UX
-- Stable decision outputs
-- Strong alignment with actual golf strategy
-
----
-
-### Status
-> **Production-ready and suitable for real-world testing**
-
----
-
-## Next Steps
-
-### Short Term
-- Validate accuracy with real rounds
-- Track bias (long/short tendencies)
-- Measure trust in output
-
----
-
-### Medium Term
-- Tune:
-  - Lie penalties
-  - Wind scaling
-  - Scoring thresholds
-
----
-
-### Long Term Vision
-
-Evolve into a full:
-
-> **Digital Caddy + Coaching System**
-
-Future features:
-- Multi-round tracking
-- Player-specific modeling
-- Shot dispersion
-- Strategy recommendations
-
----
-
-## Key Insight
-
-The most important shift in this project:
-
-> Moving from calculation → decision systems
-
----
-
-## Latest Update
-
-**v2.1.1 — MyCoach Integration Complete**
-
-- Dual-system architecture finalized
-- Coaching engine fully functional
-- System validated across multiple round scenarios
-- Ready for real-world deployment
+> execution during the round  
+> improvement after the round  
