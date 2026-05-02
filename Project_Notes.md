@@ -6,206 +6,253 @@
 **Current Version:** v2.1.1  
 **Founder:** Palmer Projects  
 
-### Purpose
-MyCaddy is a **physics-based golf yardage engine** designed to calculate *plays-like distance* by incorporating real-world variables such as:
-- Lie conditions
-- Elevation changes
-- Wind speed and direction
-- Temperature
+---
 
-The goal is to provide golfers with a **trusted stock target number**, supported by contextual data, in a clean and intuitive mobile-first interface.
+## Product Evolution
+
+MyCaddy has evolved from a **physics-based yardage calculator** into a **two-system golf performance platform**:
+
+### MyCaddy (In-Round Tool)
+- Calculates *plays-like carry distance*
+- Designed for real-time decision making
+
+### MyCoach (Post-Round Tool)
+- Analyzes round performance
+- Identifies scoring weaknesses
+- Generates targeted practice plans
 
 ---
 
-## How It Works
+## Core Purpose
 
-The system takes user inputs and applies a series of adjustments:
+The system addresses two fundamental problems in golf:
 
-1. **Base Distance**
-   - User-provided distance to the flag
+1. **In-round decision accuracy**
+2. **Post-round performance understanding**
 
-2. **Lie Adjustment**
-   - Percentage-based modification depending on lie severity
+---
 
-3. **Elevation Adjustment**
-   - Converted from feet into yardage impact
+## MyCaddy Engine (Carry System)
 
-4. **Wind Adjustment**
-   - Directional and magnitude-based impact
+### Inputs
+- Distance to target
+- Lie condition
+- Elevation
+- Wind
+- Temperature
 
-5. **Temperature Adjustment**
-   - Affects ball flight and carry distance
+### Adjustment Pipeline
+1. Base Distance  
+2. Lie Adjustment  
+3. Elevation Adjustment  
+4. Wind Decomposition  
+5. Temperature Scaling  
 
-6. **Final Output**
-   - **Stock Target (Primary)**
-   - **Plays Like Range (Supporting Context)**
-   - **Caddy Insight (Human-readable interpretation)**
+### Outputs
+- **Stock Target**
+- **Plays-Like Range**
+- **Caddy Insight**
+
+---
+
+## MyCoach Engine (Coaching System)
+
+### Purpose
+Transform a completed round into a **clear improvement plan**
+
+---
+
+### Inputs
+- Score / Par
+- Fairways Hit
+- GIR
+- Putts / 3-putts
+- Scrambling
+- Penalties
+- Miss patterns
+- Round issue selection
+
+---
+
+### Core Logic
+
+#### 1. PGA Benchmark Comparison
+Each stat is evaluated against:
+- PGA Tour Top 10
+- Top 50
+- Tour Average
+
+#### 2. Gap Scoring System
+Each category is classified as:
+- Strength
+- Small Gap
+- Moderate Gap
+- Major Gap
+
+#### 3. Weakness Ranking
+Categories are ranked based on:
+- Severity of gap
+- Impact on scoring
+- User-selected round issue
+
+---
+
+### 4. Focus Selection Logic
+
+System determines:
+- **Single focus** OR
+- **Dual focus**
+
+Rules:
+- Dual focus triggered only if second weakness is significant
+- Prevents over-coaching
+
+---
+
+### 5. Drill Mapping System
+
+Each weakness maps directly to a **specific drill**
+
+Examples:
+- Poor approach distance → Distance Ladder Drill
+- Tee miss right → Start-Line Gate Drill
+- Poor short game → Up-and-Down Challenge
+
+---
+
+### Design Constraints
+
+- No over-coaching
+- No fabricated weaknesses
+- Always actionable output
+- Always tied to scoring impact
 
 ---
 
 ## System Philosophy
 
-- Prioritize **clarity over complexity**
-- Present a **single trusted number**
-- Support decisions, not overwhelm them
-- Maintain **premium, distraction-free UI**
-- Ensure **fast, mobile-friendly performance**
+- Clarity over complexity  
+- Single trusted output  
+- Speed during play  
+- Structure after play  
+- Consistency builds trust  
 
 ---
 
-## Brainstormed Ideas (Active + Future)
+## Development Timeline
 
-### UI / UX
-- Caddy typing animation (implemented)
-- Subtle avatar “speaking” animation (implemented)
-- Fade-in result hierarchy (implemented)
-- Scroll-triggered distance bar animation (implemented)
-- Temperature color coding (implemented)
-
-### Potential Future Enhancements
-- Club recommendation engine
-- Shot dispersion modeling
-- Player-specific calibration
-- Round tracking / history
-- Wind modeling refinement
-- Lie penalty tuning based on real data
-- “Confidence level” indicator
-- AI-assisted shot explanation layer
+### v1 → v2 (Foundation Phase)
+- Built base carry engine
+- Implemented environmental adjustments
+- Established calculation pipeline
 
 ---
 
-## Development Log
-
----
-
-### Day 1–~Day 200 (v1 → v2 evolution)
-- Built initial MyCaddy concept
-- Implemented core yardage calculation engine
-- Added lie, elevation, wind, and temperature adjustments
-- Iterated through:
-  - 2 major updates
-  - 5 patches
-- Established baseline system logic
-
----
-
-### Day 201+ (v2 redesign phase)
+### v2 Redesign (UI + Experience)
 
 #### UI Overhaul
-- Introduced premium color palette (green + gold)
-- Improved input screen layout
-- Added branding (subtitle + footer)
-- Enhanced mobile responsiveness
+- Premium green + gold palette
+- Mobile-first layout
+- Improved readability
 
-#### Results Screen Improvements
-- Converted glass UI → solid readable cards
-- Standardized card design across all sections
-- Improved hierarchy:
-  - Stock Target emphasized
-  - Plays Like Range de-emphasized
+#### Results Screen
+- Strong hierarchy
+- Emphasis on Stock Target
+- Simplified visuals
 
 ---
 
-### Recent Updates (v2.1.1)
+### v2.1.1 (System Expansion Phase)
 
-#### Interaction + Polish Layer
-- Implemented **caddy typing animation**
-- Added **avatar speaking animation**
-- Added **fade-in hierarchy for results**
-- Improved **yardage visual clarity**
-
-#### Distance Visualization Upgrade
-- Added **progression bar + flag system**
-- Converted animation to:
-  - **Scroll-triggered (IntersectionObserver)**
-  - One-time execution
-  - Performance-safe
-
-#### Environmental Enhancements
-- Added **temperature color coding system**
-  - Cold → blue
-  - Neutral → green
-  - Hot → amber/red
-
-#### UX Refinements
-- Updated label clarity:
-  - “Elevation (feet)”
-- Ensured all inputs are clearly defined
-- Maintained consistency across UI
+#### MyCaddy Improvements
+- Distance progression bar
+- Scroll-triggered animations
+- Temperature color system
 
 ---
 
-## Current State (v2.1.1)
+#### MyCoach Implementation (Major Milestone)
+
+Built a full coaching system including:
+
+- PGA comparison engine
+- Gap severity classification
+- Weakness ranking logic
+- Focus selection system
+- Drill mapping engine
+
+---
+
+#### Key Breakthrough
+
+Transitioned from:
+> “showing stats”
+
+to:
+> **making decisions about what matters most**
+
+---
+
+## Current State
 
 ### Strengths
-- Clean, professional UI
-- Strong decision hierarchy
-- Responsive and fast
-- Intuitive interaction design
-- Clear primary vs. secondary information
-- Real-world usability ready
+- Dual-system architecture
+- Real-world usable logic
+- Clean UI / UX
+- Stable decision outputs
+- Strong alignment with actual golf strategy
+
+---
 
 ### Status
-> **Ready for real-world testing**
+> **Production-ready and suitable for real-world testing**
 
 ---
 
 ## Next Steps
 
-### Immediate (User-Testing)
-- Test 10–30 real shots
-- Track:
-  - Input distance
-  - Stock target
-  - Actual outcome
-- Identify:
-  - Bias (long/short tendencies)
-  - Adjustment accuracy
-  - Trust level
+### Short Term
+- Validate accuracy with real rounds
+- Track bias (long/short tendencies)
+- Measure trust in output
 
 ---
 
-### Post-Test (v2.2 Planning)
+### Medium Term
 - Tune:
   - Lie penalties
-  - Wind adjustments
-  - Elevation conversions
-- Validate model consistency
-- Refine based on real data
+  - Wind scaling
+  - Scoring thresholds
 
 ---
 
-## Long-Term Vision
+### Long Term Vision
 
-MyCaddy evolves from:
-> A calculation tool
+Evolve into a full:
 
-Into:
-> A **digital caddy system**
+> **Digital Caddy + Coaching System**
 
-Future versions may include:
-- Personalized player models
-- Predictive shot shaping
-- Course strategy assistance
-- Intelligent recommendations
+Future features:
+- Multi-round tracking
+- Player-specific modeling
+- Shot dispersion
+- Strategy recommendations
 
 ---
 
-## Notes
+## Key Insight
 
-- UI is now considered **production-ready**
-- Further improvements should come from:
-  - Real-world data
-  - Performance validation
-  - User feedback
+The most important shift in this project:
+
+> Moving from calculation → decision systems
 
 ---
 
-## Latest Update (MOST RECENT)
+## Latest Update
 
-**v2.1.1 Final Polish Complete**
-- Scroll-based distance animation implemented
-- UI/UX finalized
-- System prepared for real-course validation
+**v2.1.1 — MyCoach Integration Complete**
 
----
+- Dual-system architecture finalized
+- Coaching engine fully functional
+- System validated across multiple round scenarios
+- Ready for real-world deployment
