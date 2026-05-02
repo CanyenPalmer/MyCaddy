@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 from my_caddy_core import get_adjusted_distance
 from caddy_insights import generate_insight
+from mycoach_engine import generate_mycoach_report
 
 app = Flask(__name__)
 
@@ -146,6 +147,16 @@ def index():
         shot_inputs=shot_inputs,
         distance_bar=distance_bar
     )
+
+
+@app.route('/mycoach', methods=['GET', 'POST'])
+def mycoach():
+    report = None
+
+    if request.method == 'POST':
+        report = generate_mycoach_report(request.form)
+
+    return render_template('mycoach.html', report=report)
 
 
 if __name__ == '__main__':
